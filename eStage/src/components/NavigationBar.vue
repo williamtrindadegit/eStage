@@ -12,7 +12,7 @@
                 <ul tabIndex={0}
                     className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                     <li><a>Homepage</a></li>
-                    <li><router-link to="/tableau-de-bord">Tableau de bord</router-link></li>
+                    <li><router-link to="/dashboard">Tableau de bord</router-link></li>
                     <li><a>About</a></li>
                 </ul>
             </div>
