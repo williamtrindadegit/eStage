@@ -12,7 +12,7 @@
                 <ul tabIndex={0}
                     className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                     <li><a>Homepage</a></li>
-                    <li><a>Portfolio</a></li>
+                    <li><router-link to="/dashboard">Tableau de bord</router-link></li>
                     <li><a>About</a></li>
                 </ul>
             </div>
@@ -44,9 +44,9 @@
 </template>
 
 <script setup>
-// Aucune logique spécifique du composant Navbar pour l'instant
+    
 </script>
 
 <style scoped>
-/* Ajoutez des styles Tailwind spécifiques au besoin */
+
 </style>
