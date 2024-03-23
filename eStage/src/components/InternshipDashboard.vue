@@ -18,7 +18,10 @@
   
       <!-- Grid -->
 
-    
+      <div>
+    <h1>NOM et Prenom:</h1>
+    <p>{{ $route.query.name }}</p>
+  </div>
         <div v-for="offre in computedOffers" class="grid grid-cols-4 gap-4">
             <div class="grid grid-cols-12 grid-rows-1 gap-12">
                 <div class="bg-red-600 p-3 w-12 rounded-lg col-start-1">
@@ -34,7 +37,7 @@
             <div class="text-black text-xs flex items-center">{{ offre?.province?.value }}</div>
             <div class="text-black text-xs flex items-center">{{ offre?.startDate }}</div>
             <div class="text-xs flex justify-between items-center">
-            <button class="btn bg-emerald-200 border-emerald-200 text-emerald-600 font-light">Accepter</button>
+            <button class="btn bg-emerald-200 border-emerald-200 text-emerald-600 font-light" @click="goTo()">Accepter</button>
             <button class="w-6"  >
                 <svg viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg"><path fill="rgb(20 184 166)" d="M6,12v15c0,1.654,1.346,3,3,3h14c1.654,0,3-1.346,3-3V12H6z M12,25c0,0.552-0.448,1-1,1s-1-0.448-1-1v-9  c0-0.552,0.448-1,1-1s1,0.448,1,1V25z M17,25c0,0.552-0.448,1-1,1s-1-0.448-1-1v-9c0-0.552,0.448-1,1-1s1,0.448,1,1V25z M22,25  c0,0.552-0.448,1-1,1s-1-0.448-1-1v-9c0-0.552,0.448-1,1-1s1,0.448,1,1V25z" id="XMLID_237_"/><path fill="rgb(20 184 166)" d="M27,6h-6V5c0-1.654-1.346-3-3-3h-4c-1.654,0-3,1.346-3,3v1H5C3.897,6,3,6.897,3,8v1c0,0.552,0.448,1,1,1h24  c0.552,0,1-0.448,1-1V8C29,6.897,28.103,6,27,6z M13,5c0-0.551,0.449-1,1-1h4c0.551,0,1,0.449,1,1v1h-6V5z" id="XMLID_243_"/></svg>
             </button>
@@ -61,6 +64,7 @@ import { ref , onMounted, computed } from  'vue'
 const offres = ref ([]) ;
 const deleted = ref(0);
 const offreCurrent = ref({});
+
 
 const computedOffers = computed(() =>{
     return offres.value;
@@ -120,12 +124,14 @@ function edit(offre) {
 function deleteMe(id){
     deleted.value++; // effacer apres apres l'api es rempli
     offres.value = getData(3 - deleted.value); // effacer apres l'api es rempli
-    //offres.value = getInternShipOffers();  // de commenter ceci 
+    //offres.value = getInternShipOffers();  // de commenter ceci quand l'api sera rempli
 }
 
 async function getInternShipOffers(){
     return await api('/internship-offers');
 }
+
+
 
 function getData(data){
     return [{
