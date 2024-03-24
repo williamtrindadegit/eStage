@@ -19,8 +19,8 @@
       <!-- Grid -->
 
       <div>
-    <h1>NOM et Prenom:</h1>
-    <p>{{ $route.query.name }}</p>
+    
+    <p>{{ $route.query.name }}</p> <!--pour tester et afficher le nom de la page aceuille-->
   </div>
         <div v-for="offre in computedOffers" class="grid grid-cols-4 gap-4">
             <div class="grid grid-cols-12 grid-rows-1 gap-12">
