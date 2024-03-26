@@ -4,10 +4,16 @@ import Dashboard from "../views/Dashboard.vue";
 import ZoomUser from "../components/ZoomUser.vue";
 import InternshipDashboard from "@/components/InternshipDashboard.vue";
 import LoginPage from "@/components/LoginPage.vue";
+import Connexion from "../views/Connexion.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: "/Connexion",
+      name: "Connexion",
+      component: Connexion,
+    },
     {
       path: "/",
       name: "home",

@@ -13,3 +13,16 @@
 .jaune {
   background-color: yellow;
 }
+.connexion-img{
+  max-width: 60%;
+  margin: 0; padding: 0;
+}
+.connexion-img img{
+  max-width: 100%;
+  max-height: auto;
+}
+.connexion-form{
+ max-width: 40%;
+ width: 100%;
+ padding: 300px 0 0 20px;
+}
