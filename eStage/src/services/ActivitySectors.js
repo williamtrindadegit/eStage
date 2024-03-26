@@ -5,7 +5,7 @@ export default {
       "User-Agent": "eStage",
     };
 
-    let response = await fetch("https://api-2.fly.dev/provinces/" + id, {
+    let response = await fetch("https://api-2.fly.dev/activity-sectors/" + id, {
       method: "GET",
       headers: headersList,
     });
@@ -18,8 +18,22 @@ export default {
       "User-Agent": "eStage",
     };
 
-    let response = await fetch("https://api-2.fly.dev/provinces", {
+    let response = await fetch("https://api-2.fly.dev/activity-sectors", {
       method: "GET",
+      headers: headersList,
+    });
+
+    return response.json();
+  },
+
+  async Create() {
+    let bodyContent = JSON.stringify({
+      value: "Front-End development",
+    });
+
+    let response = await fetch("https://api-2.fly.dev/activity-sectors", {
+      method: "POST",
+      body: bodyContent,
       headers: headersList,
     });
 
