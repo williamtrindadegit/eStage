@@ -48,6 +48,7 @@
                 <div class="flex flex-col pb-2">
                     <label for="description" class="text-slate-600 font-bold text-3xl mb-5 mt-5">Courte présentation</label>
                     <textarea name="description" id="description" class="textarea textarea-bordered bg-slate-50 border-gray-400 rounded p-2 text-slate-500 h-24" placeholder=""></textarea>
+                    <span class="label-text-alt text-red-500">Error message</span>
                 </div>
                 <fieldset class="grid grid-cols-2 max-w-5xl mt-8">
                     <legend class="text-slate-600 font-bold mb-6">Informations personnelles</legend>
@@ -160,6 +161,7 @@
 <script setup>
     import ProvinceServices from '../services/ProvinceServices';
     import Candidates from '@/services/Candidates';
+
     import { useRoute } from 'vue-router';
     import { ref, onMounted } from 'vue';
 

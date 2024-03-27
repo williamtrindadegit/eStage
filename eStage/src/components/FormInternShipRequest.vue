@@ -214,7 +214,7 @@
                         <textarea name="additionalInformation" id="additionalInformation" class="textarea textarea-bordered bg-slate-50 border-gray-400 rounded p-2 text-slate-500 h-24" placeholder=""></textarea>
                         <span class="label-text-alt text-red-500">Error message</span>
                     </div>
-                    <input class="mt-5 relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid bg-transparent bg-clip-padding px-3 py-[0.32rem] text-base font-normal leading-[2.15] file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3  file:py-[0.32rem] focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none border-slate-600 text-slate-600  file:text-slate-600 file:hover:bg-fuchsia-900 file:hover:text-white file:bg-gray-300" id="formFileLg" type="file" />
+                    <FileInput class="mt-4 max-w-md col-span-2" />
                 </fieldset>
             </div>
             <div v-if="route.name == 'addinternshiprequest'" class="flex justify-end mb-4 mt-4">
@@ -238,6 +238,7 @@
 
 <script setup>
     import ProvinceServices from '../services/ProvinceServices';
+    import FileInput from './FileInput.vue';
 
     import { useRoute } from 'vue-router';
     import { ref, onMounted } from 'vue';
