@@ -133,7 +133,6 @@
                             </div>
                         </label>
                     </div>
-                    <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid bg-transparent bg-clip-padding px-3 py-[0.32rem] text-base font-normal leading-[2.15] file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3  file:py-[0.32rem] focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none border-slate-600 text-slate-600  file:text-slate-600 file:hover:bg-fuchsia-900 file:hover:text-white" id="formFileLg" type="file" />
                 </fieldset>
             </div>
             <!-- Ajouter une condition selon la route: Ajouter ou Modifier -->

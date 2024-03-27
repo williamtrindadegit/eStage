@@ -1,11 +1,11 @@
 <template>
     <div>
-        Formulaire d'entreprise
+        <FormEnterprise />
     </div>
 </template>
 
 <script setup>
-
+    import FormEnterprise from "../components/FormEnterprise.vue";
 </script>
 
 <style scoped>

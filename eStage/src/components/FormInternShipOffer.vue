@@ -1,8 +1,8 @@
 <template>
     <div class="bg-gray-100">
-        <form class="max-w-3xl p-4" action="#">
-            <!-- Ajouter une condition selon la route: Ajouter ou Modifier -->
-            <div v-if="formulaireAjout">
+        <form class="max-w-5xl p-4 my-0 pt-10 mx-auto" action="#">
+            <h2 v-if="route.name == 'addinternshipoffer'" class="text-4xl font-bold text-slate-600 border-l-[10px] pl-5 border-fuchsia-900 py-2 mb-20">Offre de stage</h2>
+            <div v-if="route.name == 'addinternshipoffer'">
                 <div class="flex justify-end mb-4">
                     <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">Annuler</button>
                     <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
@@ -11,21 +11,26 @@
                     </button>
                 </div>
                 <div>
-                    <div class="flex items-center mb-4">
+                    <div class="flex items-center">
                         <label for="title" class="text-slate-600 font-bold max-w-24 w-full">Titre: </label>
                         <input type="text" name="title" id="title" class="input input-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500" placeholder="" />
                     </div>
-                    <div class="flex items-center mb-4">
+                    <div class="ml-24 mb-4">
+                        <span class="label-text-alt text-red-500">Error message</span>
+                    </div>
+                    <div class="flex items-center">
                         <label for="enterprise" class="text-slate-600 font-bold max-w-24 w-full">Entreprise: </label>
                         <select id="enterprise" name="enterprise" class="select select-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500">
                             <option disabled selected>Veuillez effectuer un choix</option>
                             <!-- ajout des entreprises avec l'api -->
                         </select>
                     </div>
+                    <div class="ml-24 mb-4">
+                        <span class="label-text-alt text-red-500">Error message</span>
+                    </div>
                 </div>
             </div>
-            <!-- deuxieme condition -->
-            <div v-if="!formulaireAjout">
+            <div v-if="route.name == 'editinternshipoffer'">
                 <div class="border-l-8 border-slate-600 pl-2">
                     <p class="font-bold text-slate-600">Offre de stage</p>
                     <p class="font-bold text-slate-600 text-4xl mb-6">{{ formData.title }}</p>
@@ -41,20 +46,20 @@
                     </button>
                 </div>
             </div>
-            <!-- End block -->
             <div class="bg-white p-5">
                 <div class="flex flex-col">
                     <label for="description" class="text-slate-600 font-bold mt-5 text-3xl mb-3">Description de la tâche</label>
                     <textarea name="description" id="description" class="textarea textarea-bordered bg-slate-50 border-gray-400 rounded p-2 text-slate-500 h-24" placeholder=""></textarea>
+                    <span class="label-text-alt text-red-500">Error message</span>
                 </div>
-                <fieldset class="grid grid-cols-2 max-w-3xl mt-8">
+                <fieldset class="grid grid-cols-2 max-w-5xl mt-8">
                     <div class="col-span-2">
-                        <label for="formationProgram" class="form-control w-full max-w-xs">
+                        <label for="formationProgram" class="form-control w-full max-w-md">
                             <div class="border-l-8 border-slate-600 pl-2">
                                 <div class="label pt-0">
                                     <span class="text-slate-600 font-bold">Programme de formation</span>
                                 </div>
-                                <input type="text" name="formationProgram" id="formationProgram" placeholder="" class="input w-full max-w-xs bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
+                                <input type="text" name="formationProgram" id="formationProgram" placeholder="" class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
                             </div>
                             <div class="label pl-5">
                                 <span class="label-text-alt text-red-500">Error Message</span>
@@ -75,15 +80,15 @@
                         </label>
                     </div>
                 </fieldset>
-                <fieldset class="grid grid-cols-2 max-w-3xl mt-8">
+                <fieldset class="grid grid-cols-2 max-w-5xl mt-8">
                     <legend class="font-bold mb-4 text-black">Informations sur le stage recherché</legend>
-                    <div class="col-span-2 sm:col-span-1">
-                        <label for="intershipType" class="form-control w-full max-w-xs">
+                    <div class="col-span-2 sm:col-span-1 mr-0 sm:mr-4">
+                        <label for="intershipType" class="form-control w-full max-w-md">
                             <div class="border-l-8 border-slate-600 pl-2">
                                 <div class="label pt-0">
                                     <span class="text-slate-600 font-bold">Type de stage</span>
                                 </div>
-                                <select name="intershipType" id="intershipType" class="select select-bordered w-full max-w-xs bg-slate-50 border-gray-400 rounded p-2 text-slate-500">
+                                <select name="intershipType" id="intershipType" class="select select-bordered w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500">
                                     <option disabled selected>Veuillez effectuer un choix</option>
                                     <!-- ajout du type avec l'api -->
                                 </select>
@@ -94,25 +99,25 @@
                         </label>
                     </div>
                     <div class="col-span-2 sm:col-span-1">
-                        <div for="startDate" class="form-control w-full max-w-xs">
+                        <div for="startDate" class="form-control w-full max-w-md">
                             <div class="border-l-8 border-slate-600 pl-2">
                                 <div class="label pt-0">
                                     <span class="text-slate-600 font-bold">Date de début</span>
                                 </div>
-                                <input type="date" name="startDate" id="startDate" placeholder="" class="input w-full max-w-xs bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
+                                <input type="date" name="startDate" id="startDate" placeholder="" class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
                             </div>
                             <div class="label pl-5">
                                 <span class="label-text-alt text-red-500">Error Message</span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-span-2 sm:col-span-1">
-                        <label for="weeklyWorkHours" class="form-control w-full max-w-xs">
+                    <div class="col-span-2 sm:col-span-1 mr-0 sm:mr-4 -order-1 sm:order-none">
+                        <label for="weeklyWorkHours" class="form-control w-full max-w-md">
                             <div class="border-l-8 border-slate-600 pl-2">
                                 <div class="label pt-0">
-                                    <span class="text-slate-600 font-bold">Nombre d'heures par semaine</span>
+                                    <span class="text-slate-600 font-bold">Heures par semaine</span>
                                 </div>
-                                <select name="weeklyWorkHours" id="weeklyWorkHours" class="select select-bordered w-full max-w-xs bg-slate-50 border-gray-400 rounded p-2 text-slate-500">
+                                <select name="weeklyWorkHours" id="weeklyWorkHours" class="select select-bordered w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500">
                                     <option disabled selected>Veuillez effectuer un choix</option>
                                     <option value="10">10 heures</option>
                                     <option value="20">20 heures</option>
@@ -126,12 +131,12 @@
                         </label>
                     </div>
                     <div class="col-span-2 sm:col-span-1">
-                        <div for="endDate" class="form-control w-full max-w-xs">
+                        <div for="endDate" class="form-control w-full max-w-md">
                             <div class="border-l-8 border-slate-600 pl-2">
                                 <div class="label pt-0">
                                     <span class="text-slate-600 font-bold">Date de fin</span>
                                 </div>
-                                <input type="date" name="endDate" id="endDate" placeholder="" class="input w-full max-w-xs bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
+                                <input type="date" name="endDate" id="endDate" placeholder="" class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
                             </div>
                             <div class="label pl-5">
                                 <span class="label-text-alt text-red-500">Error Message</span>
@@ -156,25 +161,24 @@
                     <div class="flex flex-col col-span-2">
                         <label for="additionalInformation" class="text-black font-bold mb-1 mt-5">Informations supplémentaires</label>
                         <textarea name="additionalInformation" id="additionalInformation" class="textarea textarea-bordered bg-slate-50 border-gray-400 rounded p-2 text-slate-500 h-24" placeholder=""></textarea>
+                        <span class="label-text-alt text-red-500">Error message</span>
                     </div>
                 </fieldset>
             </div>
-            <!-- Ajouter une condition selon la route: Ajouter ou Modifier -->
-            <div v-if="formulaireAjout" class="flex justify-end mb-4 mt-4">
+            <div v-if="route.name == 'addinternshipoffer'" class="flex justify-end mb-4 mt-4">
                 <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">Annuler</button>
                 <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960" stroke="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160v212q-19-8-39.5-10.5t-40.5.5v-169L647-760H200v560h240v80H200Zm0-640v560-560ZM520-40v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q8 9 12.5 20t4.5 22q0 11-4 22.5T863-260L643-40H520Zm300-263-37-37 37 37ZM580-100h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19ZM240-560h360v-160H240v160Zm240 320h4l116-115v-5q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Z"/></svg>
                     Sauvegarder
                 </button>
             </div>
-            <div v-if="!formulaireAjout" class="flex justify-end mb-4 mt-4">
+            <div v-if="route.name == 'editinternshipoffer'" class="flex justify-end mb-4 mt-4">
                 <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">Annuler</button>
                 <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960" stroke="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160v212q-19-8-39.5-10.5t-40.5.5v-169L647-760H200v560h240v80H200Zm0-640v560-560ZM520-40v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q8 9 12.5 20t4.5 22q0 11-4 22.5T863-260L643-40H520Zm300-263-37-37 37 37ZM580-100h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19ZM240-560h360v-160H240v160Zm240 320h4l116-115v-5q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Z"/></svg>
                     Mettre à jour
                 </button>
             </div>
-            <!-- End block -->
         </form>
     </div>
 
@@ -182,7 +186,11 @@
 
 <script setup>
     import ProvinceServices from '../services/ProvinceServices';
+
+    import { useRoute } from 'vue-router';
     import { ref, onMounted } from 'vue';
+
+    const route = useRoute();
 
     const formData = {
         title: 'Développeur Front-End',
