@@ -14,6 +14,7 @@
                     <li><a>Homepage</a></li>
                     <li><router-link to="/dashboard">Tableau de bord</router-link></li>
                     <li><router-link to="/zoomUser">Zoom User</router-link></li>
+                    <li><router-link to="/zoomStage">Zoom Stage</router-link></li>
                     <li><a>About</a></li>
                 </ul>
             </div>
