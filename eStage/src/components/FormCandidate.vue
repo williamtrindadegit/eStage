@@ -19,8 +19,8 @@
                                name="fullName" 
                                id="fullName" 
                                class="input input-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500" 
-                               placeholder=""
-                               v-model="formData.fullName" />
+                               placeholder="" 
+                               v-model="formData.fullName"/>
                     </div>
                     <div class="ml-36 mb-4">
                         <span class="label-text-alt text-red-500" v-if="!formValidation.fullName">Error message</span>
@@ -206,14 +206,14 @@
     import Candidates from '../services/Candidates';
 
     import { useRoute } from 'vue-router';
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, reactive } from 'vue';
 
     const route = useRoute();
 
     //should reflect the UI from the form
     //any data formatting should be done afterwards
     //before sending it to the API
-    const formData = {
+    const formData = reactive({
         description: "",
         email: "",
         fullName: "John Doe",
@@ -228,7 +228,7 @@
             value: ""
         },
         postalCode: ""
-    };
+    });
 
     const formValidation = {
         description: true,
