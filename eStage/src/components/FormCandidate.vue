@@ -1,7 +1,7 @@
 <template>
     <div class="bg-gray-100">
         <!-- changer pour max-w-5xl dans les autres formulaires -->
-        <form class="max-w-5xl p-4 my-0 pt-10 mx-auto" action="#">
+        <form class="max-w-5xl p-4 my-0 pt-10 mx-auto" @submit.prevent="validateCandidateForm()">
             <h2 v-if="route.name == 'addcandidate'" class="text-4xl font-bold text-slate-600 border-l-[10px] pl-5 border-fuchsia-900 py-2 mb-20">Ajouter un Candidat</h2>
             <!-- Ajouter une condition selon la route: Ajouter ou Modifier -->
             <div v-if="route.name == 'addcandidate'">
@@ -15,25 +15,34 @@
                 <div>
                     <div class="flex items-center">
                         <label for="fullName" class="text-slate-600 font-bold max-w-36 w-full">Nom et prenom: </label>
-                        <input type="text" name="fullName" id="fullName" class="input input-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500" placeholder="" />
+                        <input type="text" 
+                               name="fullName" 
+                               id="fullName" 
+                               class="input input-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500" 
+                               placeholder=""
+                               v-model="formData.fullName" />
                     </div>
                     <div class="ml-36 mb-4">
-                        <span class="label-text-alt text-red-500">Error message</span>
+                        <span class="label-text-alt text-red-500" v-if="!formValidation.fullName">Error message</span>
                     </div>
                     <div class="flex items-center">
                         <label for="skills" class="text-slate-600 font-bold max-w-36 w-full">Compétences: </label>
-                        <input type="text" name="skills" id="skills" class="input input-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500" placeholder="javascript,css,html ..." />
+                        <input type="text" 
+                               name="skills" 
+                               id="skills" 
+                               class="input input-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500" 
+                               placeholder="javascript,css,html ..."
+                               v-model="formData.skills" />
                     </div>
                     <div class="ml-36 mb-4">
-                        <span class="label-text-alt text-red-500">Error message</span>
+                        <span class="label-text-alt text-red-500" v-if="!formValidation.skills">Error message</span>
                     </div>
                 </div>
             </div>
             <div v-if="route.name == 'editcandidate'">
                 <div class="border-l-8 border-slate-600 pl-2">
                     <p class="font-bold text-slate-600">Candidat</p>
-                    <p class="font-bold text-slate-600 text-4xl">{{ formData.firstName }} {{ formData.lastName }}</p>
-                    <input type="text" name="fullName" id="fullName" class="hidden input input-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500" placeholder="" />
+                    <p class="font-bold text-slate-600 text-4xl">{{ formData.fullName }}</p>
                 </div>
                 <div class="flex justify-end mb-4">
                     <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">Annuler</button>
@@ -47,8 +56,12 @@
             <div class="bg-white p-5">
                 <div class="flex flex-col pb-2">
                     <label for="description" class="text-slate-600 font-bold text-3xl mb-5 mt-5">Courte présentation</label>
-                    <textarea name="description" id="description" class="textarea textarea-bordered bg-slate-50 border-gray-400 rounded p-2 text-slate-500 h-24" placeholder=""></textarea>
-                    <span class="label-text-alt text-red-500">Error message</span>
+                    <textarea name="description" 
+                              id="description" 
+                              class="textarea textarea-bordered bg-slate-50 border-gray-400 rounded p-2 text-slate-500 h-24"
+                              placeholder=""
+                              v-model="formData.description"></textarea>
+                    <span class="label-text-alt text-red-500" v-if="!formValidation.description">Error message</span>
                 </div>
                 <fieldset class="grid grid-cols-2 max-w-5xl mt-8">
                     <legend class="text-slate-600 font-bold mb-6">Informations personnelles</legend>
@@ -59,10 +72,15 @@
                                 <div class="label pt-0">
                                     <span class="text-slate-600 font-bold">Adresse</span>
                                 </div>
-                                <input type="text" name="address" id="address" placeholder="" class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
+                                <input type="text"
+                                       name="address" 
+                                       id="address" 
+                                       placeholder="" 
+                                       class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
+                                       v-model="formData.address" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500">Error Message</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.address">Error Message</span>
                             </div>
                         </label>
                     </div>
@@ -72,10 +90,17 @@
                                 <div class="label pt-0">
                                     <span class="text-slate-600 font-bold">Téléphone</span>
                                 </div>
-                                <input type="tel" name="phone" id="phone" placeholder="" class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
+                                <input type="tel" 
+                                       name="phone" 
+                                       id="phone" 
+                                       placeholder="555-123-4567" 
+                                       class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
+                                       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                       required
+                                       v-model="formData.phone" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500">Error Message</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.phone">Error Message</span>
                             </div>
                         </label>
                     </div>
@@ -85,10 +110,15 @@
                                 <div class="label pt-0">
                                     <span class="text-slate-600 font-bold">Ville</span>
                                 </div>
-                                <input type="tel" name="city" id="city" placeholder="" class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
+                                <input type="text" 
+                                       name="city" 
+                                       id="city"
+                                       placeholder="" 
+                                       class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
+                                       v-model="formData.city" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500">Error Message</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.city">Error Message</span>
                             </div>
                         </label>
                     </div>
@@ -98,10 +128,15 @@
                                 <div class="label pt-0">
                                     <span class="text-slate-600 font-bold">Courriel</span>
                                 </div>
-                                <input type="email" name="email" id="email" placeholder="" class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
+                                <input type="email"
+                                       name="email" 
+                                       id="email" 
+                                       placeholder="" 
+                                       class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
+                                       v-model="formData.email" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500">Error Message</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.email">Error Message</span>
                             </div>
                         </label>
                     </div>
@@ -111,13 +146,16 @@
                                 <div class="label pt-0">
                                     <span class="text-slate-600 font-bold">Province</span>
                                 </div>
-                                <select name="province" id="province" class="select select-bordered w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500">
+                                <select name="province" 
+                                        id="province" 
+                                        class="select select-bordered w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
+                                        v-model="formData.province._id">
                                     <option disabled selected>Veuillez effectuer un choix</option>
                                     <option v-for="province in provinces" :key="province._id" :value="province._id">{{ province.value }}</option>
                                 </select>
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500">Error Message</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.province">Error Message</span>
                             </div>
                         </label>
                     </div>
@@ -127,10 +165,15 @@
                                 <div class="label pt-0">
                                     <span class="text-slate-600 font-bold">Code postal</span>
                                 </div>
-                                <input type="email" name="postalCode" id="postalCode" placeholder="" class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
+                                <input type="text" 
+                                       name="postalCode" 
+                                       id="postalCode" 
+                                       placeholder="" 
+                                       class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
+                                       v-model="formData.postalCode" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500">Error Message</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.postalCode">Error Message</span>
                             </div>
                         </label>
                     </div>
@@ -160,19 +203,20 @@
 
 <script setup>
     import ProvinceServices from '../services/ProvinceServices';
-    import Candidates from '@/services/Candidates';
+    import Candidates from '../services/Candidates';
 
     import { useRoute } from 'vue-router';
     import { ref, onMounted } from 'vue';
 
     const route = useRoute();
 
-
+    //should reflect the UI from the form
+    //any data formatting should be done afterwards
+    //before sending it to the API
     const formData = {
         description: "",
         email: "",
-        firstName: "John",
-        lastName: "Doe",
+        fullName: "John Doe",
         address: "",
         phone: "",
         city: "",
@@ -189,28 +233,145 @@
     const formValidation = {
         description: true,
         email: true,
-        firstName: true,
-        lastName: true,
+        fullName: true,
         address: true,
         phone: true,
         city: true,
         skills: true,
         province: true,
         postalCode: true
-    
+    }
+
+    const candidateMock = {
+        _id: "65f235a364349dd39512ea83",
+        description: "Passionate web developer with a knack for creating intuitive user interfaces and improving website efficiency.",
+        email: "jane.doe@example.com",
+        firstName: "Jane",
+        lastName: "Doe",
+        address: "1234 Maple Street",
+        phone: "514-966-4567",
+        city: "Techville",
+        skills: [
+            "React",
+            "Vue.js",
+            "CSS"
+        ],
+        province: null,
+        postalCode: "K1A 0B1",
+        __v: 0
     };
     
     const provinces = ref([]);
 
-    const candidates = ref([]);
+    const candidate = ref([]);
 
+    const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const PHONE_REGEX = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+    const POSTAL_CODE_REGEX = /^[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]$/;
+    const FULLNAME_REGEX = /^[a-zA-Z-]+ [a-zA-Z-]+$/;
+
+    //FIXME: v-model data (formData) is not updated on the frontend when using the edit route.
     onMounted(async () => {
         provinces.value = await ProvinceServices.FindAll();
-        console.log(provinces.value);
-        candidates.value = await Candidates.FindAll();
-        console.log(candidates.value);
 
+        if(route.name === 'editcandidate') {
+            candidate.value = await Candidates.FindOne(route.params.id);
+            getCandidateDetails();
+        }
     });
+
+    const validateCandidateForm = () => {
+
+        Object.entries(formData).forEach(([key, currentValue]) => {
+
+            if (key === 'email') {
+                formValidation.email = EMAIL_REGEX.test(currentValue);
+
+            } else if (key === 'phone') {
+                formValidation.phone = PHONE_REGEX.test(currentValue);
+
+            } else if (key === 'skills') {
+                if(currentValue.length > 0) {
+                    formValidation.skills = true;
+                } else {
+                    formValidation.skills = false;
+                }
+
+            } else if (key === 'postalCode') {
+                formValidation.postalCode = POSTAL_CODE_REGEX.test(currentValue);
+
+            } else if (key === 'fullName') {
+                formValidation.fullName = FULLNAME_REGEX.test(currentValue);
+
+            } else if(key === 'province' && currentValue._id !== "") {
+                const foundProvince = provinces.value.find( province =>  province._id === currentValue._id );
+
+                if(foundProvince) {
+                    formData.province.value = foundProvince.value;
+                    formValidation.province = true;
+                } else {
+                    formValidation.province = false;
+                }
+
+            } else {
+                formValidation[key] = currentValue.length > 0;
+            }
+        });
+        
+        let isFormValid = false;
+        
+        console.log(formValidation);
+        Object.entries(formValidation).forEach(([key, value]) => {
+            if(!key.startsWith('_') || !key.startsWith('__')) {
+                if(!value) {
+                    isFormValid = false;
+                    console.log('Error in form validation : ', key);
+                } else {
+                    isFormValid = true;
+                }
+            }
+        });
+
+        if(isFormValid) {
+            formatDataForAPI();
+        }
+    };
+
+    const getCandidateDetails = () => {
+        console.log('Before adding details', formData);
+        formData.description = candidate.value.description;
+        formData.email = candidate.value.email;
+        formData.fullName = `${candidate.value.firstName} ${candidate.value.lastName}`;
+        formData.address = candidate.value.address;
+        formData.phone = candidate.value.phone;
+        formData.city = candidate.value.city;
+        formData.skills = candidate.value.skills.join(',');
+        if(candidate.value.province === null) {
+            candidate.value.province = {
+                _id: "",
+                value: ""
+            }
+        } else {
+            formData.province._id = candidate.value.province._id;
+            formData.province.value = candidate.value.province.value;
+        }
+    
+        formData.postalCode = candidate.value.postalCode;
+        console.log('after adding details ',formData);
+    }
+
+    const formatDataForAPI = () => {
+        if(formValidation.skills) {
+            formData.skills = formData.skills.split(',');
+        }
+        if(formValidation.fullName) {
+            formData.fullName = formData.fullName.split(' ');
+            formData.firstName = formData.fullName[0];
+            formData.lastName = formData.fullName[1];
+            delete formData.fullName;
+        }
+        console.log('Form Data before sending : ', formData);
+    }
 
 
 </script>
