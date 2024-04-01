@@ -206,7 +206,7 @@
 </template>
 
 <script setup>
-import ProvinceServices from '../services/ProvinceServices';
+import Provinces from '../services/Provinces';
 import Candidates from '../services/Candidates';
 
 import { useRoute } from 'vue-router';
@@ -276,7 +276,7 @@ const FULLNAME_REGEX = /^[a-zA-Z-]+ [a-zA-Z-]+$/;
 
 //FIXME: v-model data (formData) is not updated on the frontend when using the edit route.
 onMounted(async () => {
-    provinces.value = await ProvinceServices.FindAll();
+    provinces.value = await Provinces.FindAll();
 
     if (route.name === 'editcandidate') {
         candidate.value = await Candidates.FindOne(route.params.id);

@@ -214,7 +214,7 @@
 <script setup>
 import EnterpriseServices from '@/services/Enterprises';
 import CandidateServices from '@/services/Candidates';
-import ProvinceServices from '@/services/Province';
+import Provinces from '@/services/Provinces';
 import FileInput from './FileInput.vue';
 
 
@@ -261,7 +261,7 @@ const candidates = ref([]);
 const enterprises = ref([]);
 
 onMounted(async () => {
-    provinces.value = await ProvinceServices.FindAll();
+    provinces.value = await Provinces.FindAll();
     console.log(provinces.value);
     candidates.value = await CandidateServices.FindAll();
     console.log(candidates.value);
