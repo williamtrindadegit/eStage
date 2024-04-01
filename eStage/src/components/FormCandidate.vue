@@ -29,7 +29,7 @@
                                v-model="formData.fullName" />
                     </div>
                     <div class="ml-36 mb-4">
-                        <span class="label-text-alt text-red-500" v-if="!formValidation.fullName">Error message</span>
+                        <span class="label-text-alt text-red-500" v-if="!formValidation.fullName">{{ errorMessages.errName }}</span>
                     </div>
                     <div class="flex items-center">
                         <label for="skills" class="text-slate-600 font-bold max-w-36 w-full">Compétences: </label>
@@ -74,7 +74,7 @@
                               placeholder=""
                               v-model="formData.description">
                     </textarea>
-                    <span class="label-text-alt text-red-500" v-if="!formValidation.description">Error message</span>
+                    <span class="label-text-alt text-red-500" v-if="!formValidation.description">Veuillez renseigner le champ.</span>
                 </div>
                 <fieldset class="grid grid-cols-2 max-w-5xl mt-8">
                     <legend class="text-slate-600 font-bold mb-6">Informations personnelles</legend>
@@ -93,7 +93,7 @@
                                        v-model="formData.address" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.address">Error Message</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.address">Veuillez renseigner le champ.</span>
                             </div>
                         </label>
                     </div>
@@ -108,8 +108,7 @@
                                        id="phone"
                                        placeholder="555-123-4567"
                                        class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
-                                       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                                       required v-model="formData.phone" />
+                                       v-model="formData.phone" />
                             </div>
                             <div class="label pl-5">
                                 <span class="label-text-alt text-red-500" v-if="!formValidation.phone">Error Message</span>
@@ -130,7 +129,7 @@
                                        v-model="formData.city" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.city">Error Message</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.city">Veuillez renseigner le champ.</span>
                             </div>
                         </label>
                     </div>
@@ -167,7 +166,7 @@
                                 </select>
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.province">Error Message</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.province">Veuillez sélectionner une province.</span>
                             </div>
                         </label>
                     </div>
@@ -252,7 +251,7 @@
         postalCode: ""
     });
 
-    const formValidation = {
+    const formValidation = reactive({
         description: true,
         email: true,
         fullName: true,
@@ -262,7 +261,7 @@
         skills: true,
         province: true,
         postalCode: true
-    }
+    })
 
     const candidateMock = {
         _id: "65f235a364349dd39512ea83",
@@ -282,6 +281,14 @@
         postalCode: "K1A 0B1",
         __v: 0
     };
+
+    const errorMessages = reactive({
+        errName: "Votre nom et prénom doivent être séparés par un espace.",
+        errSkills: "Veuillez renseigner vos compétences.",
+        errPhone: "Veuillez renseigner un numéro de téléphone valide.",
+        errEmail: "Veuillez renseigner une adresse courriel valide.",
+        errPostalCode: "Veuillez renseigner un code postal valide."
+    });
 
     const provinces = ref([]);
 
