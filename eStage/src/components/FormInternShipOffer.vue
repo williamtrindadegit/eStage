@@ -231,7 +231,7 @@
 </template>
 
 <script setup>
-import ProvinceServices from '../services/ProvinceServices';
+import Provinces from '../services/Provinces';
 
 import { useRoute } from 'vue-router';
 import { ref, onMounted } from 'vue';
@@ -254,7 +254,7 @@ const provinces = ref([]);
 const formulaireAjout = true;
 
 onMounted(async () => {
-    provinces.value = await ProvinceServices.FindAll();
+    provinces.value = await Provinces.FindAll();
     console.log(provinces.value);
 });
 
