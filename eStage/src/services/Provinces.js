@@ -1,20 +1,20 @@
 const BASE_URL = "https://api-2.fly.dev/provinces";
-import makeRequest from "./api";
+import api from "./api";
 
 export default {
   async FindOne(id) {
-    return makeRequest(`${BASE_URL}/${id}`, "GET");
+    return api.makeRequest(`${BASE_URL}/${id}`, "GET");
   },
   async FindAll() {
-    return makeRequest(BASE_URL, "GET");
+    return api.makeRequest(BASE_URL, "GET");
   },
   async Create(province) {
-    return makeRequest(BASE_URL, "POST", province);
+    return api.makeRequest(BASE_URL, "POST", province);
   },
   async Update(province) {
-    return makeRequest(BASE_URL, "PATCH", province);
+    return api.makeRequest(BASE_URL, "PATCH", province);
   },
   async Delete(id) {
-    return makeRequest(`${BASE_URL}/${id}`, "DELETE");
+    return api.makeRequest(`${BASE_URL}/${id}`, "DELETE");
   },
 };
