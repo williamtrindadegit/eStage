@@ -7,11 +7,11 @@ import ZoomStage from "@/components/ZoomStage.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: "/Connexion",
-      name: "Connexion",
-      component: Connexion,
-    },
+    // {
+    //   path: "/Connexion",
+    //   name: "Connexion",
+    //   component: Connexion,
+    // },
     {
       path: "/",
       name: "home",

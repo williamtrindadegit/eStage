@@ -1,31 +1,20 @@
+const BASE_URL = "https://api-2.fly.dev/internship-requests";
+import makeRequest from "./api";
+
 export default {
   async FindOne(id) {
-    let headersList = {
-      Accept: "*/*",
-      "User-Agent": "eStage",
-    };
-
-    let response = await fetch(
-      "https://api-2.fly.dev//internship-requests/" + id,
-      {
-        method: "GET",
-        headers: headersList,
-      }
-    );
-
-    return response.json();
+    return makeRequest(`${BASE_URL}/${id}`, "GET");
   },
   async FindAll() {
-    let headersList = {
-      Accept: "*/*",
-      "User-Agent": "eStage",
-    };
-
-    let response = await fetch("https://api-2.fly.dev//internship-requests", {
-      method: "GET",
-      headers: headersList,
-    });
-
-    return response.json();
+    return makeRequest(BASE_URL, "GET");
+  },
+  async Create(internshipRequests) {
+    return makeRequest(BASE_URL, "POST", internshipRequests);
+  },
+  async Update(internshipRequests) {
+    return makeRequest(BASE_URL, "PATCH", internshipRequests);
+  },
+  async Delete(id) {
+    return makeRequest(`${BASE_URL}/${id}`, "DELETE");
   },
 };

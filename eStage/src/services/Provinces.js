@@ -1,4 +1,4 @@
-const BASE_URL = "https://api-2.fly.dev/activity-sectors";
+const BASE_URL = "https://api-2.fly.dev/provinces";
 import makeRequest from "./api";
 
 export default {
@@ -8,11 +8,11 @@ export default {
   async FindAll() {
     return makeRequest(BASE_URL, "GET");
   },
-  async Create(activitySector) {
-    return makeRequest(BASE_URL, "POST", activitySector);
+  async Create(province) {
+    return makeRequest(BASE_URL, "POST", province);
   },
-  async Update(activitySector) {
-    return makeRequest(BASE_URL, "PATCH", activitySector);
+  async Update(province) {
+    return makeRequest(BASE_URL, "PATCH", province);
   },
   async Delete(id) {
     return makeRequest(`${BASE_URL}/${id}`, "DELETE");
