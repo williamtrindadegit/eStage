@@ -212,9 +212,9 @@
 </template>
 
 <script setup>
-import EnterpriseServices from '@/services/Enterprises';
-import CandidateServices from '@/services/Candidates';
-import ProvinceServices from '@/services/Province';
+import EnterpriseServices from '../services/Enterprises';
+import CandidateServices from '../services/Candidates';
+import ProvinceServices from '../services/Provinces';
 import FileInput from './FileInput.vue';
 
 
