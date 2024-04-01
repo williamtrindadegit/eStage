@@ -1,65 +1,21 @@
+import makeRequest from "./api";
+
+const BASE_URL = "https://api-2.fly.dev/enterprises";
+
 export default {
   async FindOne(id) {
-    let headersList = {
-      Accept: "*/*",
-      "User-Agent": "eStage",
-    };
-
-    let response = await fetch("https://api-2.fly.dev/enterprises/" + id, {
-      method: "GET",
-      headers: headersList,
-    });
-
-    return response.json();
+    return makeRequest(`${BASE_URL}/${id}`, "GET");
   },
   async FindAll() {
-    let headersList = {
-      Accept: "*/*",
-      "User-Agent": "eStage",
-    };
-
-    let response = await fetch("https://api-2.fly.dev/enterprises", {
-      method: "GET",
-      headers: headersList,
-    });
-
-    return response.json();
+    return makeRequest(BASE_URL, "GET");
   },
-  async Create(
-    image,
-    name,
-    address,
-    postalCode,
-    city,
-    province,
-    phone,
-    email,
-    description,
-    activitySector,
-    website
-  ) {
-    const entreprise = {
-      image: image,
-      name: name,
-      address: address,
-      city: city,
-      postalCode: postalCode,
-      province: province,
-      phone: phone,
-      email: email,
-      description: description,
-      activitySector: activitySector,
-      website: website,
-    };
-
-    let bodyContent = JSON.stringify(entreprise);
-
-    let response = await fetch("https://api-2.fly.dev/enterprises", {
-      method: "POST",
-      body: bodyContent,
-      headers: headersList,
-    });
-
-    return response.json();
+  async Create(enterprise) {
+    return makeRequest(BASE_URL, "POST", enterprise);
+  },
+  async Update(enterprise) {
+    return makeRequest(BASE_URL, "PATCH", enterprise);
+  },
+  async Delete(id) {
+    return makeRequest(`${BASE_URL}/${id}`, "DELETE");
   },
 };

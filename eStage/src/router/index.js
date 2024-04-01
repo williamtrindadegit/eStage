@@ -2,18 +2,16 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import Dashboard from "../views/Dashboard.vue";
 import ZoomUser from "../components/ZoomUser.vue";
-import InternshipDashboard from "@/components/InternshipDashboard.vue";
-import LoginPage from "@/components/LoginPage.vue";
-import Connexion from "../views/Connexion.vue";
+import ZoomStage from "@/components/ZoomStage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: "/Connexion",
-      name: "Connexion",
-      component: Connexion,
-    },
+    // {
+    //   path: "/Connexion",
+    //   name: "Connexion",
+    //   component: Connexion,
+    // },
     {
       path: "/",
       name: "home",
@@ -30,14 +28,9 @@ const router = createRouter({
       component: ZoomUser,
     },
     {
-      path: "/InternshipDashboard",
-      name: "InternshipDashboard",
-      component: InternshipDashboard,
-    },
-    {
-      path: "/LoginPage",
-      name: "LoginPage",
-      component: LoginPage,
+      path: "/zoomStage",
+      name: "zoomStage",
+      component: ZoomStage,
     },
   ],
 });

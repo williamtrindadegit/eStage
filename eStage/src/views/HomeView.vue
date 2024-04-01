@@ -40,7 +40,7 @@
 <script setup>
 import { ref } from 'vue';
 
-import ProvinceService from "@/services/ProvinceServices";
+import ProvinceService from "@/services/Provinces";
 
 
 
@@ -67,4 +67,4 @@ async function fetchProvincesData() {
   }
 }
 
-</script>
+</script>@/services/Province

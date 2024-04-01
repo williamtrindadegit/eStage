@@ -1,5 +1,5 @@
 <template>
-    <nav className="navbar bg-white p-5 sticky top-0 shadow-sm">
+    <nav className="flex items-center w-full bg-white p-5 sticky top-0 shadow-sm">
         <div className="navbar-start w-1/5">
             <div className="dropdown">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -10,17 +10,15 @@
                 </div>
                 <ul tabIndex={0}
                     className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><router-link to="/accueil">Accueil</router-link></li>
+                    <li><a>Homepage</a></li>
                     <li><router-link to="/dashboard">Tableau de bord</router-link></li>
-                    <li><router-link to="/demandes-stages">Demandes de stages</router-link></li>
-                    <li><router-link to="/offres-stage">Offres de stage</router-link></li>
-                    <li><router-link to="/candidats">Candidats</router-link></li>
-                    <li><router-link to="/entreprises">Entreprises</router-link></li>
+                    <li><router-link to="/zoomUser">Zoom User</router-link></li>
+                    <li><router-link to="/zoomStage">Zoom Stage</router-link></li>
+                    <li><a>About</a></li>
                 </ul>
             </div>
         </div>
-        <div className="flex justify-start w-4/5">
-
+        <div className="hidden xl:block flex justify-start w-4/5">
             <a className="btn btn-ghost text-md border-black border-2 text-red-500 border-red-500 mx-2">
                 <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                     fill="none" viewBox="0 0 24 24">
@@ -52,7 +50,8 @@
         </div>
         <div className="navbar-end w-1/5">
             <button className="btn btn-ghost flex-col">
-                <h3 className="font-black text-black">John Doe</h3>
+                <h3 className="font-black text-black">{{ $route.query.name }}</h3>
+                <!-- valider avec Anel lorsque merged in the main-->
                 <h4 className="text-gray-400">Admin</h4>
             </button>
             <button className="btn btn-ghost btn-circle">

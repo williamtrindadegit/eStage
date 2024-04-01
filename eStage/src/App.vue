@@ -1,9 +1,9 @@
 <template>
   <div className="flex flex-row">
-    <div className="w-1/6">
+    <div className="sm:hidden lg:block w-1/6">
       <Sidebar/>
     </div>
-    <div className="w-5/6">
+    <div className="w-full lg:w-5/6">
     <NavBar />
     <router-view />
     </div>
