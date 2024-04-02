@@ -123,13 +123,13 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const sessionStore = useSession();
   if (sessionStore.loggedIn && to.path === "/") {
-    // Si l'usager est connecté et qu'il tente d'accéder à la route '/', on le redirige vers '/dashboard'
+    //Si l'usager est connecté et qu'il tente d'accéder à la route '/', on le redirige vers '/dashboard'
     next({ path: "/dashboard" });
   } else if (!sessionStore.loggedIn && to.path !== "/") {
-    // Si l'usager n'est pas connecté et qu'il tente d'accéder à une route autre que '/', on le redirige vers '/'
+    //Si l'usager n'est pas connecté et qu'il tente d'accéder à une route autre que '/', on le redirige vers '/'
     next({ path: "/" });
   } else {
-    // Sinon, on le laisse passer normalement dans les autres cas.
+    //Sinon, on le laisse passer normalement dans les autres cas.
     next();
   }
 });
