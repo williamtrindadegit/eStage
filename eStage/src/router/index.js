@@ -30,8 +30,8 @@ const router = createRouter({
       component: Dashboard,
     },
     {
-      path: "/demandes-stage",
-      name: "demandesStage",
+      path: "/demande-stage",
+      name: "demandeStage",
       component: RequestDashboard,
     },
     {
