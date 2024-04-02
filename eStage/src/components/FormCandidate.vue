@@ -370,7 +370,6 @@
 
         let isFormValid = false;
 
-        console.log(formValidation);
         Object.entries(formValidation).forEach(([key, value]) => {
             if (!key.startsWith('_') || !key.startsWith('__')) {
                 if (!value) {
@@ -396,14 +395,13 @@
     }
 
     const getCandidateDetails = () => {
-        console.log('Before adding details', formData);
         formData.description = candidate.value.description;
         formData.email = candidate.value.email;
         formData.fullName = `${candidate.value.firstName} ${candidate.value.lastName}`;
         formData.address = candidate.value.address;
         formData.phone = candidate.value.phone;
         formData.city = candidate.value.city;
-        formData.skills = candidate.value.skills.join(',');
+        formData.skills = candidate.value.skills;
         if (candidate.value.province === null) {
             candidate.value.province = {
                 _id: "",
@@ -415,12 +413,13 @@
         }
 
         formData.postalCode = candidate.value.postalCode;
-        console.log('after adding details ', formData);
     }
 
     const formatDataForAPI = () => {
         if (formValidation.skills) {
-            formData.skills = formData.skills.split(',');
+            if(typeof(formData.skills) === 'string') {
+                formData.skills = formData.skills.split(',');
+            }
         }
         if (formValidation.fullName) {
             formData.fullName = formData.fullName.split(' ');
@@ -429,6 +428,15 @@
             delete formData.fullName;
         }
         console.log('Form Data before sending : ', formData);
+
+        //Data is formatted correctly, now we can send it to the API
+        //The object should represent a Candidate object
+        if(route.name === 'editcandidate') {
+            formData._id = route.params.id;
+            Candidates.Update(formData);
+        } else if(route.name === 'addcandidate') {
+            Candidates.Create(formData);
+        }
     }
 
 
