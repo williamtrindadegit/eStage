@@ -8,8 +8,12 @@
             <!-- Ajouter une condition selon la route: Ajouter ou Modifier -->
             <div v-if="route.name == 'addcandidate'">
                 <div class="flex justify-end mb-4">
-                    <button
-                        class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">Annuler</button>
+                    <router-link to="/dashboard">
+                        <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">
+                            Annuler
+                        </button>
+                    </router-link>
+                
                     <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                             stroke="currentColor">
@@ -51,8 +55,11 @@
                     <p class="font-bold text-slate-600 text-4xl">{{ formData.fullName }}</p>
                 </div>
                 <div class="flex justify-end mb-4">
-                    <button
-                        class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">Annuler</button>
+                    <router-link to="/dashboard">
+                        <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">
+                            Annuler
+                        </button>
+                    </router-link>
                     <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                             stroke="currentColor">
@@ -192,8 +199,11 @@
             </div>
             <!-- Ajouter une condition selon la route: Ajouter ou Modifier -->
             <div v-if="route.name == 'addcandidate'" class="flex justify-end mb-4 mt-4">
-                <button
-                    class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">Annuler</button>
+                <router-link to="/dashboard">
+                        <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">
+                            Annuler
+                        </button>
+                </router-link>
                 <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                         stroke="currentColor">
@@ -204,8 +214,11 @@
                 </button>
             </div>
             <div v-if="route.name == 'editcandidate'" class="flex justify-end mb-4 mt-4">
-                <button
-                    class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">Annuler</button>
+                <router-link to="/dashboard">
+                        <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">
+                            Annuler
+                        </button>
+                </router-link>
                 <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                         stroke="currentColor">
@@ -226,10 +239,11 @@
     import Provinces from '../services/Provinces';
     import Candidates from '../services/Candidates';
 
-    import { useRoute } from 'vue-router';
+    import { useRoute, useRouter } from 'vue-router';
     import { ref, onMounted, reactive } from 'vue';
 
     const route = useRoute();
+    const vueRouter = useRouter();
 
     //should reflect the UI from the form
     //any data formatting should be done afterwards
@@ -443,9 +457,17 @@
         if(route.name === 'editcandidate') {
             formData._id = route.params.id; //as in the backend api (candidate object as _id property)
             formData.id = route.params.id; //as needed for api.js (id instead of _id)
-            Candidates.Update(formData);
+            Candidates.Update(formData).then(async () => {
+                await vueRouter.push({path: '/candidats'});
+            }).catch( error=>{
+                console.log(error);
+            });
         } else if(route.name === 'addcandidate') {
-            Candidates.Create(formData);
+            Candidates.Create(formData).then(async ()=>{
+                await vueRouter.push({path: '/candidats'});
+            }).catch( error=>{
+                console.log(error);
+            });
         }
     }
 
