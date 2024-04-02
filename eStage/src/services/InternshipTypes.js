@@ -1,4 +1,4 @@
-const BASE_URL = "https://api-2.fly.dev//nternship-types";
+const BASE_URL = "https://api-2.fly.dev//internship-types";
 import api from "./api";
 
 export default {

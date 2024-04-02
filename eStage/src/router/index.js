@@ -41,12 +41,12 @@ const router = createRouter({
     },
 
     {
-      path: "/zoomUser",
+      path: "/zoomUser/:id",
       name: "zoomUser",
       component: ZoomUser,
     },
     {
-      path: "/zoomStage",
+      path: "/zoomStage/:id",
       name: "zoomStage",
       component: ZoomStage,
     },
