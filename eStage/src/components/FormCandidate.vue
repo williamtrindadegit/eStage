@@ -15,7 +15,7 @@
                             stroke="currentColor">
                             <path
                                 d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160v212q-19-8-39.5-10.5t-40.5.5v-169L647-760H200v560h240v80H200Zm0-640v560-560ZM520-40v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q8 9 12.5 20t4.5 22q0 11-4 22.5T863-260L643-40H520Zm300-263-37-37 37 37ZM580-100h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19ZM240-560h360v-160H240v160Zm240 320h4l116-115v-5q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Z" />
-                        </svg>Sauvegarder
+                        </svg>Sauvegarder          
                     </button>
                 </div>
                 <div>
@@ -241,6 +241,7 @@
         address: "",
         phone: "",
         city: "",
+        post: "",
         skills: [
             ""
         ],
@@ -298,7 +299,6 @@
     const PHONE_REGEX = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
     const POSTAL_CODE_REGEX = /^[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]$/;
     const FULLNAME_REGEX = /^[a-zA-Z-]+ [a-zA-Z-]+$/;
-    const SKILLS_REGEX = /^[a-zA-Z]+(?:,[a-zA-Z]+)*$/;
 
     //FIXME: v-model data (formData) is not updated on the frontend when using the edit route.
     onMounted(async () => {
@@ -313,6 +313,7 @@
     const validateCandidateForm = () => {
         resetErrMessages();
         Object.entries(formData).forEach(([key, currentValue]) => {
+            console.log('Key : ', key);
 
             if (key === 'email') {
                 if(currentValue === "") {
@@ -332,11 +333,12 @@
                 }
             } else if (key === 'skills') {
                 if (currentValue === "") {
+                    console.log(currentValue);
                     formValidation.skills = false;
-                    errorMessages.errSkills = 'Veuillez renseigner vos compétences.';
+                    errorMessages.errSkills = 'Veuillez renseigner vos compétences en les séparant par une virgule.';
                 } else {
-                    formValidation.skills = SKILLS_REGEX.test(currentValue);
-                    formValidation.skills ? '' : errorMessages.errSkills = 'Veuillez renseigner vos compétences en les séparant par une virgule.';
+                    formValidation.skills = true;
+                    formValidation.post = true;
                 }
             } else if (key === 'postalCode') {
                 if(currentValue === "") {
@@ -370,6 +372,7 @@
 
         let isFormValid = false;
 
+        console.log(formValidation);
         Object.entries(formValidation).forEach(([key, value]) => {
             if (!key.startsWith('_') || !key.startsWith('__')) {
                 if (!value) {
@@ -395,6 +398,7 @@
     }
 
     const getCandidateDetails = () => {
+        console.log('Before adding details', formData);
         formData.description = candidate.value.description;
         formData.email = candidate.value.email;
         formData.fullName = `${candidate.value.firstName} ${candidate.value.lastName}`;
@@ -402,6 +406,9 @@
         formData.phone = candidate.value.phone;
         formData.city = candidate.value.city;
         formData.skills = candidate.value.skills;
+        formData.post = candidate.value.skills[0];
+        console.log(formData.post);
+        console.log(formData.skills);
         if (candidate.value.province === null) {
             candidate.value.province = {
                 _id: "",
@@ -413,6 +420,7 @@
         }
 
         formData.postalCode = candidate.value.postalCode;
+        console.log('after adding details ', formData);
     }
 
     const formatDataForAPI = () => {
@@ -427,12 +435,14 @@
             formData.lastName = formData.fullName[1];
             delete formData.fullName;
         }
+    
         console.log('Form Data before sending : ', formData);
 
         //Data is formatted correctly, now we can send it to the API
         //The object should represent a Candidate object
         if(route.name === 'editcandidate') {
-            formData._id = route.params.id;
+            formData._id = route.params.id; //as in the backend api (candidate object as _id property)
+            formData.id = route.params.id; //as needed for api.js (id instead of _id)
             Candidates.Update(formData);
         } else if(route.name === 'addcandidate') {
             Candidates.Create(formData);

@@ -1,7 +1,18 @@
 <template>
-  <div className="bg-blue-100 mx-2 my-16 p-8 rounded-lg">
+  <section className="m-5 p-10 bg-gray-100 rounded-lg">
+  <h1 className="text-4xl font-bold mt-20">Offres de stage</h1>
+
+  <router-link to="/addinternshipoffer" className="mt-20 btn btn-ghost text-md m-1 p-2 border-solid border-2 text-white bg-red-500 mx-2">
+    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
+    </svg>
+    Ajouter une offre de stage</router-link>
+
+
+  <div className="bg-white mx-2 mt-4 mb-16 p-8 rounded-lg">
     <div className="grid grid-cols-1 md:flex justify-between">
       <div>
+
         <h2 className="text-black font-semibold">Dernière <span className="text-red-600">offres</span> de stage</h2>
         <p className="text-red-500">En attente de validation</p>
       </div>
@@ -48,9 +59,12 @@
       <hr className="w-full bg-slate-300 h-1">
     </div>
   </div>
+</section>
 </template>
 
 <script setup>
+import RequestDashboard from './RequestDashboard.vue';
+
   const demandes = [
     {
       "jobTitle": "Intégrateur Web",

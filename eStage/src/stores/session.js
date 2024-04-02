@@ -10,8 +10,12 @@ export const useSession = defineStore("session", {
   },
   actions: {
     login({ user }) {
-      this.loggedIn = true;
       this.user = user;
+      this.loggedIn = true;
+    },
+    logout() {
+      this.user = null;
+      this.loggedIn = false;
     },
   },
 });
