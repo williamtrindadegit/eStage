@@ -41,7 +41,7 @@
                                v-model="formData.skills" />
                     </div>
                     <div class="ml-36 mb-4">
-                        <span class="label-text-alt text-red-500" v-if="!formValidation.skills">Error message</span>
+                        <span class="label-text-alt text-red-500" v-if="!formValidation.skills">{{ errorMessages.errSkills }}</span>
                     </div>
                 </div>
             </div>
@@ -111,7 +111,7 @@
                                        v-model="formData.phone" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.phone">Error Message</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.phone">{{ errorMessages.errPhone }}</span>
                             </div>
                         </label>
                     </div>
@@ -139,7 +139,7 @@
                                 <div class="label pt-0">
                                     <span class="text-slate-600 font-bold">Courriel</span>
                                 </div>
-                                <input type="email"
+                                <input type="text"
                                        name="email"
                                        id="email"
                                        placeholder=""
@@ -147,7 +147,7 @@
                                        v-model="formData.email" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.email">Error Message</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.email">{{ errorMessages.errEmail }}</span>
                             </div>
                         </label>
                     </div>
@@ -184,7 +184,7 @@
                                        v-model="formData.postalCode" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.postalCode">Error Message</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.postalCode">{{ errorMessages.errPostalCode }}</span>
                             </div>
                         </label>
                     </div>
@@ -298,6 +298,7 @@
     const PHONE_REGEX = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
     const POSTAL_CODE_REGEX = /^[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]$/;
     const FULLNAME_REGEX = /^[a-zA-Z-]+ [a-zA-Z-]+$/;
+    const SKILLS_REGEX = /^[a-zA-Z]+(?:,[a-zA-Z]+)*$/;
 
     //FIXME: v-model data (formData) is not updated on the frontend when using the edit route.
     onMounted(async () => {
@@ -310,31 +311,51 @@
     });
 
     const validateCandidateForm = () => {
-
+        resetErrMessages();
         Object.entries(formData).forEach(([key, currentValue]) => {
 
             if (key === 'email') {
-                formValidation.email = EMAIL_REGEX.test(currentValue);
-
-            } else if (key === 'phone') {
-                formValidation.phone = PHONE_REGEX.test(currentValue);
-
-            } else if (key === 'skills') {
-                if (currentValue.length > 0) {
-                    formValidation.skills = true;
+                if(currentValue === "") {
+                    formValidation.email = false;
+                    errorMessages.errEmail = 'Veuillez renseigner une adresse courriel.';
                 } else {
-                    formValidation.skills = false;
+                    formValidation.email = EMAIL_REGEX.test(currentValue);
+                    formValidation.email ? '' : errorMessages.errEmail = 'Veuillez renseigner une adresse courriel qui respecte le format suivant : exemple@exemple.com';
                 }
-
+            } else if (key === 'phone') {
+                if(currentValue === "") {
+                    formValidation.phone = false;
+                    errorMessages.errPhone = 'Veuillez renseigner un numéro de téléphone.';
+                } else {
+                    formValidation.phone = PHONE_REGEX.test(currentValue);
+                    formValidation.phone ? '' : errorMessages.errPhone = 'Veuillez renseigner un numéro de téléphone qui respecte le format suivant : 555-123-4567.';
+                }
+            } else if (key === 'skills') {
+                if (currentValue === "") {
+                    formValidation.skills = false;
+                    errorMessages.errSkills = 'Veuillez renseigner vos compétences.';
+                } else {
+                    formValidation.skills = SKILLS_REGEX.test(currentValue);
+                    formValidation.skills ? '' : errorMessages.errSkills = 'Veuillez renseigner vos compétences en les séparant par une virgule.';
+                }
             } else if (key === 'postalCode') {
-                formValidation.postalCode = POSTAL_CODE_REGEX.test(currentValue);
-
+                if(currentValue === "") {
+                    formValidation.postalCode = false;
+                    errorMessages.errPostalCode = 'Veuillez renseigner un code postal.';
+                } else {
+                    formValidation.postalCode = POSTAL_CODE_REGEX.test(currentValue);
+                    formValidation.postalCode ? '' : errorMessages.errPostalCode = 'Veuillez renseigner un code postal qui respecte le format suivant : A1A 1A1.';
+                }
             } else if (key === 'fullName') {
-                formValidation.fullName = FULLNAME_REGEX.test(currentValue);
-
+                if(currentValue === "") {
+                    formValidation.fullName = false;
+                    errorMessages.errName = 'Veuillez renseigner votre nom et prénom.';
+                } else {
+                    formValidation.fullName = FULLNAME_REGEX.test(currentValue);
+                    formValidation.fullName ? '' : errorMessages.errName = 'Votre nom et prénom doivent être séparés par un espace.';
+                }
             } else if (key === 'province' && currentValue._id !== "") {
                 const foundProvince = provinces.value.find(province => province._id === currentValue._id);
-
                 if (foundProvince) {
                     formData.province.value = foundProvince.value;
                     formValidation.province = true;
@@ -365,6 +386,14 @@
             formatDataForAPI();
         }
     };
+
+    const resetErrMessages = () => {
+        errorMessages.errName = "Votre nom et prénom doivent être séparés par un espace.";
+        errorMessages.errSkills = "Veuillez renseigner vos compétences.";
+        errorMessages.errPhone = "Veuillez renseigner un numéro de téléphone valide.";
+        errorMessages.errEmail = "Veuillez renseigner une adresse courriel valide.";
+        errorMessages.errPostalCode = "Veuillez renseigner un code postal valide.";
+    }
 
     const getCandidateDetails = () => {
         console.log('Before adding details', formData);
