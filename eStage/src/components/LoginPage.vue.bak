@@ -1,5 +1,5 @@
 <template>
-  <main>
+
   <div class="card lg:card-side bg-base-100 shadow-xl">
     <figure><img src="../assets/images/scott-graham-5fNmWej4tAA-unsplash7.png" alt="Album" /></figure>
     <div class="card-body">
@@ -24,10 +24,11 @@
           <button class="btn" @click="saveAndNavigate">Accéder maintenant</button>
         </div>
       </div>
+
+
     </div>
   </div>
-  <footerComponent/>
-</main>
+
 
 </template>
 
@@ -35,40 +36,22 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useSession } from '@/stores/session'; 
-import footerComponent from '@/components/FooterComponent.vue';
+
 const router = useRouter();
-const session = useSession();
 const fullName = ref('');
 const email = ref('');
+const savedName = ref('');
+
+const saveName = () => {
+  savedName.value = fullName.value;
+};
 
 
 const saveAndNavigate = () => {
+  saveName();
 
-// Validation champs
-  const isValidEmail = (email) => {
-  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return pattern.test(email);
+  router.push({ path: '/InternshipDashboard', query: { name: savedName.value } });
 };
-
-  if (fullName.value.trim() === '') {
-    alert('Le champ du nom ne peut pas être vide. Veuillez réessayer.'); // À voir si on l'inclus sous les champs de forumulaire.
-    return;
-  }
-
-  if (!isValidEmail(email.value)) {
-    alert('Veuillez entrer une adresse courriel valide.'); // À voir si on l'inclus sous les champs de forumulaire.
-    return;
-  }
-
-  const user = { fullName: fullName.value, email: email.value };
-
-  session.login({ user });
-
-  router.push({ path: '/Dashboard'});
-};
-
-
 </script>
 
 <style>
