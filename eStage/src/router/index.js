@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { useSession } from '@/stores/session';
+import { useSession } from "@/stores/session";
 
-import Dashboard from "@/views/Dashboard.vue";
-import ZoomUser from "@/components/ZoomUser.vue";
-import ZoomStage from "@/components/ZoomStage.vue";
+import Dashboard from "../views/Dashboard.vue";
+import ZoomUser from "../components/ZoomUser.vue";
+import ZoomStage from "../components/ZoomStage.vue";
 import InternshipDashboard from "@/components/InternshipDashboard.vue";
 import LoginPage from "@/components/LoginPage.vue";
 import FormCandidateView from "@/views/FormCandidateView.vue";
@@ -23,6 +23,7 @@ const router = createRouter({
       name: "Accueil",
       component: LoginPage,
     },
+
     {
       path: "/dashboard",
       name: "dashboard",
@@ -38,6 +39,23 @@ const router = createRouter({
       name: "offresStage",
       component: OffersDashboard,
     },
+
+    {
+      path: "/zoomUser",
+      name: "zoomUser",
+      component: ZoomUser,
+    },
+    {
+      path: "/zoomStage",
+      name: "zoomStage",
+      component: ZoomStage,
+    },
+    {
+      path: "/InternshipDashboard",
+      name: "InternshipDashboard",
+      component: InternshipDashboard,
+    },
+
     {
       path: "/candidats",
       name: "candidats",
@@ -48,11 +66,7 @@ const router = createRouter({
       name: "entreprises",
       component: Entreprises,
     },
-    {
-      path: "/zoomStage",
-      name: "zoomStage",
-      component: ZoomStage,
-    },
+
     {
       path: "/addcandidate",
       name: "addcandidate",
@@ -93,21 +107,30 @@ const router = createRouter({
       name: "editenterprise",
       component: FormEnterpriseView,
     },
+
+    {
+      path: "/demandes-stage",
+      name: "demandesStage",
+      component: RequestDashboard,
+    },
+    {
+      path: "/offres-stage",
+      name: "offresStage",
+      component: OffersDashboard,
+    },
   ],
 });
-
 router.beforeEach((to, from, next) => {
   const sessionStore = useSession();
-  if (sessionStore.loggedIn && to.path === '/') {
-    // Si l'usager est connecté et qu'il tente d'accéder à la route '/', on le redirige vers '/dashboard'
-    next({ path: '/dashboard' });
-  } else if (!sessionStore.loggedIn && to.path !== '/') {
-    // Si l'usager n'est pas connecté et qu'il tente d'accéder à une route autre que '/', on le redirige vers '/'
-    next({ path: '/' });
+  if (sessionStore.loggedIn && to.path === "/") {
+    //Si l'usager est connectÃ© et qu'il tente d'accÃ©der Ã  la route '/', on le redirige vers '/dashboard'
+    next({ path: "/dashboard" });
+  } else if (!sessionStore.loggedIn && to.path !== "/") {
+    //Si l'usager n'est pas connectÃ© et qu'il tente d'accÃ©der Ã  une route autre que '/', on le redirige vers '/'
+    next({ path: "/" });
   } else {
-    // Sinon, on le laisse passer normalement dans les autres cas.
+    //Sinon, on le laisse passer normalement dans les autres cas.
     next();
   }
 });
-
 export default router;
