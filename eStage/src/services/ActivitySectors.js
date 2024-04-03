@@ -12,7 +12,11 @@ export default {
     return api.makeRequest(BASE_URL, "POST", activitySector);
   },
   async Update(activitySector) {
-    return api.makeRequest(BASE_URL, "PATCH", activitySector);
+    return api.makeRequest(
+      `${BASE_URL}/${activitySector._id}`,
+      "PATCH",
+      activitySector
+    );
   },
   async Delete(id) {
     return api.makeRequest(`${BASE_URL}/${id}`, "DELETE");
