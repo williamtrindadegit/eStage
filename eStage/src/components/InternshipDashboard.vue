@@ -123,9 +123,8 @@ function edit(offre) {
 }
 
 function deleteMe(id){
-    deleted.value++; // effacer apres apres l'api es rempli
-    offres.value = getData(3 - deleted.value); // effacer apres l'api es rempli
-    //offres.value = getInternShipOffers();  // de commenter ceci quand l'api sera rempli
+
+    offres.value = getInternShipOffers();   
 }
 
 async function getInternShipOffers(){
