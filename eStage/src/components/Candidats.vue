@@ -13,12 +13,10 @@
       <div class="grid grid-cols-3 auto-cols-max">
         <div v-for="candidat in candidats" :key="candidat._id" class="max-w-sm rounded overflow-hidden shadow-lg m-2">
           <div class="px-6 py-4">
-            <router-link :to="'/ZoomCandidat/' + candidat._id">
-              {{ candidat.firstName }} {{ candidat.lastName }}
-        </router-link>
 
-
-            <div class="font-bold text-xl mb-2">{{ candidat.firstName }} {{ candidat.lastName }}</div>
+              <button @click="onDetails(candidat._id)" class="font-bold text-xl mb-2">
+                <span class="pr-2 mdi mdi-eye-circle text-blue-600 text-lg mr-4">{{ candidat.firstName }} {{ candidat.lastName }}</span>
+              </button>
             <p class="text-gray-700 text-base">{{ candidat.description }}</p>
             <p>{{ candidat.email }}  -  {{ candidat.phone }}</p>
             <p>{{ candidat.address }}, {{ candidat.city }} {{ candidat.province.value }} - {{ candidat.postalCode }}</p>
@@ -33,7 +31,9 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import CandidatService from "@/services/Candidates";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const candidats = ref([]);
 
 onMounted(async () => {
@@ -45,6 +45,10 @@ onMounted(async () => {
     console.error("Erreur lors de la récupération des candidats:", error);
   }
 });
+
+function onDetails(idString) {
+    router.push({ name: "zoomCandidat", params: { id: idString } });
+  }
 </script>
 
 <style>

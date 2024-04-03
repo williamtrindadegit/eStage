@@ -64,7 +64,7 @@ const router = createRouter({
       component: Candidats,
     },
     {
-      path: "/zoomCandidat/:id",
+      path: "/candidats/:id",
       name: "zoomCandidat",
       component: zoomCandidat,
     },

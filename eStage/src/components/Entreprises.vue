@@ -13,7 +13,9 @@
         <div v-for="enterprise in enterprises" :key="enterprise._id" class="max-w-sm rounded overflow-hidden shadow-lg m-2">
           <img class="w-full" :src="enterprise.image" :alt="enterprise.name">
           <div class="px-6 py-4">
-            <div class="font-bold text-xl mb-2">{{ enterprise.name }}</div>
+            <button @click="onDetails(enterprise._id)" class="font-bold text-xl mb-2">
+                <span class="pr-2 mdi mdi-eye-circle text-blue-600 text-lg mr-4">{{ enterprise.name }}</span>
+            </button>
             <p>{{ enterprise.address }}, {{ enterprise.city }} {{ enterprise.province.value }} - {{ enterprise.postalCode }}</p>
             <p class="text-gray-700 text-base">{{ enterprise.description }}</p>
             <p>Téléphone : {{ enterprise.phone }}</p>
@@ -29,7 +31,9 @@
   <script setup>
   import { ref, onMounted } from 'vue';
   import EnterpriseService from "@/services/Enterprises";
-  
+  import { useRouter } from "vue-router";
+
+const router = useRouter();
   const enterprises = ref([]);
   
   onMounted(async () => {
@@ -41,6 +45,10 @@
       console.error("Erreur lors de la récupération des entreprises:", error);
     }
   });
+
+  function onDetails(idString) {
+    router.push({ name: "zoomEnterprise", params: { id: idString } });
+  }
   </script>
   
   <style>
