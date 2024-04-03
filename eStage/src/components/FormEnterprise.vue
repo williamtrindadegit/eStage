@@ -231,14 +231,13 @@ import FileInput from './FileInput.vue';
 
 import { useRoute, useRouter } from 'vue-router';
 import { ref, reactive, onMounted } from 'vue';
-import Entreprises from './Entreprises.vue';
 
 const route = useRoute();
 const vueRouter = useRouter();
 
 //Mock to be used when sending data to the API that is not in the designed form
 const mockEnterprise = {
-  image: "aHR0cHM6Ly9wbGFjZWhvbGQuY28vNjAweDQwMC9FRUUvMzEzNDND",
+  image: "aHR0cHM6Ly9pbWcuZnJlZXBpay5jb20vZnJlZS12ZWN0b3IvZ29sZGVuLWJsdWUtZGlhbW9uZC1zaGFwZS1sb2dvLWJ1c2luZXNzLXRlbXBsYXRlXzIzLTIxNDg3MDc2NDguanBnP3c9NzQwJnQ9c3Q9MTcxMjE4MjgxOX5leHA9MTcxMjE4MzQxOX5obWFjPWQyNTVhNmE3MWM5MzZhMGMzMzIzMGU4YzA3YjNlM2UwNmE2NjUyNDU0YjlhMmMzYWU3NjNhZjdlMzBiNjVmYzc=",
   name: "Example Company Inc.",
   address: "123 Main St",
   postalCode: "h0h 0h0",
@@ -385,7 +384,7 @@ const resetErrMessages = () => {
                     formValidation.contactName = NAME_REGEX.test(currentValue);
                     formValidation.contactName ? '' : errorMessages.contactName = 'Le nom de la personne contacte de votre entreprise ne peut pas contenir de charactères spéciaux ni de chiffres.';
                 }
-            } else if (key === 'province' && currentValue._id !== "") {
+            } else if (key === 'province') {
                 const foundProvince = provinces.value.find(province => province._id === currentValue._id);
                 console.log(foundProvince);
                 if (foundProvince) {
@@ -396,19 +395,18 @@ const resetErrMessages = () => {
                 }
 
             } else {
-                formValidation[key] = (currentValue || currentValue.length > 0) ? true : false;
+                formValidation[key] = (currentValue !== "" && currentValue !== undefined && currentValue !== null) ? true : false;
             }
         });
 
-        let isFormValid = false;
+        let isFormValid = true;
         console.log(formValidation);
+        console.log(formData);
         Object.entries(formValidation).forEach(([key, value]) => {
             if (!key.startsWith('_') || !key.startsWith('__')) {
                 if (!value) {
-                    isFormValid = false;
-                    console.log('Error in form validation : ', key, 'because current value is ', value);
-                } else {
-                    isFormValid = true;
+                    isFormValid = false; // If any value is false, set form validity to false
+                    console.log('Error in form validation : ', key, ' because current value is ', value);
                 }
             }
         });
@@ -420,8 +418,9 @@ const resetErrMessages = () => {
 
     const sendDataToApi = () => {
         console.log('FormData before formatting', formData);
+        formData._id = route.params.id;
         if(route.name === 'editenterprise') {
-            Enterprises.Update(formData, route.params.id).then(async () => {
+            Enterprises.Update(formData).then(async () => {
                 await vueRouter.push({path: '/entreprises'});
             }).catch( error=>{
                 console.log(error);

@@ -364,8 +364,6 @@ const enterprises = ref([]);
 const internshipTypes = ref([]);
 const internshipOffers = ref([]);
 
-const formulaireAjout = true;
-
 const REQUIRED_SKILLS_REGEX = /^[a-zA-Z]+(?:,[a-zA-Z]+)*$/;
 
 onMounted(async () => {
@@ -446,27 +444,25 @@ const validateInternshipOfferForm = () => {
                     formValidation.startDate = false;
                 }
             } else if(key === 'weeklyWorkHours') {
-                if(currentValue !== "") {
+                if(currentValue !== "" && currentValue > 0) {
                     formData.weeklyWorkHours = parseInt(currentValue);
                     formValidation.weeklyWorkHours = true;
                 } else {
                     formValidation.weeklyWorkHours = false;
                 }
             } else {
-                formValidation[key] = (currentValue || currentValue.length > 0 || currentValue !== undefined) ? true : false;
+                formValidation[key] = (currentValue !== "" && currentValue !== undefined && currentValue !== null) ? true : false;
             }
         });
 
-        let isFormValid = false;
+        let isFormValid = true;
         console.log(formValidation);
         console.log(formData);
         Object.entries(formValidation).forEach(([key, value]) => {
             if (!key.startsWith('_') || !key.startsWith('__')) {
                 if (!value) {
-                    isFormValid = false;
-                    console.log('Error in form validation : ', key, 'because current value is ', value);
-                } else {
-                    isFormValid = true;
+                    isFormValid = false; // If any value is false, set form validity to false
+                    console.log('Error in form validation : ', key, ' because current value is ', value);
                 }
             }
         });
@@ -479,6 +475,7 @@ const validateInternshipOfferForm = () => {
 const sendDataToApi = () => {
     console.log('Sending data to API');
     console.log(formData);
+    formData._id = route.params.id;
     if(route.name === 'addinternshipoffer') {
         InternshipOffers.Create(formData).then(async () => {
             await vueRouter.push({path: '/offres-stage'});
@@ -487,7 +484,7 @@ const sendDataToApi = () => {
         });;
         console.log('Adding new internship offer');
     } else if(route.name === 'editinternshipoffer') {
-        InternshipOffers.Update(formData, route.params.id).then(async () => {
+        InternshipOffers.Update(formData).then(async () => {
             await vueRouter.push({path: '/offres-stage'});
         }).catch( error=>{
             console.log(error);
