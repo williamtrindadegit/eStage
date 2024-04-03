@@ -237,7 +237,7 @@ const vueRouter = useRouter();
 
 //Mock to be used when sending data to the API that is not in the designed form
 const mockEnterprise = {
-  image: "aHR0cHM6Ly9wbGFjZWhvbGQuY28vNjAweDQwMC9FRUUvMzEzNDND",
+  image: "aHR0cHM6Ly9pbWcuZnJlZXBpay5jb20vZnJlZS12ZWN0b3IvZ29sZGVuLWJsdWUtZGlhbW9uZC1zaGFwZS1sb2dvLWJ1c2luZXNzLXRlbXBsYXRlXzIzLTIxNDg3MDc2NDguanBnP3c9NzQwJnQ9c3Q9MTcxMjE4MjgxOX5leHA9MTcxMjE4MzQxOX5obWFjPWQyNTVhNmE3MWM5MzZhMGMzMzIzMGU4YzA3YjNlM2UwNmE2NjUyNDU0YjlhMmMzYWU3NjNhZjdlMzBiNjVmYzc=",
   name: "Example Company Inc.",
   address: "123 Main St",
   postalCode: "h0h 0h0",
