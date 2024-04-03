@@ -14,6 +14,8 @@ import OffersDashboard from "@/views/OffresStage.vue";
 import RequestDashboard from "@/views/DemandesStage.vue";
 import Candidats from "@/views/Candidats.vue";
 import Entreprises from "@/views/Entreprises.vue";
+import zoomEnterprise from "../components/zoomEnterprise.vue";
+import zoomCandidat from "../components/zoomCandidat.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -62,11 +64,20 @@ const router = createRouter({
       component: Candidats,
     },
     {
+      path: "/candidats/:id",
+      name: "zoomCandidat",
+      component: zoomCandidat,
+    },
+    {
       path: "/entreprises",
       name: "entreprises",
       component: Entreprises,
     },
-
+    {
+      path: "/zoomEnterprise/:id",
+      name: "zoomEnterprise",
+      component: zoomEnterprise,
+    },
     {
       path: "/addcandidate",
       name: "addcandidate",
