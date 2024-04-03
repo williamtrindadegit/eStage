@@ -231,7 +231,6 @@ import FileInput from './FileInput.vue';
 
 import { useRoute, useRouter } from 'vue-router';
 import { ref, reactive, onMounted } from 'vue';
-import Entreprises from './Entreprises.vue';
 
 const route = useRoute();
 const vueRouter = useRouter();
