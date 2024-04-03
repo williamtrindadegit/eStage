@@ -364,8 +364,6 @@ const enterprises = ref([]);
 const internshipTypes = ref([]);
 const internshipOffers = ref([]);
 
-const formulaireAjout = true;
-
 const REQUIRED_SKILLS_REGEX = /^[a-zA-Z]+(?:,[a-zA-Z]+)*$/;
 
 onMounted(async () => {
