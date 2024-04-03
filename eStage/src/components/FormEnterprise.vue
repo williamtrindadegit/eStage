@@ -341,7 +341,7 @@ const resetErrMessages = () => {
     errorMessages.contactName = "Vous devez ajouter un nom de contact";
 }
 
-const validateEnterpriseForm = () => {
+    const validateEnterpriseForm = () => {
         resetErrMessages();
         Object.entries(formData).forEach(([key, currentValue]) => {
 
