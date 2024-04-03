@@ -1,98 +1,108 @@
 <template>
-   
-   <div class="card lg:card-side bg-base-100 shadow-xl">
-  <figure><img src="../assets/images/scott-graham-5fNmWej4tAA-unsplash7.png" alt="Album"/></figure>
-  <div class="card-body">
-   
-    <div class="grid grid-cols-12 grid-rows-1 gap-4">
+  <div class="card lg:card-side bg-base-100 shadow-xl">
+    <figure><img src="../assets/images/scott-graham-5fNmWej4tAA-unsplash7.png" alt="Album"/></figure>
+    <div class="card-body">
+      <div class="grid grid-cols-12 grid-rows-1 gap-4">
         <div class="col-span-8 col-start-3">
-            <div class="input-container">
+          <div class="input-container">
             <div class="text">
-                <h1 class="h1">Identification </h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id itaque odit aspernatur exercitationem incidunt cumque quas eius voluptates aut sapiente!</p>
+              <h1 class="h1">Identification</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id itaque odit aspernatur exercitationem incidunt cumque quas eius voluptates aut sapiente!</p>
             </div>
             
-            <input type="text" id="name" v-model="fullName" placeholder="Votre nom et prénom">
+            <input type="text" id="name" v-model="fullName" :class="{'input-error': fullNameError}" placeholder="Votre nom et prénom">
+            <p class="error-message" v-if="fullNameError">Ce champ est requis.</p>
           </div>
         
           <div class="input-container">
             <label for="email"></label>
-            <input type="email" id="email" v-model="email" placeholder="Courriel">
+            <input type="email" id="email" v-model="email" :class="{'input-error': emailError}" placeholder="Courriel">
+            <p class="error-message" v-if="emailError">Veuillez fournir un courriel valide.</p>
           </div>
         
           <button class="btn" @click="saveAndNavigate">Accéder maintenant</button>
         </div>
-</div>
-    
-        
+      </div>
     </div>
-</div>
+  </div>
+</template>
 
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-  </template>
-  
- 
-  <script setup>
-  import { ref } from 'vue';
-  import { useRouter } from 'vue-router';
+const router = useRouter();
+const fullName = ref('');
+const email = ref('');
+const fullNameError = ref(false);
+const emailError = ref(false);
 
-  const router = useRouter();
-  const fullName = ref('');
-  const email = ref('');
-  const savedName = ref('');
+const isValidEmail = (email) => {
+  const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  return pattern.test(email);
+};
 
-  const saveName = () => {
-    savedName.value = fullName.value;
-  };
+const validate = () => {
+  fullNameError.value = !fullName.value;
+  emailError.value = !isValidEmail(email.value);
+  return !fullNameError.value && !emailError.value;
+};
 
-
-  const saveAndNavigate = () => {
-  saveName();
-  
-  router.push({ path: '/InternshipDashboard', query: { name: savedName.value } });
+const saveAndNavigate = () => {
+  if (validate()) {
+    router.push({ path: '/InternshipDashboard', query: { name: fullName.value } });
+  }
 };
 </script>
 
-  <style>
-
-.input-container{
-    padding-bottom: 20px;
+<style>
+.input-container {
+  padding-bottom: 20px;
 }
 
-  .input-container input {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #056ff8;
-    border-radius: 5px;
-  }
+.input-container input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #056ff8;
+  border-radius: 5px;
+}
 
-  .input-container input::placeholder {
-    color: #999;
-  }
+.input-container input::placeholder {
+  color: #999;
+}
 
-  .btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    
-  }
+.input-error {
+  border-color: red;
+}
 
-  .btn:hover {
-    background-color: #223141;
-  }
+.error-message {
+  color: red;
+  font-size: 0.875em;
+  margin-top: 5px;
+}
 
-  .h1{
-    font-size: 40px;
-    color: rgb(0, 0, 0);
-    font-weight: bold;
-  }	
+.btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
-  .text {
-    width: 500px;
-    margin-bottom: 50px;
-  }
-  </style>
+.btn:hover {
+  background-color: #223141;
+}
+
+.h1 {
+  font-size: 40px;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+}
+
+.text {
+  width: 500px;
+  margin-bottom: 50px;
+}
+</style>
