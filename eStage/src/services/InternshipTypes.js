@@ -13,7 +13,7 @@ export default {
   },
   async Update(internshipTypes) {
     return api.makeRequest(
-      `${BASE_URL}/${internshipTypes.id}`,
+      `${BASE_URL}/${internshipTypes._id}`,
       "PATCH",
       internshipRequests
     );
