@@ -384,7 +384,7 @@ const resetErrMessages = () => {
                     formValidation.contactName = NAME_REGEX.test(currentValue);
                     formValidation.contactName ? '' : errorMessages.contactName = 'Le nom de la personne contacte de votre entreprise ne peut pas contenir de charactères spéciaux ni de chiffres.';
                 }
-            } else if (key === 'province' && currentValue._id !== "") {
+            } else if (key === 'province') {
                 const foundProvince = provinces.value.find(province => province._id === currentValue._id);
                 console.log(foundProvince);
                 if (foundProvince) {
@@ -395,19 +395,18 @@ const resetErrMessages = () => {
                 }
 
             } else {
-                formValidation[key] = (currentValue || currentValue.length > 0) ? true : false;
+                formValidation[key] = (currentValue !== "" && currentValue !== undefined && currentValue !== null) ? true : false;
             }
         });
 
-        let isFormValid = false;
+        let isFormValid = true;
         console.log(formValidation);
+        console.log(formData);
         Object.entries(formValidation).forEach(([key, value]) => {
             if (!key.startsWith('_') || !key.startsWith('__')) {
                 if (!value) {
-                    isFormValid = false;
-                    console.log('Error in form validation : ', key, 'because current value is ', value);
-                } else {
-                    isFormValid = true;
+                    isFormValid = false; // If any value is false, set form validity to false
+                    console.log('Error in form validation : ', key, ' because current value is ', value);
                 }
             }
         });
