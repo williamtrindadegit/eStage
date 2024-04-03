@@ -475,6 +475,7 @@ const validateInternshipOfferForm = () => {
 const sendDataToApi = () => {
     console.log('Sending data to API');
     console.log(formData);
+    formData._id = route.params.id;
     if(route.name === 'addinternshipoffer') {
         InternshipOffers.Create(formData).then(async () => {
             await vueRouter.push({path: '/offres-stage'});
@@ -483,7 +484,7 @@ const sendDataToApi = () => {
         });;
         console.log('Adding new internship offer');
     } else if(route.name === 'editinternshipoffer') {
-        InternshipOffers.Update(formData, route.params.id).then(async () => {
+        InternshipOffers.Update(formData).then(async () => {
             await vueRouter.push({path: '/offres-stage'});
         }).catch( error=>{
             console.log(error);

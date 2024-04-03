@@ -418,8 +418,9 @@ const resetErrMessages = () => {
 
     const sendDataToApi = () => {
         console.log('FormData before formatting', formData);
+        formData._id = route.params.id;
         if(route.name === 'editenterprise') {
-            Enterprises.Update(formData, route.params.id).then(async () => {
+            Enterprises.Update(formData).then(async () => {
                 await vueRouter.push({path: '/entreprises'});
             }).catch( error=>{
                 console.log(error);

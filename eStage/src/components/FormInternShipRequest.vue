@@ -550,9 +550,10 @@ const sendDataToApi = async (data) => {
             console.log(error);
         });
         console.log('Sent!');
-    } else {
+    } else if(route.name === 'editinternshiprequest') {
         console.log('Updating data to API');
-        InternshipRequests.Update(data, formData.id).then(()=>{
+        data._id = internshipRequest.value._id;
+        InternshipRequests.Update(data).then(()=>{
             vueRouter.push('/demandes-stage');
         }).catch((error) => {
             console.log(error);
@@ -594,7 +595,6 @@ const getInternshipRequestDetails = () => { //later use when editing
     formData.schoolName = "N'est pas dans L'API";
     formData.city = "N'est pas dans L'API";
     formData.fullName = "N'est pas dans L'API";
-    formData.id = internshipRequest.value._id;
 }
 
 </script>
