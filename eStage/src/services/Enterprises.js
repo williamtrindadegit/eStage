@@ -13,7 +13,7 @@ export default {
     return api.makeRequest(BASE_URL, "POST", enterprise);
   },
   async Update(enterprise) {
-    return api.makeRequest(BASE_URL, "PATCH", enterprise);
+    return api.makeRequest(`${BASE_URL}/${enterprise.id}`, "PATCH", enterprise);
   },
   async Delete(id) {
     return api.makeRequest(`${BASE_URL}/${id}`, "DELETE");

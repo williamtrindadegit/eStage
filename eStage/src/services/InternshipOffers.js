@@ -12,7 +12,11 @@ export default {
     return api.makeRequest(BASE_URL, "POST", internshipOffer);
   },
   async Update(internshipOffer) {
-    return api.makeRequest(BASE_URL, "PATCH", internshipOffer);
+    return api.makeRequest(
+      `${BASE_URL}/${internshipOffer.id}`,
+      "PATCH",
+      internshipOffer
+    );
   },
   async Delete(id) {
     return api.makeRequest(`${BASE_URL}/${id}`, "DELETE");

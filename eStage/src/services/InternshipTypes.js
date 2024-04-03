@@ -8,11 +8,15 @@ export default {
   async FindAll() {
     return api.makeRequest(BASE_URL, "GET");
   },
-  async Create(internshipRequests) {
-    return api.makeRequest(BASE_URL, "POST", internshipRequests);
+  async Create(internshipTypes) {
+    return api.makeRequest(BASE_URL, "POST", internshipTypes);
   },
-  async Update(internshipRequests) {
-    return api.makeRequest(BASE_URL, "PATCH", internshipRequests);
+  async Update(internshipTypes) {
+    return api.makeRequest(
+      `${BASE_URL}/${internshipTypes.id}`,
+      "PATCH",
+      internshipRequests
+    );
   },
   async Delete(id) {
     return api.makeRequest(`${BASE_URL}/${id}`, "DELETE");
