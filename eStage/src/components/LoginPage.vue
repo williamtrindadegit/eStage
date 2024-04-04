@@ -74,7 +74,7 @@ const saveAndNavigate = () => {
 
   session.login({ user });
 
-  router.push({ path: '/Dashboard' });
+  router.push({ path: '/InternshipDashboard' });
 };
 
 
@@ -141,3 +141,5 @@ const saveAndNavigate = () => {
     width: 500px;
     margin-bottom: 50px;
   }</style>
+
+
