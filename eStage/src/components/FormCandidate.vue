@@ -327,6 +327,8 @@
     const validateCandidateForm = () => {
         resetErrMessages();
         Object.entries(formData).forEach(([key, currentValue]) => {
+            console.log('Key : ', key);
+
             if (key === 'email') {
                 if(currentValue === "") {
                     formValidation.email = false;
@@ -345,6 +347,7 @@
                 }
             } else if (key === 'skills') {
                 if (currentValue === "") {
+                    console.log(currentValue);
                     formValidation.skills = false;
                     errorMessages.errSkills = 'Veuillez renseigner vos compétences en les séparant par une virgule.';
                 } else {
@@ -381,10 +384,13 @@
             }
         });
         let isFormValid = true;
+        console.log(formValidation);
+        console.log(formData);
         Object.entries(formValidation).forEach(([key, value]) => {
             if (!key.startsWith('_') || !key.startsWith('__')) {
                 if (!value) {
                     isFormValid = false; // If any value is false, set form validity to false
+                    console.log('Error in form validation : ', key, ' because current value is ', value);
                 }
             }
         });
@@ -403,6 +409,7 @@
     }
 
     const getCandidateDetails = () => {
+        console.log('Before adding details', formData);
         formData.description = candidate.value.description;
         formData.email = candidate.value.email;
         formData.fullName = `${candidate.value.firstName} ${candidate.value.lastName}`;
@@ -411,6 +418,8 @@
         formData.city = candidate.value.city;
         formData.skills = candidate.value.skills;
         formData.post = candidate.value.skills[0];
+        console.log(formData.post);
+        console.log(formData.skills);
         if (candidate.value.province === null) {
             candidate.value.province = {
                 _id: "",
@@ -422,6 +431,7 @@
         }
 
         formData.postalCode = candidate.value.postalCode;
+        console.log('after adding details ', formData);
     }
 
     const formatDataForAPI = () => {
@@ -436,6 +446,8 @@
             formData.lastName = formData.fullName[1];
             delete formData.fullName;
         }
+    
+        console.log('Form Data before sending : ', formData);
 
         //Data is formatted correctly, now we can send it to the API
         //The object should represent a Candidate object
