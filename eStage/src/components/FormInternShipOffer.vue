@@ -374,7 +374,6 @@ onMounted(async () => {
         internshipOffers.value = await InternshipOffers.FindOne(route.params.id);
         getInternShipOfferDetails();
     }
-    //console.log(provinces.value, enterprises.value, internshipTypes.value);
 });
 
 const resetErrMessages = () => {
@@ -410,7 +409,7 @@ const validateInternshipOfferForm = () => {
                 }
             } else if (key === 'internshipType' && currentValue._id !== "") {
                 const foundInternship = internshipTypes.value.find(internship => internship._id === currentValue._id);
-                console.log(foundInternship);
+
                 if (foundInternship) {
                     formData.internshipType.value = foundInternship.value;
                     formValidation.internshipType = true;
@@ -419,7 +418,6 @@ const validateInternshipOfferForm = () => {
                 }
             } else if (key === 'enterprise' && currentValue._id !== "") {
                 const foundEnterprise = enterprises.value.find(enterprise => enterprise._id === currentValue._id);
-                console.log(foundEnterprise);
                 if (foundEnterprise) {
                     formData.enterprise = foundEnterprise;
                     formData.province = foundEnterprise.province;
@@ -456,13 +454,10 @@ const validateInternshipOfferForm = () => {
         });
 
         let isFormValid = true;
-        console.log(formValidation);
-        console.log(formData);
         Object.entries(formValidation).forEach(([key, value]) => {
             if (!key.startsWith('_') || !key.startsWith('__')) {
                 if (!value) {
                     isFormValid = false; // If any value is false, set form validity to false
-                    console.log('Error in form validation : ', key, ' because current value is ', value);
                 }
             }
         });
@@ -473,8 +468,6 @@ const validateInternshipOfferForm = () => {
 };
 
 const sendDataToApi = () => {
-    console.log('Sending data to API');
-    console.log(formData);
     formData._id = route.params.id;
     if(route.name === 'addinternshipoffer') {
         InternshipOffers.Create(formData).then(async () => {
@@ -482,14 +475,12 @@ const sendDataToApi = () => {
         }).catch( error=>{
             console.log(error);
         });;
-        console.log('Adding new internship offer');
     } else if(route.name === 'editinternshipoffer') {
         InternshipOffers.Update(formData).then(async () => {
             await vueRouter.push({path: '/offres-stage'});
         }).catch( error=>{
             console.log(error);
         });;
-        console.log('Updating internship offer');
     }
 };
 
@@ -508,7 +499,6 @@ const getInternShipOfferDetails = () => {
     const dayEnd = String(endDateISO.getDate()).padStart(2, '0');
     const formattedEnd = `${yearEnd}-${monthEnd}-${dayEnd}`;
 
-    console.log(internshipTypes.value);
     formData.title = internshipOffers.value.title;
     formData.description = internshipOffers.value.description;
     formData.startDate = formattedStart;

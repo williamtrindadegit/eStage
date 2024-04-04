@@ -56,12 +56,16 @@
             </div>
             <div class="bg-white p-5">
                 <div class="flex flex-col">
-                    <label for="fullName" class="text-slate-600 font-bold mb-1 mt-5">Nom et prénom</label>
-                    <input type="text" name="fullName" id="fullName"
-                        class="input input-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
-                        placeholder=""
-                        v-model="formData.fullName"/>
-                    <span class="label-text-alt text-red-500" v-if="!formValidation.fullName">{{errorMessages.fullName}}</span>
+                    <label for="enterprise" class="text-slate-600 font-bold mb-1 mt-5">Candidats: </label>
+                    <select id="enterprise" name="enterprise"
+                        class="select select-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500" v-model="formData.candidate._id">
+                        <option disabled selected>Veuillez effectuer un choix</option>
+                        <option v-for="candidate in candidates" :key="candidate._id" :value="candidate._id">{{ candidate.firstName }} {{ candidate.lastName }}</option>
+                        <!-- ajout des entreprises avec l'api -->
+                    </select>
+                </div>
+                <div class="label">
+                    <span class="label-text-alt text-red-500" v-if="!formValidation.candidate">{{errorMessages.candidate}}</span>
                 </div>
                 <div class="flex flex-col">
                     <label for="description" class="text-slate-600 font-bold mb-1 mt-5">Présentation</label>
@@ -334,7 +338,6 @@ const vueRouter = useRouter();
 
 const formData = reactive({
     title: '',
-    fullName: '',
     description: '',
     formationProgram: '',
     schoolName: '',
@@ -354,7 +357,6 @@ const formData = reactive({
 
 const formValidation = reactive({
     title: true,
-    fullName: true,
     description: true,
     formationProgram: true,
     schoolName: true,
@@ -374,7 +376,6 @@ const formValidation = reactive({
 
 const errorMessages = reactive({
     title: 'Le titre est obligatoire',
-    fullName: 'Le nom et prénom sont obligatoires',
     description: 'La description est obligatoire',
     formationProgram: 'Le programme de formation est obligatoire',
     schoolName: 'Le nom de l\'établissement scolaire est obligatoire',
@@ -404,12 +405,10 @@ onMounted(async () => {
         internshipRequest.value = await InternshipRequests.FindOne(route.params.id);
         getInternshipRequestDetails();
     }
-    console.log(provinces.value);
 });
 
 const resetErrMessages = () => {
     errorMessages.title = 'Le titre est obligatoire',
-    errorMessages.fullName = 'Le nom et prénom sont obligatoires',
     errorMessages.description = 'La description est obligatoire',
     errorMessages.formationProgram = 'Le programme de formation est obligatoire',
     errorMessages.schoolName = 'Le nom de l\'établissement scolaire est obligatoire',
@@ -474,7 +473,6 @@ const validateInternshipRequestForm = () => {
             }
         } else if (key === 'province') {
             const foundProvince = provinces.value.find(province => province._id === currentValue._id);
-            console.log(foundProvince);
             if (foundProvince) {
                 formData.province.value = foundProvince.value;
                 formValidation.province = true;
@@ -489,30 +487,24 @@ const validateInternshipRequestForm = () => {
             } else {
                 formValidation.activitySector = false;
             }
-        } else if (key === 'fullName') {
-            if(currentValue === "") {
-                formValidation.fullName = false;
-                errorMessages.fullName = 'Veuillez renseigner votre nom et prénom.';
-            } else {
-                formValidation.fullName = FULLNAME_REGEX.test(currentValue);
-                formValidation.fullName ? '' : errorMessages.fullName = 'Votre nom et prénom doivent être séparés par un espace.';
-            }
         } else if (key === 'candidate') {
-            formData.candidate = candidates.value[0];
-            formValidation.candidate = true;
+            const foundCandidate = candidates.value.find(candidate => candidate._id === currentValue._id);
+            if (foundCandidate) {
+                formData.candidate.value = foundCandidate.value;
+                formValidation.candidate = true;
+            } else {
+                formValidation.candidate = false;
+            }
         } else {
             formValidation[key] = (currentValue !== "" && currentValue !== undefined && currentValue !== null) ? true : false;
         }
     });
 
     let isFormValid = true;
-    console.log(formValidation);
-    console.log(formData);
     Object.entries(formValidation).forEach(([key, value]) => {
         if (!key.startsWith('_') || !key.startsWith('__')) {
             if (!value) {
                 isFormValid = false; // If any value is false, set form validity to false
-                console.log('Error in form validation : ', key, ' because current value is ', value);
             }
         }
     });
@@ -523,8 +515,6 @@ const validateInternshipRequestForm = () => {
 }
 
 const formatData = () => {
-    console.log('formatting data');
-    console.log(formData);
     let formattedDataForApi = {
         title: formData.title,
         description: formData.description,
@@ -543,15 +533,12 @@ const formatData = () => {
 
 const sendDataToApi = async (data) => {
     if(route.name === 'addinternshiprequest') {
-        console.log('Sending data to API');
         await InternshipRequests.Create(data).then(()=>{
             vueRouter.push('/demandes-stage');
         }).catch((error) => {
             console.log(error);
         });
-        console.log('Sent!');
     } else if(route.name === 'editinternshiprequest') {
-        console.log('Updating data to API');
         data._id = internshipRequest.value._id;
         InternshipRequests.Update(data).then(()=>{
             vueRouter.push('/demandes-stage');
@@ -562,10 +549,7 @@ const sendDataToApi = async (data) => {
 }
 
 const getInternshipRequestDetails = () => { //later use when editing
-    console.log('Getting internship request details');
-    console.log(internshipRequest.value);
     //reconvertir le format de date qu'on recoit de l'api
-    //... en tk
     const startDateISO = new Date(internshipRequest.value.startDate);
     const yearStart = startDateISO.getFullYear();
     const monthStart = String(startDateISO.getMonth() + 1).padStart(2, '0'); // Add 1 to month since it's zero-based
@@ -584,7 +568,6 @@ const getInternshipRequestDetails = () => { //later use when editing
     formData.startDate = formattedStart;
     formData.endDate = formattedEnd;
     formData.weeklyWorkHours = internshipRequest.value.weeklyWorkHours;
-    console.log(internshipRequest.value.province._id);
     formData.province = internshipRequest.value.province;
     formData.skills = internshipRequest.value.skills;
     formData.internshipType = internshipRequest.value.internshipType;

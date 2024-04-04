@@ -10,10 +10,11 @@
 
         <!-- Grid header -->
         <div class="grid mt-20 grid-cols-4 gap-4">
-            <div>Profil</div>
-            <div>Ville</div>
-            <div>Date</div>
-            <div>Actions</div>
+            <div>Poste</div>
+            <div>Secteur d'activité</div>
+            <div>Région</div>
+            <div>Date d'inscription</div>
+            <div></div>
         </div>
 
         <!-- Grid -->
@@ -22,7 +23,7 @@
 
             <p>{{ $route.query.name }}</p> <!--pour tester et afficher le nom de la page aceuille-->
         </div>
-        <div v-for="offre in computedOffers" class="grid grid-cols-4 gap-4">
+        <div v-for="offre in computedOffers" :key="offre._id" class=" grid grid-cols-4 gap-4">
             <div class="grid grid-cols-12 grid-rows-1 gap-12">
                 <div class="bg-red-600 p-3 w-12 rounded-lg col-start-1">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -36,7 +37,9 @@
                 </div>
             </div>
             <div class="text-black text-xs flex items-center">{{ offre?.province?.value }}</div>
-            <div class="text-black text-xs flex items-center">{{ offre?.startDate }}</div>
+            <div class="text-black text-xs flex items-center">{{ new Date(offre.startDate).toLocaleDateString('fr-CA')
+                }}
+            </div>
             <div class="text-xs flex justify-between items-center">
                 <button class="btn bg-emerald-200 border-emerald-200 text-emerald-600 font-light"
                     @click="goTo()">Accepter</button>
@@ -50,11 +53,22 @@
                             id="XMLID_243_" />
                     </svg>
                 </button>
-                <button class="w-6" @click="edit(offre)">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                        <path fill="#f59e50"
-                            d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V299.6l-94.7 94.7c-8.2 8.2-14 18.5-16.8 29.7l-15 60.1c-2.3 9.4-1.8 19 1.4 27.8H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128zM549.8 235.7l14.4 14.4c15.6 15.6 15.6 40.9 0 56.6l-29.4 29.4-71-71 29.4-29.4c15.6-15.6 40.9-15.6 56.6 0zM311.9 417L441.1 287.8l71 71L382.9 487.9c-4.1 4.1-9.2 7-14.9 8.4l-60.1 15c-5.5 1.4-11.2-.2-15.2-4.2s-5.6-9.7-4.2-15.2l15-60.1c1.4-5.6 4.3-10.8 8.4-14.9z" />
-                    </svg>
+                <button className="w-6">
+
+                    <router-link :to="'/zoomStage/' + offre._id">
+                        <svg viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="rgb(20 184 166)"
+                                d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z" />
+                        </svg>
+                    </router-link>
+                </button>
+                <button className="w-6">
+                    <router-link :to="'/editinternshipoffer/' + offre._id">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path fill="#FFD43B"
+                                d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" />
+                        </svg>
+                    </router-link>
                 </button>
                 <button class="w-6" @click="deleteMe(offre._id)">
                     <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32"
@@ -79,8 +93,7 @@
 
 
 <script setup>
-import InternshipOffers from '@/services/InternshipOffers'
-import InternshipTypes from '@/services/InternshipTypes'
+import service from '@/services/InternshipOffers'
 
 import { ref, onMounted, computed } from 'vue'
 
@@ -94,65 +107,24 @@ const computedOffers = computed(() => {
     return offres.value;
 })
 
-const demandes = [
-    {
-        "jobTitle": "Intégrateur Web",
-        "nom": "Acolyte communication",
-        "ville": "Trois-Rivières",
-        "date": "2024-03-03"
-    },
-    {
-        "jobTitle": "Développeur front-end",
-        "nom": "Novatize",
-        "ville": "Québec",
-        "date": "2024-04-04"
-    },
-    {
-        "jobTitle": "Développeur front-end",
-        "nom": "Norda Stello",
-        "ville": "Québec",
-        "date": "2024-08-08"
-    },
-    {
-        "jobTitle": "Développeur back-end",
-        "nom": "Devrun",
-        "ville": "Montréal",
-        "date": "2024-05-05"
-    },
-    {
-        "jobTitle": "Développeur fullstack",
-        "nom": "InnovMetric",
-        "ville": "Lévis",
-        "date": "2024-06-06"
-    },
-];
-
-
 
 onMounted(async () => {
-    const response = InternshipOffers.FindAll();
-    if (response > 0) {
-        offres.value = response;
-    }
-    else {
-        offres.value = getData(3);
-    }
+    const response = await service.FindAll();
+    offres.value = response;
+
     console.log(offres.value)
+
 });
 
-function edit(offre) {
-    offreCurrent.value = offre;
-    console.log(offreCurrent.value);
-    const response = InternshipOffers.Update(offre);
-}
 
 function deleteMe(id) {
-    deleted.value++; // effacer apres apres l'api es rempli
-    offres.value = getData(3 - deleted.value); // effacer apres l'api es rempli
-    //offres.value = getInternShipOffers();  // de commenter ceci quand l'api sera rempli
+    service.Delete(id);
+    const response = service.FindAll();
+    if (response > 0)
+        offres.value = response;
 }
 
-function getData(data) {
+function getDataMock(data) {
     return [{
         _id: "1",
         title: "string",

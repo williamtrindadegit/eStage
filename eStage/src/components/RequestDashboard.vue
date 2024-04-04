@@ -108,16 +108,8 @@ onMounted(async () => {
   }
 });
 
-
-
 const accepterDemande = async (demande) => {
-  // Appelle la méthode Create du service en passant la demande
-  try {
-    const response = await service.Create(demande);
-    console.log('Demande acceptée avec succès :', response);
-  } catch (error) {
-    console.error('Erreur lors de l\'acceptation de la demande :', error);
-  }
+  return demande;
 };
 
 const supprimerDemande = async (id) => {
@@ -133,41 +125,177 @@ const supprimerDemande = async (id) => {
 };
 
 const demandes_mock = [
-  {
-    "id": "123",
-    "jobTitle": "Intégrateur Web",
-    "nom": "Jean-Sébastien Tremblay",
-    "etablissement": "Cégep de Trois-Rivières",
-    "date": "2024-03-03"
-  },
-  {
-    "id": "124",
-    "jobTitle": "Développeur front-end",
-    "nom": "Bob Gustave",
-    "etablissement": "Cégep de Lévis",
-    "date": "2024-04-04"
-  },
-  {
-    "id": "125",
-    "jobTitle": "Développeur front-end",
-    "nom": "Chantale Moores",
-    "etablissement": "Cégep de Montréal",
-    "date": "2024-08-08"
-  },
-  {
-    "id": "126",
-    "jobTitle": "Développeur back-end",
-    "nom": "Evan Evans",
-    "etablissement": "Cégep de Ste-Foy",
-    "date": "2024-05-05"
-  },
-  {
-    "id": "127",
-    "jobTitle": "Développeur fullstack",
-    "nom": "Caroline Massé",
-    "etablissement": "Cégep de Limoilou",
-    "date": "2024-06-06"
-  },
+  [
+    {
+      "_id": "660dd4fdcc0c82f652d62d92",
+      "title": "test final",
+      "description": "test",
+      "candidate": {
+        "_id": "660b51dd279c05fbdb6049f3",
+        "description": "test",
+        "email": "test@test.com",
+        "firstName": "John",
+        "lastName": "Doe",
+        "address": "1111 Boul test",
+        "phone": "418-905-2287",
+        "city": "Chibougameau",
+        "skills": [
+          "js",
+          "html",
+          "php"
+        ],
+        "province": "65e4dfcb2951efc25ce318d9",
+        "postalCode": "G0X 1S0",
+        "__v": 0
+      },
+      "startDate": "2024-04-30T00:00:00.000Z",
+      "endDate": "2024-04-23T00:00:00.000Z",
+      "weeklyWorkHours": 30,
+      "province": {
+        "_id": "65e4dfcb2951efc25ce318e1",
+        "value": "PRINCE EDWARD ISLAND",
+        "__v": 0
+      },
+      "skills": [
+        "testzksvnbzskdfgbakdsmfbgaksmdfbvkjsdzfbvgjhdsfbghjdfgjdafklaglkFINAL"
+      ],
+      "internshipType": {
+        "_id": "65e4dfc22951efc25ce318c0",
+        "value": "FULL",
+        "__v": 0
+      },
+      "additionalInformation": "test",
+      "isActive": true,
+      "__v": 0
+    },
+    {
+      "_id": "660de8934136510740938420",
+      "title": "Front end test William",
+      "description": "test de front end",
+      "candidate": {
+        "_id": "660b51dd279c05fbdb6049f3",
+        "description": "test",
+        "email": "test@test.com",
+        "firstName": "John",
+        "lastName": "Doe",
+        "address": "1111 Boul test",
+        "phone": "418-905-2287",
+        "city": "Chibougameau",
+        "skills": [
+          "js",
+          "html",
+          "php"
+        ],
+        "province": "65e4dfcb2951efc25ce318d9",
+        "postalCode": "G0X 1S0",
+        "__v": 0
+      },
+      "startDate": "2024-04-10T00:00:00.000Z",
+      "endDate": "2024-04-24T00:00:00.000Z",
+      "weeklyWorkHours": 20,
+      "province": {
+        "_id": "65e4dfcb2951efc25ce318d7",
+        "value": "QUEBEC",
+        "__v": 0
+      },
+      "skills": [
+        "a,b,c,d,e"
+      ],
+      "internshipType": {
+        "_id": "65e4dfc22951efc25ce318be",
+        "value": "PARTIAL",
+        "__v": 0
+      },
+      "additionalInformation": "test",
+      "isActive": true,
+      "__v": 0
+    },
+    {
+      "_id": "660ded42364ffa1418d1aa0f",
+      "title": "test 3",
+      "description": "teste",
+      "candidate": {
+        "_id": "660b53cfbb49f98e479ff1b9",
+        "description": "test",
+        "email": "jessy.stpierre@live.com",
+        "firstName": "jessy",
+        "lastName": "st-pierre",
+        "address": "747 Rue du Chanoine Groulx, 201",
+        "phone": "418-905-2287",
+        "city": "Québec",
+        "skills": [
+          "js",
+          "html",
+          "php"
+        ],
+        "province": "65e4dfcb2951efc25ce318d7",
+        "postalCode": "G1X 3V1",
+        "__v": 0
+      },
+      "startDate": "2024-04-15T00:00:00.000Z",
+      "endDate": "2024-04-17T00:00:00.000Z",
+      "weeklyWorkHours": 30,
+      "province": {
+        "_id": "65e4dfcb2951efc25ce318cf",
+        "value": "BRITISH COLUMBIA",
+        "__v": 0
+      },
+      "skills": [
+        "a,b,c,d,e"
+      ],
+      "internshipType": {
+        "_id": "65e4dfc22951efc25ce318be",
+        "value": "PARTIAL",
+        "__v": 0
+      },
+      "additionalInformation": "test",
+      "isActive": true,
+      "__v": 0
+    },
+    {
+      "_id": "660dfd8581bbd4ee1b28c27e",
+      "title": "Front-end",
+      "description": "J'aime le front-end",
+      "candidate": {
+        "_id": "660c5f707829e19ae4e4c81c",
+        "description": "asd asdf asdf",
+        "email": "wjat.joi@gmail.com",
+        "firstName": "William",
+        "lastName": "Trindade",
+        "address": "641 rue Montour",
+        "phone": "819-609-1202",
+        "city": "Trois-rivières",
+        "skills": [
+          "front ent ",
+          "asd",
+          "asd",
+          "asd"
+        ],
+        "province": "65e4dfcb2951efc25ce318d7",
+        "postalCode": "G9B 7C6",
+        "__v": 0
+      },
+      "startDate": "2024-04-03T00:00:00.000Z",
+      "endDate": "2024-05-01T00:00:00.000Z",
+      "weeklyWorkHours": 40,
+      "province": {
+        "_id": "65e4dfcb2951efc25ce318d7",
+        "value": "QUEBEC",
+        "__v": 0
+      },
+      "skills": [
+        "html,php,js,css"
+      ],
+      "internshipType": {
+        "_id": "65e4dfc22951efc25ce318c0",
+        "value": "FULL",
+        "__v": 0
+      },
+      "additionalInformation": "J'aime css",
+      "isActive": true,
+      "__v": 0
+    }
+  ]
 ]
 </script>
 

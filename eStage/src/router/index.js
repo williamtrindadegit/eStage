@@ -4,7 +4,6 @@ import { useSession } from "@/stores/session";
 import Dashboard from "../views/Dashboard.vue";
 import ZoomUser from "../components/ZoomUser.vue";
 import ZoomStage from "../components/ZoomStage.vue";
-import InternshipDashboard from "@/components/InternshipDashboard.vue";
 import LoginPage from "@/components/LoginPage.vue";
 import FormCandidateView from "@/views/FormCandidateView.vue";
 import FormInternShipOfferView from "@/views/FormInternShipOfferView.vue";
@@ -27,22 +26,6 @@ const router = createRouter({
     },
 
     {
-      path: "/dashboard",
-      name: "dashboard",
-      component: Dashboard,
-    },
-    {
-      path: "/demande-stage",
-      name: "demandeStage",
-      component: RequestDashboard,
-    },
-    {
-      path: "/offres-stage",
-      name: "offresStage",
-      component: OffersDashboard,
-    },
-
-    {
       path: "/zoomUser/:id",
       name: "zoomUser",
       component: ZoomUser,
@@ -51,11 +34,6 @@ const router = createRouter({
       path: "/zoomStage/:id",
       name: "zoomStage",
       component: ZoomStage,
-    },
-    {
-      path: "/InternshipDashboard",
-      name: "InternshipDashboard",
-      component: InternshipDashboard,
     },
 
     {
@@ -118,10 +96,14 @@ const router = createRouter({
       name: "editenterprise",
       component: FormEnterpriseView,
     },
-
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      component: Dashboard,
+    },
     {
       path: "/demandes-stage",
-      name: "demandesStage",
+      name: "demandeStage",
       component: RequestDashboard,
     },
     {
