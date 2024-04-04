@@ -1,0 +1,24 @@
+const BASE_URL = "https://api-2.fly.dev/internship-types";
+import api from "./api";
+
+export default {
+  async FindOne(id) {
+    return api.makeRequest(`${BASE_URL}/${id}`, "GET");
+  },
+  async FindAll() {
+    return api.makeRequest(BASE_URL, "GET");
+  },
+  async Create(internshipTypes) {
+    return api.makeRequest(BASE_URL, "POST", internshipTypes);
+  },
+  async Update(internshipTypes) {
+    return api.makeRequest(
+      `${BASE_URL}/${internshipTypes._id}`,
+      "PATCH",
+      internshipRequests
+    );
+  },
+  async Delete(id) {
+    return api.makeRequest(`${BASE_URL}/${id}`, "DELETE");
+  },
+};
