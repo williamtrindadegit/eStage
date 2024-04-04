@@ -56,13 +56,17 @@
             </div>
             <div class="bg-white p-5">
                 <div class="flex flex-col">
-                    <label for="enterprise" class="text-slate-600 font-bold mb-1 mt-5">Candidats: </label>
+                    <label for="enterprise" class="text-slate-600 font-bold mb-1 mt-5">Candidat: </label>
                     <select id="enterprise" name="enterprise"
                         class="select select-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500" v-model="formData.candidate._id">
                         <option disabled selected>Veuillez effectuer un choix</option>
                         <option v-for="candidate in candidates" :key="candidate._id" :value="candidate._id">{{ candidate.firstName }} {{ candidate.lastName }}</option>
                         <!-- ajout des entreprises avec l'api -->
                     </select>
+                    <button class="btn" onclick="addForm.showModal()">Ajouter un Candidat</button>
+                    <dialog id="addForm" className="modal max-h-[90vh] overflow-y-auto">
+                    <FormCandidate :isModal="true" className=" bg-white  rounded-lg"/>
+                    </dialog>
                 </div>
                 <div class="label">
                     <span class="label-text-alt text-red-500" v-if="!formValidation.candidate">{{errorMessages.candidate}}</span>
@@ -321,7 +325,7 @@ import ActivitySectors from '../services/ActivitySectors';
 import InternshipTypes from '../services/InternshipTypes';
 import Candidates from '../services/Candidates';
 import InternshipRequests from '../services/InternshipRequests';
-
+import FormCandidate from './FormCandidate.vue';
 import FileInput from './FileInput.vue';
 
 import { useRoute, useRouter } from 'vue-router';
@@ -335,6 +339,7 @@ const internshipRequest= ref({});
 
 const route = useRoute();
 const vueRouter = useRouter();
+
 
 const formData = reactive({
     title: '',
@@ -579,6 +584,8 @@ const getInternshipRequestDetails = () => { //later use when editing
     formData.city = "N'est pas dans L'API";
     formData.fullName = "N'est pas dans L'API";
 }
+
+
 
 </script>
 

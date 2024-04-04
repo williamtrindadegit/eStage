@@ -2,11 +2,11 @@
     <div class="bg-gray-100">
         <!-- changer pour max-w-5xl dans les autres formulaires -->
         <form class="max-w-5xl p-4 my-0 pt-10 mx-auto" @submit.prevent="validateCandidateForm()">
-            <h2 v-if="route.name == 'addcandidate'"
+            <h2 v-if="route.name == 'addcandidate' || 'addinternshiprequest'"
                 class="text-4xl font-bold text-slate-600 border-l-[10px] pl-5 border-fuchsia-900 py-2 mb-20">Ajouter un
                 Candidat</h2>
             <!-- Ajouter une condition selon la route: Ajouter ou Modifier -->
-            <div v-if="route.name == 'addcandidate'">
+            <div v-if="route.name == 'addcandidate' || 'addinternshiprequest'">
                 <div class="flex justify-end mb-4">
                     <router-link to="/dashboard">
                         <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">
@@ -198,7 +198,7 @@
                 </fieldset>
             </div>
             <!-- Ajouter une condition selon la route: Ajouter ou Modifier -->
-            <div v-if="route.name == 'addcandidate'" class="flex justify-end mb-4 mt-4">
+            <div v-if="route.name == 'addcandidate' || 'addinternshiprequest'" class="flex justify-end mb-4 mt-4">
                 <router-link to="/dashboard">
                         <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">
                             Annuler
@@ -424,7 +424,7 @@
         formData.postalCode = candidate.value.postalCode;
     }
 
-    const formatDataForAPI = () => {
+    const formatDataForAPI = async () => {
         if (formValidation.skills) {
             if(typeof(formData.skills) === 'string') {
                 formData.skills = formData.skills.split(',');
@@ -437,13 +437,11 @@
             delete formData.fullName;
         }
 
-        //Data is formatted correctly, now we can send it to the API
-        //The object should represent a Candidate object
         if(route.name === 'editcandidate') {
             formData._id = route.params.id; //as in the backend api (candidate object as _id property)
             formData.id = route.params.id; //as needed for api.js (id instead of _id)
             Candidates.Update(formData).then(async () => {
-                await vueRouter.push({path: '/candidats'});
+            await vueRouter.push({path: '/candidats'});
             }).catch( error=>{
                 console.log(error);
             });
@@ -453,6 +451,14 @@
             }).catch( error=>{
                 console.log(error);
             });
+        } else if(route.name === 'addinternshiprequest') {
+        try {
+            await Candidates.Create(formData);
+            showDialog.value = false; 
+            await vueRouter.push({path: '/addinternshiprequest'});
+        } catch (error) {
+            console.log(error);
+        }
         }
     }
 
