@@ -28,9 +28,9 @@
       </button>
     </div>
     <div class="bg-slate-100 w-full mt-4 p-12 rounded-lg">
-      <h1 class="text-blue-400 text-3xl">{{ demande.candidate.firstName }} {{ demande.candidate.lastName }}
+      <h1 class="text-blue-400 text-3xl">{{ demande.candidate?.firstName }} {{ demande.candidate?.lastName }}
       </h1>
-      <p class="pt-8">{{ demande.candate.description }}</p>
+      <p class="pt-8">{{ demande.candidate?.description }}</p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-12">
 
@@ -70,7 +70,7 @@
           <div class="bg-slate-500 w-1 h-12"></div>
           <div class="ml-4">
             <h3 class="text-slate-500">Compétences</h3>
-            <h5>{{ demande.skills }}</h5>
+            <h5>{{ demande.skills?.join(",") }}</h5>
           </div>
         </div>
 
@@ -78,7 +78,7 @@
           <div class="bg-slate-500 w-1 h-12"></div>
           <div class="ml-4">
             <h3 class="text-slate-500">Région</h3>
-            <h5>{{ demande.province.value }}</h5>
+            <h5>{{ demande.province?.value }}</h5>
           </div>
         </div>
       </div>
@@ -154,61 +154,42 @@ import service from '@/services/InternshipRequests'
 
 
 import { useRouter } from "vue-router";
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, reactive } from 'vue';
 
 const router = useRouter();
-const demande = ref({
-  "additionalInformation": "thunder",
-  "candidate": {
-    "address": "thunder",
-    "city": "thunder",
-    "description": "thunder",
-    "email": "thunder",
-    "firstName": "thunder",
-    "lastName": "thunder",
-    "phone": "thunder",
-    "postalCode": "thunder",
-    "province": {
-      "_id": "thunder",
-      "value": "thunder"
-    },
-    "skills": [
-      "thunder"
-    ]
-  },
-  "description": "thunder",
-  "endDate": "2024-03-07T02:33:11.825Z",
-  "internshipType": {
-    "_id": "thunder",
-    "value": "thunder"
-  },
-  "isActive": true,
-  "province": {
-    "_id": "thunder",
-    "value": "thunder"
-  },
-  "skills": [
-    "thunder"
-  ],
-  "startDate": "2024-03-07T02:33:11.825Z",
-  "title": "thunder",
-  "weeklyWorkHours": 10
-});
+const demande = ref({});
 
 //FIXME: v-model data (formData) is not updated on the frontend when using the edit route.
+// onMounted(async () => {
+//   demande.value = await service.FindOne(router.currentRoute.value.params.id);
+//   console.log(demande.value);
+//   // demande.activitySector = "N'est pas dans L'API";
+//   // demande.formationProgram = "N'est pas dans L'API";
+//   // demande.schoolName = "N'est pas dans L'API";
+//   // demande.city = "N'est pas dans L'API";
+//   // demande.internshipType = "N'est pas dans L'API";
+//   // demande.skills = "N'est pas dans L'API";
+//   // demande.additionalInformation = "N'est pas dans L'API";
+// });
+
+
+
+
 onMounted(async () => {
-  demande = await service.FindOne(router.currentRoute.value.params.id);
+  try {
+    demande.value = await service.FindOne(router.currentRoute.value.params.id);
 
-  // demande.value.activitySector = "N'est pas dans L'API";
-  // demande.value.formationProgram = "N'est pas dans L'API";
-  // demande.value.schoolName = "N'est pas dans L'API";
-  // demande.value.city = "N'est pas dans L'API";
-  // demande.value.internshipType = "N'est pas dans L'API";
-  // demande.value.skills = "N'est pas dans L'API";
-  // demande.value.additionalInformation = "N'est pas dans L'API";
+    demande.value.activitySector = "N'est pas dans L'API";
+    demande.value.formationProgram = "N'est pas dans L'API";
+    demande.value.schoolName = "N'est pas dans L'API";
+    demande.value.city = "N'est pas dans L'API";
+    demande.value.internshipType = "N'est pas dans L'API";
+
+
+  } catch (error) {
+    console.error("Une erreur s'est produite lors de la récupération des données :", error);
+  }
 });
-
-
 
 </script>
 

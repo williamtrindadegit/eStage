@@ -47,7 +47,8 @@
           <div class="bg-slate-500 w-1 h-12"></div>
           <div class="ml-4">
             <h3 class="text-slate-500">Exigences</h3>
-            <h5>{{ offer.requiredSkills.join(",") }}</h5>
+            <h5>{{ offer.requiredSkills?.join(", ") || "Aucunes exigences" }}</h5>
+
           </div>
         </div>
       </div>
@@ -68,7 +69,7 @@
           <div class="bg-slate-500 w-1 h-12"></div>
           <div class="ml-4">
             <h3 class="text-slate-500">Date de début</h3>
-            <h5>{{ new Date(request.startDate).toLocaleDateString('fr-CA')
+            <h5>{{ new Date(offer.startDate).toLocaleDateString('fr-CA')
               }}</h5>
           </div>
         </div>
@@ -131,9 +132,24 @@ const offer = ref({
       "_id": "thunder",
       "value": "thunder"
     },
-    "skills": [
+    "requiredSkills": [
       "thunder"
     ]
+  },
+  "enterprise": {
+    "_id": 0,
+    "image": "aHR0cHM6Ly9pbWcuZnJlZXBpay5jb20vZnJlZS12ZWN0b3IvZ29sZGVuLWJsdWUtZGlhbW9uZC1zaGFwZS1sb2dvLWJ1c2luZXNzLXRlbXBsYXRlXzIzLTIxNDg3MDc2NDguanBnP3c9NzQwJnQ9c3Q9MTcxMjE4MjgxOX5leHA9MTcxMjE4MzQxOX5obWFjPWQyNTVhNmE3MWM5MzZhMGMzMzIzMGU4YzA3YjNlM2UwNmE2NjUyNDU0YjlhMmMzYWU3NjNhZjdlMzBiNjVmYzc=",
+    "name": "Example Company Inc.",
+    "address": "123 Main St",
+    "postalCode": "h0h 0h0",
+    "city": "Example City",
+    "province": "65e4dfcb2951efc25ce318cf",
+    "phone": "819-990-2217",
+    "email": "info@examplecompany.com",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "activitySector": "660334e85526fb10bf2aae4a",
+    "website": "https://examplecompany.com",
+    "__v": 0
   },
   "description": "thunder",
   "endDate": "2024-03-07T02:33:11.825Z",
@@ -155,9 +171,18 @@ const offer = ref({
 });
 
 onMounted(async () => {
-  offer = await service.FindOne(router.currentRoute.value.params.id);
-  offer.additionalInformation = "N'est pas dans L'API";
+  try {
+    const fetchedOffer = await service.FindOne(router.currentRoute.value.params.id);
+    if (fetchedOffer) {
+      offer.value = fetchedOffer;
+    } else {
+      console.error("Offre non trouvée");
+    }
+  } catch (error) {
+    console.error("Error fetching offer:", error);
+  }
 });
+
 
 
 
