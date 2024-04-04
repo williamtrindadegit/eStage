@@ -405,7 +405,6 @@ onMounted(async () => {
         internshipRequest.value = await InternshipRequests.FindOne(route.params.id);
         getInternshipRequestDetails();
     }
-    console.log(provinces.value);
 });
 
 const resetErrMessages = () => {
@@ -474,7 +473,6 @@ const validateInternshipRequestForm = () => {
             }
         } else if (key === 'province') {
             const foundProvince = provinces.value.find(province => province._id === currentValue._id);
-            console.log(foundProvince);
             if (foundProvince) {
                 formData.province.value = foundProvince.value;
                 formValidation.province = true;
@@ -503,13 +501,10 @@ const validateInternshipRequestForm = () => {
     });
 
     let isFormValid = true;
-    console.log(formValidation);
-    console.log(formData);
     Object.entries(formValidation).forEach(([key, value]) => {
         if (!key.startsWith('_') || !key.startsWith('__')) {
             if (!value) {
                 isFormValid = false; // If any value is false, set form validity to false
-                console.log('Error in form validation : ', key, ' because current value is ', value);
             }
         }
     });
@@ -520,8 +515,6 @@ const validateInternshipRequestForm = () => {
 }
 
 const formatData = () => {
-    console.log('formatting data');
-    console.log(formData);
     let formattedDataForApi = {
         title: formData.title,
         description: formData.description,
@@ -540,15 +533,12 @@ const formatData = () => {
 
 const sendDataToApi = async (data) => {
     if(route.name === 'addinternshiprequest') {
-        console.log('Sending data to API');
         await InternshipRequests.Create(data).then(()=>{
             vueRouter.push('/demandes-stage');
         }).catch((error) => {
             console.log(error);
         });
-        console.log('Sent!');
     } else if(route.name === 'editinternshiprequest') {
-        console.log('Updating data to API');
         data._id = internshipRequest.value._id;
         InternshipRequests.Update(data).then(()=>{
             vueRouter.push('/demandes-stage');
@@ -559,10 +549,7 @@ const sendDataToApi = async (data) => {
 }
 
 const getInternshipRequestDetails = () => { //later use when editing
-    console.log('Getting internship request details');
-    console.log(internshipRequest.value);
     //reconvertir le format de date qu'on recoit de l'api
-    //... en tk
     const startDateISO = new Date(internshipRequest.value.startDate);
     const yearStart = startDateISO.getFullYear();
     const monthStart = String(startDateISO.getMonth() + 1).padStart(2, '0'); // Add 1 to month since it's zero-based
@@ -581,7 +568,6 @@ const getInternshipRequestDetails = () => { //later use when editing
     formData.startDate = formattedStart;
     formData.endDate = formattedEnd;
     formData.weeklyWorkHours = internshipRequest.value.weeklyWorkHours;
-    console.log(internshipRequest.value.province._id);
     formData.province = internshipRequest.value.province;
     formData.skills = internshipRequest.value.skills;
     formData.internshipType = internshipRequest.value.internshipType;

@@ -386,7 +386,6 @@ const resetErrMessages = () => {
                 }
             } else if (key === 'province') {
                 const foundProvince = provinces.value.find(province => province._id === currentValue._id);
-                console.log(foundProvince);
                 if (foundProvince) {
                     formData.province.value = foundProvince.value;
                     formValidation.province = true;
@@ -400,13 +399,10 @@ const resetErrMessages = () => {
         });
 
         let isFormValid = true;
-        console.log(formValidation);
-        console.log(formData);
         Object.entries(formValidation).forEach(([key, value]) => {
             if (!key.startsWith('_') || !key.startsWith('__')) {
                 if (!value) {
                     isFormValid = false; // If any value is false, set form validity to false
-                    console.log('Error in form validation : ', key, ' because current value is ', value);
                 }
             }
         });
@@ -417,7 +413,6 @@ const resetErrMessages = () => {
     };
 
     const sendDataToApi = () => {
-        console.log('FormData before formatting', formData);
         formData._id = route.params.id;
         if(route.name === 'editenterprise') {
             Enterprises.Update(formData).then(async () => {
@@ -435,7 +430,6 @@ const resetErrMessages = () => {
     };
 
     const getEnterpriseDetails = () => {
-        console.log('Before adding details', formData);
         formData.description = enterprises.value.description;
         formData.email = enterprises.value.email;
         formData.name = enterprises.value.name;
@@ -455,7 +449,6 @@ const resetErrMessages = () => {
         }
 
         formData.postalCode = enterprises.value.postalCode;
-        console.log('after adding details ', formData);
     }
 
 
