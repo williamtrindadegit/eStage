@@ -83,61 +83,59 @@ const saveAndNavigate = () => {
 <style>
 .input-container {
   padding-bottom: 20px;
+}
 
-  <style>.input-container {
-    padding-bottom: 20px;
-  }
+.input-container input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #056ff8;
+  border-radius: 5px;
+}
 
-  .input-container input {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #056ff8;
-    border-radius: 5px;
-  }
+.input-container input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #056ff8;
+  border-radius: 5px;
+}
 
-  .input-container input {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #056ff8;
-    border-radius: 5px;
-  }
+.input-container input::placeholder {
+  color: #999;
+}
 
-  .input-container input::placeholder {
-    color: #999;
-  }
+.btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 
-  .btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+}
 
-  }
+.btn:hover {
+  background-color: #223141;
+}
 
-  .btn:hover {
-    background-color: #223141;
-  }
+.btn:hover {
+  background-color: #223141;
+}
 
-  .btn:hover {
-    background-color: #223141;
-  }
+.h1 {
+  font-size: 40px;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+}
 
-  .h1 {
-    font-size: 40px;
-    color: rgb(0, 0, 0);
-    font-weight: bold;
-  }
+.h1 {
+  font-size: 40px;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+}
 
-  .h1 {
-    font-size: 40px;
-    color: rgb(0, 0, 0);
-    font-weight: bold;
-  }
-
-  .text {
-    width: 500px;
-    margin-bottom: 50px;
-  }</style>
+.text {
+  width: 500px;
+  margin-bottom: 50px;
+}
+</style>
