@@ -1,20 +1,24 @@
-const BASE_URL = "https://api-2.fly.dev//nternship-types";
-import makeRequest from "./api";
+const BASE_URL = "https://api-2.fly.dev/internship-types";
+import api from "./api";
 
 export default {
   async FindOne(id) {
-    return makeRequest(`${BASE_URL}/${id}`, "GET");
+    return api.makeRequest(`${BASE_URL}/${id}`, "GET");
   },
   async FindAll() {
-    return makeRequest(BASE_URL, "GET");
+    return api.makeRequest(BASE_URL, "GET");
   },
-  async Create(internshipRequests) {
-    return makeRequest(BASE_URL, "POST", internshipRequests);
+  async Create(internshipTypes) {
+    return api.makeRequest(BASE_URL, "POST", internshipTypes);
   },
-  async Update(internshipRequests) {
-    return makeRequest(BASE_URL, "PATCH", internshipRequests);
+  async Update(internshipTypes) {
+    return api.makeRequest(
+      `${BASE_URL}/${internshipTypes._id}`,
+      "PATCH",
+      internshipRequests
+    );
   },
   async Delete(id) {
-    return makeRequest(`${BASE_URL}/${id}`, "DELETE");
+    return api.makeRequest(`${BASE_URL}/${id}`, "DELETE");
   },
 };
