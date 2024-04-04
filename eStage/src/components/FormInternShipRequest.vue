@@ -56,12 +56,16 @@
             </div>
             <div class="bg-white p-5">
                 <div class="flex flex-col">
-                    <label for="fullName" class="text-slate-600 font-bold mb-1 mt-5">Nom et prénom</label>
-                    <input type="text" name="fullName" id="fullName"
-                        class="input input-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
-                        placeholder=""
-                        v-model="formData.fullName"/>
-                    <span class="label-text-alt text-red-500" v-if="!formValidation.fullName">{{errorMessages.fullName}}</span>
+                    <label for="enterprise" class="text-slate-600 font-bold mb-1 mt-5">Candidats: </label>
+                    <select id="enterprise" name="enterprise"
+                        class="select select-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500" v-model="formData.candidate._id">
+                        <option disabled selected>Veuillez effectuer un choix</option>
+                        <option v-for="candidate in candidates" :key="candidate._id" :value="candidate._id">{{ candidate.firstName }} {{ candidate.lastName }}</option>
+                        <!-- ajout des entreprises avec l'api -->
+                    </select>
+                </div>
+                <div class="label">
+                    <span class="label-text-alt text-red-500" v-if="!formValidation.candidate">{{errorMessages.candidate}}</span>
                 </div>
                 <div class="flex flex-col">
                     <label for="description" class="text-slate-600 font-bold mb-1 mt-5">Présentation</label>
@@ -334,7 +338,6 @@ const vueRouter = useRouter();
 
 const formData = reactive({
     title: '',
-    fullName: '',
     description: '',
     formationProgram: '',
     schoolName: '',
@@ -354,7 +357,6 @@ const formData = reactive({
 
 const formValidation = reactive({
     title: true,
-    fullName: true,
     description: true,
     formationProgram: true,
     schoolName: true,
@@ -374,7 +376,6 @@ const formValidation = reactive({
 
 const errorMessages = reactive({
     title: 'Le titre est obligatoire',
-    fullName: 'Le nom et prénom sont obligatoires',
     description: 'La description est obligatoire',
     formationProgram: 'Le programme de formation est obligatoire',
     schoolName: 'Le nom de l\'établissement scolaire est obligatoire',
@@ -409,7 +410,6 @@ onMounted(async () => {
 
 const resetErrMessages = () => {
     errorMessages.title = 'Le titre est obligatoire',
-    errorMessages.fullName = 'Le nom et prénom sont obligatoires',
     errorMessages.description = 'La description est obligatoire',
     errorMessages.formationProgram = 'Le programme de formation est obligatoire',
     errorMessages.schoolName = 'Le nom de l\'établissement scolaire est obligatoire',
@@ -489,17 +489,14 @@ const validateInternshipRequestForm = () => {
             } else {
                 formValidation.activitySector = false;
             }
-        } else if (key === 'fullName') {
-            if(currentValue === "") {
-                formValidation.fullName = false;
-                errorMessages.fullName = 'Veuillez renseigner votre nom et prénom.';
-            } else {
-                formValidation.fullName = FULLNAME_REGEX.test(currentValue);
-                formValidation.fullName ? '' : errorMessages.fullName = 'Votre nom et prénom doivent être séparés par un espace.';
-            }
         } else if (key === 'candidate') {
-            formData.candidate = candidates.value[0];
-            formValidation.candidate = true;
+            const foundCandidate = candidates.value.find(candidate => candidate._id === currentValue._id);
+            if (foundCandidate) {
+                formData.candidate.value = foundCandidate.value;
+                formValidation.candidate = true;
+            } else {
+                formValidation.candidate = false;
+            }
         } else {
             formValidation[key] = (currentValue !== "" && currentValue !== undefined && currentValue !== null) ? true : false;
         }
