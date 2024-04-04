@@ -11,7 +11,7 @@
   
       <div class="grid grid-cols-3 auto-cols-max mt-8">
         <div v-for="enterprise in enterprises" :key="enterprise._id" class="max-w-sm rounded overflow-hidden shadow-lg m-2">
-          <img class="w-full" :src="enterprise.image" :alt="enterprise.name">
+          <img class="w-full" :src="decodedImage(enterprise.image)" :alt="enterprise.name">
           <div class="px-6 py-4">
             <button @click="onDetails(enterprise._id)" class="font-bold text-xl mb-2">
                 <span class="pr-2 mdi mdi-eye-circle text-blue-600 text-lg mr-4">{{ enterprise.name }}</span>
@@ -48,6 +48,10 @@ const router = useRouter();
 
   function onDetails(idString) {
     router.push({ name: "zoomEnterprise", params: { id: idString } });
+  }
+
+  const decodedImage = (image) =>{
+    return atob(image);
   }
   </script>
   
