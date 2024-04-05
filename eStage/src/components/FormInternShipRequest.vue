@@ -63,7 +63,7 @@
                         <option v-for="candidate in candidates" :key="candidate._id" :value="candidate._id">{{ candidate.firstName }} {{ candidate.lastName }}</option>
                         <!-- ajout des entreprises avec l'api -->
                     </select>
-                    <button class="btn" onclick="addForm.showModal()">Ajouter un Candidat</button>
+                    <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950 mt-5" onclick="addForm.showModal()">Ajouter un Candidat</button>
                     <dialog id="addForm" className="modal max-h-[90vh] overflow-y-auto">
                     <FormCandidate :isModal="true" className=" bg-white  rounded-lg"/>
                     </dialog>
