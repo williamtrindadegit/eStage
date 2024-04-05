@@ -2,16 +2,17 @@
     <div class="bg-gray-100">
         <form class="max-w-5xl p-4 my-0 pt-10 mx-auto" @submit.prevent="validateInternshipRequestForm()">
             <h2 v-if="route.name == 'addinternshiprequest'"
-                class="text-4xl font-bold text-slate-600 border-l-[10px] pl-5 border-fuchsia-900 py-2 mb-20">Ajouter une
+                class="text-4xl font-bold text-slate-600 border-l-[10px] pl-5 border-yellow-500 py-2 mb-20">Ajouter une
                 demande</h2>
             <div v-if="route.name == 'addinternshiprequest'">
                 <div class="flex justify-end mb-4">
                     <router-link to="/dashboard">
-                        <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">
+                        <button
+                            class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-amber-500 hover:text-white">
                             Annuler
                         </button>
                     </router-link>
-                    <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
+                    <button class="btn bg-yellow-500 text-white hover:bg-amber-500">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                             stroke="currentColor">
                             <path
@@ -25,11 +26,11 @@
                         <label for="title" class="text-slate-600 font-bold max-w-24 w-full">Titre: </label>
                         <input type="text" name="title" id="title"
                             class="input input-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
-                            placeholder=""
-                            v-model="formData.title">
+                            placeholder="" v-model="formData.title">
                     </div>
                     <div class="ml-24 mb-4">
-                        <span class="label-text-alt text-red-500" v-if="!formValidation.title">{{errorMessages.title}}</span>
+                        <span class="label-text-alt text-red-500" v-if="!formValidation.title">{{ errorMessages.title
+                            }}</span>
                     </div>
                 </div>
             </div>
@@ -40,11 +41,12 @@
                 </div>
                 <div class="flex justify-end mb-4">
                     <router-link to="/dashboard">
-                        <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">
+                        <button
+                            class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-yellow-650 hover:text-white">
                             Annuler
                         </button>
                     </router-link>
-                    <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
+                    <button class="btnbg-red-500 text-white hover:bg-yellow-650">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                             stroke="currentColor">
                             <path
@@ -58,26 +60,30 @@
                 <div class="flex flex-col">
                     <label for="enterprise" class="text-slate-600 font-bold mb-1 mt-5">Candidat: </label>
                     <select id="enterprise" name="enterprise"
-                        class="select select-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500" v-model="formData.candidate._id">
+                        class="select select-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
+                        v-model="formData.candidate._id">
                         <option disabled selected>Veuillez effectuer un choix</option>
-                        <option v-for="candidate in candidates" :key="candidate._id" :value="candidate._id">{{ candidate.firstName }} {{ candidate.lastName }}</option>
+                        <option v-for="candidate in candidates" :key="candidate._id" :value="candidate._id">{{
+            candidate.firstName }} {{ candidate.lastName }}</option>
                         <!-- ajout des entreprises avec l'api -->
                     </select>
-                    <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950 mt-5" onclick="addForm.showModal()">Ajouter un Candidat</button>
+                    <button class="btnbg-red-500 text-white hover:bg-yellow-650 mt-5"
+                        onclick="addForm.showModal()">Ajouter un Candidat</button>
                     <dialog id="addForm" className="modal max-h-[90vh] overflow-y-auto">
-                    <FormCandidate :isModal="true" className=" bg-white  rounded-lg"/>
+                        <FormCandidate :isModal="true" className=" bg-white  rounded-lg" />
                     </dialog>
                 </div>
                 <div class="label">
-                    <span class="label-text-alt text-red-500" v-if="!formValidation.candidate">{{errorMessages.candidate}}</span>
+                    <span class="label-text-alt text-red-500" v-if="!formValidation.candidate">{{
+            errorMessages.candidate }}</span>
                 </div>
                 <div class="flex flex-col">
                     <label for="description" class="text-slate-600 font-bold mb-1 mt-5">Présentation</label>
                     <textarea name="description" id="description"
                         class="textarea textarea-bordered bg-slate-50 border-gray-400 rounded p-2 text-slate-500 h-24"
-                        placeholder=""
-                        v-model="formData.description"></textarea>
-                    <span class="label-text-alt text-red-500" v-if="!formValidation.description">{{errorMessages.description}}</span>
+                        placeholder="" v-model="formData.description"></textarea>
+                    <span class="label-text-alt text-red-500" v-if="!formValidation.description">{{
+            errorMessages.description }}</span>
                 </div>
                 <fieldset class="grid grid-cols-2 max-w-5xl mt-8">
                     <div class="col-span-2 sm:col-span-1 mr-0 sm:mr-4">
@@ -88,10 +94,11 @@
                                 </div>
                                 <input type="text" name="formationProgram" id="formationProgram" placeholder=""
                                     class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
-                                    v-model="formData.formationProgram"/>
+                                    v-model="formData.formationProgram" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.formationProgram">{{errorMessages.formationProgram}}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.formationProgram">{{
+            errorMessages.formationProgram }}</span>
                             </div>
                         </label>
                     </div>
@@ -103,10 +110,11 @@
                                 </div>
                                 <input type="text" name="schoolName" id="schoolName" placeholder=""
                                     class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
-                                    v-model="formData.schoolName"/>
+                                    v-model="formData.schoolName" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.schoolName">{{ errorMessages.schoolName }}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.schoolName">{{
+            errorMessages.schoolName }}</span>
                             </div>
                         </label>
                     </div>
@@ -120,12 +128,14 @@
                                     class="select select-bordered w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
                                     v-model="formData.activitySector._id">
                                     <option disabled selected>Veuillez effectuer un choix</option>
-                                    <option v-for="activitySector in activitySectors" :key="activitySector._id" :value="activitySector._id">{{ activitySector.value }}</option>
+                                    <option v-for="activitySector in activitySectors" :key="activitySector._id"
+                                        :value="activitySector._id">{{ activitySector.value }}</option>
                                     <!-- ajout des secteurs avec l'api -->
                                 </select>
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.activitySector">{{errorMessages.activitySector}}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.activitySector">{{
+            errorMessages.activitySector }}</span>
                             </div>
                         </label>
                     </div>
@@ -137,10 +147,11 @@
                                 </div>
                                 <input type="text" name="city" id="city" placeholder=""
                                     class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
-                                    v-model="formData.city"/>
+                                    v-model="formData.city" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.city">{{errorMessages.city}}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.city">{{
+            errorMessages.city }}</span>
                             </div>
                         </label>
                     </div>
@@ -154,11 +165,13 @@
                                     class="select select-bordered w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
                                     v-model="formData.province._id">
                                     <option disabled selected>Veuillez effectuer un choix</option>
-                                    <option v-for="province in provinces" :key="province._id" :value="province._id">{{ province.value }}</option>
+                                    <option v-for="province in provinces" :key="province._id" :value="province._id">{{
+            province.value }}</option>
                                 </select>
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.province">{{errorMessages.province}}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.province">{{
+            errorMessages.province }}</span>
                             </div>
                         </label>
                     </div>
@@ -170,11 +183,11 @@
                                 </div>
                                 <textarea name="skills" id="skills"
                                     class="w-full textarea textarea-bordered bg-slate-50 border-gray-400 rounded p-2 text-slate-500 h-24"
-                                    placeholder=""
-                                    v-model="formData.skills"></textarea>
+                                    placeholder="" v-model="formData.skills"></textarea>
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.skills"> {{ errorMessages.skills }}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.skills"> {{
+            errorMessages.skills }}</span>
                             </div>
                         </label>
                     </div>
@@ -191,12 +204,14 @@
                                     class="select select-bordered w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
                                     v-model="formData.internshipType._id">
                                     <option disabled selected>Veuillez effectuer un choix</option>
-                                    <option v-for="internshipType in internshipTypes" :key="internshipType._id" :value="internshipType._id">{{ internshipType.value }}</option>
+                                    <option v-for="internshipType in internshipTypes" :key="internshipType._id"
+                                        :value="internshipType._id">{{ internshipType.value }}</option>
                                     <!-- ajout du type avec l'api -->
                                 </select>
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.internshipType">{{errorMessages.internshipType}}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.internshipType">{{
+            errorMessages.internshipType }}</span>
                             </div>
                         </label>
                     </div>
@@ -208,10 +223,11 @@
                                 </div>
                                 <input type="date" name="startDate" id="startDate" placeholder=""
                                     class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
-                                    v-model="formData.startDate"/>
+                                    v-model="formData.startDate" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.startDate">{{ errorMessages.startDate }}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.startDate">{{
+            errorMessages.startDate }}</span>
                             </div>
                         </div>
                     </div>
@@ -232,7 +248,8 @@
                                 </select>
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.weeklyWorkHours">{{ errorMessages.weeklyWorkHours }}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.weeklyWorkHours">{{
+            errorMessages.weeklyWorkHours }}</span>
                             </div>
                         </label>
                     </div>
@@ -244,10 +261,11 @@
                                 </div>
                                 <input type="date" name="endDate" id="endDate" placeholder=""
                                     class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
-                                    v-model="formData.endDate"/>
+                                    v-model="formData.endDate" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.endDate">{{errorMessages.endDate}}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.endDate">{{
+            errorMessages.endDate }}</span>
                             </div>
                         </div>
                     </div>
@@ -255,20 +273,18 @@
                         <p class="text-slate-600 font-bold mb-2 ">Rémunération</p>
                         <div class="flex mb-2">
                             <input type="radio" id="DISCRETIONARY" name="remuneration" value="DISCRETIONARY"
-                                class="checkbox border-slate-600" checked
-                                v-model="formData.paid"/>
-                            <label class="ml-4 text-slate-600" for="DISCRETIONARY">À la discrétion de l'etreprise</label>
+                                class="checkbox border-slate-600" checked v-model="formData.paid" />
+                            <label class="ml-4 text-slate-600" for="DISCRETIONARY">À la discrétion de
+                                l'etreprise</label>
                         </div>
                         <div class="flex mb-2">
                             <input type="radio" id="PAID" name="remuneration" value="PAID"
-                                class="checkbox border-slate-600"
-                                v-model="formData.paid"/>
+                                class="checkbox border-slate-600" v-model="formData.paid" />
                             <label class="ml-4 text-slate-600" for="PAID">Stage rémunéré</label>
                         </div>
                         <div class="flex">
                             <input type="radio" id="UNPAID" name="remuneration" value="UNPAID"
-                                class="checkbox border-slate-600"
-                                v-model="formData.paid"/>
+                                class="checkbox border-slate-600" v-model="formData.paid" />
                             <label class="ml-4 text-slate-600" for="UNPAID">Stage non rémunéré</label>
                         </div>
                     </div>
@@ -277,20 +293,21 @@
                             supplémentaires</label>
                         <textarea name="additionalInformation" id="additionalInformation"
                             class="textarea textarea-bordered bg-slate-50 border-gray-400 rounded p-2 text-slate-500 h-24"
-                            placeholder=""
-                            v-model="formData.additionalInformation"></textarea>
-                        <span class="label-text-alt text-red-500" v-if="!formValidation.additionalInformation">{{errorMessages.additionalInformation}}</span>
+                            placeholder="" v-model="formData.additionalInformation"></textarea>
+                        <span class="label-text-alt text-red-500" v-if="!formValidation.additionalInformation">{{
+                            errorMessages.additionalInformation }}</span>
                     </div>
                     <FileInput class="mt-4 max-w-md col-span-2" />
                 </fieldset>
             </div>
             <div v-if="route.name == 'addinternshiprequest'" class="flex justify-end mb-4 mt-4">
                 <router-link to="/dashboard">
-                        <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">
-                            Annuler
-                        </button>
+                    <button
+                        class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-yellow-600 hover:text-white">
+                        Annuler
+                    </button>
                 </router-link>
-                <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
+                <button class="btn bg-yellow-500  text-white hover:bg-yellow-600">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                         stroke="currentColor">
                         <path
@@ -301,11 +318,12 @@
             </div>
             <div v-if="route.name == 'editinternshiprequest'" class="flex justify-end mb-4 mt-4">
                 <router-link to="/dashboard">
-                        <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">
-                            Annuler
-                        </button>
+                    <button
+                        class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-yellow-600 hover:text-white">
+                        Annuler
+                    </button>
                 </router-link>
-                <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
+                <button class="btn bg-yellow-500  text-white hover:bg-yellow-600">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                         stroke="currentColor">
                         <path
@@ -335,7 +353,7 @@ const provinces = ref([]);
 const activitySectors = ref([]);
 const internshipTypes = ref([]);
 const candidates = ref([]);
-const internshipRequest= ref({});
+const internshipRequest = ref({});
 
 const route = useRoute();
 const vueRouter = useRouter();
@@ -406,7 +424,7 @@ onMounted(async () => {
     activitySectors.value = await ActivitySectors.FindAll();
     internshipTypes.value = await InternshipTypes.FindAll();
     candidates.value = await Candidates.FindAll();
-    if(route.name === 'editinternshiprequest') {
+    if (route.name === 'editinternshiprequest') {
         internshipRequest.value = await InternshipRequests.FindOne(route.params.id);
         getInternshipRequestDetails();
     }
@@ -414,31 +432,31 @@ onMounted(async () => {
 
 const resetErrMessages = () => {
     errorMessages.title = 'Le titre est obligatoire',
-    errorMessages.description = 'La description est obligatoire',
-    errorMessages.formationProgram = 'Le programme de formation est obligatoire',
-    errorMessages.schoolName = 'Le nom de l\'établissement scolaire est obligatoire',
-    errorMessages.city = 'La ville est obligatoire',
-    errorMessages.activitySector = 'Le secteur d\'activité est obligatoire',
-    errorMessages.paid = 'La rémunération est obligatoire',
-    errorMessages.candidate = 'Le candidat est obligatoire',
-    errorMessages.startDate = 'La date de début est obligatoire',
-    errorMessages.endDate = 'La date de fin est obligatoire',
-    errorMessages.weeklyWorkHours = 'Le nombre d\'heures par semaine est obligatoire',
-    errorMessages.province = 'La région est obligatoire',
-    errorMessages.skills = 'Les compétences sont obligatoires',
-    errorMessages.internshipType = 'Le type de stage est obligatoire',
-    errorMessages.additionalInformation = 'Les informations supplémentaires sont obligatoires',
-    errorMessages.isActive = 'Le statut est obligatoire'
+        errorMessages.description = 'La description est obligatoire',
+        errorMessages.formationProgram = 'Le programme de formation est obligatoire',
+        errorMessages.schoolName = 'Le nom de l\'établissement scolaire est obligatoire',
+        errorMessages.city = 'La ville est obligatoire',
+        errorMessages.activitySector = 'Le secteur d\'activité est obligatoire',
+        errorMessages.paid = 'La rémunération est obligatoire',
+        errorMessages.candidate = 'Le candidat est obligatoire',
+        errorMessages.startDate = 'La date de début est obligatoire',
+        errorMessages.endDate = 'La date de fin est obligatoire',
+        errorMessages.weeklyWorkHours = 'Le nombre d\'heures par semaine est obligatoire',
+        errorMessages.province = 'La région est obligatoire',
+        errorMessages.skills = 'Les compétences sont obligatoires',
+        errorMessages.internshipType = 'Le type de stage est obligatoire',
+        errorMessages.additionalInformation = 'Les informations supplémentaires sont obligatoires',
+        errorMessages.isActive = 'Le statut est obligatoire'
 }
 
 const validateInternshipRequestForm = () => {
     resetErrMessages();
     Object.entries(formData).forEach(([key, currentValue]) => {
-        if( key === 'skills') {
-            if(currentValue === '') {
+        if (key === 'skills') {
+            if (currentValue === '') {
                 formValidation.skills = false;
             } else {
-                if(typeof currentValue === 'string') {
+                if (typeof currentValue === 'string') {
                     formValidation.skills = REQUIRED_SKILLS_REGEX.test(currentValue);
                     formValidation.skills ? formData.skills.split(',') : errorMessages.skills = 'Les compétences requises doivent être séparées par des virgules';
                 } else {
@@ -453,24 +471,24 @@ const validateInternshipRequestForm = () => {
             } else {
                 formValidation.internshipType = false;
             }
-        } else if(key === 'endDate') {
-            if(currentValue !== "" ) {
+        } else if (key === 'endDate') {
+            if (currentValue !== "") {
                 let date = new Date(currentValue);
                 formData.endDate = date.toISOString();
                 formValidation.endDate = true;
             } else {
                 formValidation.endDate = false;
             }
-        } else if(key === 'startDate') {
-            if(currentValue !== "" ) {
+        } else if (key === 'startDate') {
+            if (currentValue !== "") {
                 let date = new Date(currentValue);
                 formData.startDate = date.toISOString();
                 formValidation.startDate = true;
             } else {
                 formValidation.startDate = false;
             }
-        } else if(key === 'weeklyWorkHours') {
-            if(currentValue !== "" && currentValue > 0) {
+        } else if (key === 'weeklyWorkHours') {
+            if (currentValue !== "" && currentValue > 0) {
                 formData.weeklyWorkHours = parseInt(currentValue);
                 formValidation.weeklyWorkHours = true;
             } else {
@@ -516,7 +534,7 @@ const validateInternshipRequestForm = () => {
 
     if (isFormValid) {
         formatData();
-    } 
+    }
 }
 
 const formatData = () => {
@@ -537,15 +555,15 @@ const formatData = () => {
 }
 
 const sendDataToApi = async (data) => {
-    if(route.name === 'addinternshiprequest') {
-        await InternshipRequests.Create(data).then(()=>{
+    if (route.name === 'addinternshiprequest') {
+        await InternshipRequests.Create(data).then(() => {
             vueRouter.push('/demandes-stage');
         }).catch((error) => {
             console.log(error);
         });
-    } else if(route.name === 'editinternshiprequest') {
+    } else if (route.name === 'editinternshiprequest') {
         data._id = internshipRequest.value._id;
-        InternshipRequests.Update(data).then(()=>{
+        InternshipRequests.Update(data).then(() => {
             vueRouter.push('/demandes-stage');
         }).catch((error) => {
             console.log(error);
