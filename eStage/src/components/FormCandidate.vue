@@ -180,14 +180,15 @@
                             </div>
                             <div class="label pl-5">
                                 <span class="label-text-alt text-red-500" v-if="!formValidation.postalCode">{{
-                                    errorMessages.errPostalCode }}</span>
+            errorMessages.errPostalCode }}</span>
                             </div>
                         </label>
                     </div>
                 </fieldset>
             </div>
             <!-- Ajouter une condition selon la route: Ajouter ou Modifier -->
-            <div v-if="route.name == 'addcandidate' || 'addinternshiprequest'" class="flex justify-end mb-4 mt-4">
+            <div v-if="route.name == 'addcandidate' || route.name == 'addinternshiprequest'"
+                class="flex justify-end mb-4 mt-4">
                 <router-link to="/dashboard">
                     <button
                         class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">
