@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <div class="flex">
-      <div class="bg-amber-500 w-1 h-14"></div>
+    <div class="flex ml-8 mt-8">
+      <div class="bg-amber-500 w-1 h-14 "></div>
       <div class="ml-4">
-        <h3>Demande de stage</h3>
+        <h3 class="text-xl">Demande de stage</h3>
         <h4 class="text-3xl text-amber-500">{{ demande.title }}</h4>
       </div>
     </div>
@@ -112,7 +112,6 @@
           <h5>{{ demande.weeklyWorkHours }}</h5>
         </div>
       </div>
-    </div>
 
     <div class="flex">
       <div class="bg-slate-500 w-1 h-12"></div>
@@ -129,13 +128,20 @@
         <h3 class="text-slate-500">Rémunération</h3>
         <h5>{{ demande.salary }}</h5>
       </div>
+
     </div>
 
+    <div class="flex flex-col">
+      <h2 class="text-blue-400 mt-12">Informations suplémentaires</h2>
+      <div class="flex flex-row items-center">
+        <div class="bg-slate-500 w-1 h-12"></div>
+        <p class="mt-8 ml-4">{{ demande.additionalInformation }}</p>
+      </div>
   </div>
+    
 
-  <h2 class="text-blue-400 mt-12">Informations suplémentaires</h2>
 
-  <p class="mt-8">{{ demande.additionalInformation }}</p>
+
 
   <button class="bg-blue-400 text-white flex p-4 rounded-lg font-black mt-12">
     <div class="w-8 mr-2">
@@ -146,7 +152,8 @@
     </div>
     Télécharger le C.V.
   </button>
-
+</div>
+</div>
 </template>
 
 <script setup>
