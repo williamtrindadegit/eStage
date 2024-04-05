@@ -3,7 +3,7 @@
         <form class="max-w-5xl p-4 my-0 pt-10 mx-auto" @submit.prevent="validateInternshipRequestForm()">
             <h2 v-if="route.name == 'addinternshiprequest'"
                 class="text-4xl font-bold text-slate-600 border-l-[10px] pl-5 border-yellow-500 py-2 mb-20">Ajouter une
-                demande</h2>
+                demande de stage</h2>
             <div v-if="route.name == 'addinternshiprequest'">
                 <div class="flex justify-end mb-4">
                     <router-link to="/dashboard">
@@ -35,9 +35,10 @@
                 </div>
             </div>
             <div v-if="route.name == 'editinternshiprequest'">
-                <div class="border-l-8 border-slate-600 pl-2 mb-4">
-                    <p class="font-bold text-slate-600">Demande de stage</p>
-                    <p class="font-bold text-slate-600 text-4xl">{{ formData.title }}</p>
+                <div class="border-l-8 border-yellow-600 pl-2 mb-4">
+
+                    <p class="text-4xl font-bold text-slate-600">Demande de stage</p>
+                    <p class="text-2xl font-bold text-slate-600 ">{{ formData.title }}</p>
                 </div>
                 <div class="flex justify-end mb-4">
                     <router-link to="/dashboard">
@@ -46,7 +47,7 @@
                             Annuler
                         </button>
                     </router-link>
-                    <button class="btnbg-red-500 text-white hover:bg-yellow-650">
+                    <button class="btn bg-yellow-500 text-white hover:bg-yellow-650">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                             stroke="currentColor">
                             <path

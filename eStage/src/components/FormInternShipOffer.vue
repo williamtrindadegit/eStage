@@ -2,8 +2,8 @@
     <div class="bg-gray-100">
         <form class="max-w-5xl p-4 my-0 pt-10 mx-auto" @submit.prevent="validateInternshipOfferForm()">
             <h2 v-if="route.name == 'addinternshipoffer'"
-                class="text-4xl font-bold text-slate-600 border-l-[10px] pl-5 border-red-500 py-2 mb-20">Offre de
-                stage</h2>
+                class="text-4xl font-bold text-slate-600 border-l-[10px] pl-5 border-red-500 py-2 mb-20">Ajouter
+                une offre de stage</h2>
             <div v-if="route.name == 'addinternshipoffer'">
                 <div class="flex justify-end mb-4">
                     <router-link to="/dashboard">
@@ -50,9 +50,9 @@
                 </div>
             </div>
             <div v-if="route.name == 'editinternshipoffer'">
-                <div class="border-l-8 border-slate-600 pl-2">
-                    <p class="font-bold text-slate-600">Offre de stage</p>
-                    <p class="font-bold text-slate-600 text-4xl mb-6">{{ formData.title }}</p>
+                <div class="border-l-8 border-red-500 pl-2">
+                    <p class="text-4xl font-bold text-slate-600">Offre de stage</p>
+                    <p class="text-2xl font-bold text-slate-600 mb-6">{{ formData.title }}</p>
                     <p class="py-1 px-3 ml-3 bg-white inline-block rounded font-bold text-slate-600">{{
             formData.enterprise.name }}</p>
                 </div>
@@ -219,7 +219,7 @@
                             class="textarea textarea-bordered bg-slate-50 border-gray-400 rounded p-2 text-slate-500 h-24"
                             placeholder="" v-model="formData.additionalInformation"></textarea>
                         <span class="label-text-alt text-red-500" v-if="!formValidation.additionalInformation">{{
-                            errorMessages.additionalInformation }}</span>
+            errorMessages.additionalInformation }}</span>
                     </div>
                 </fieldset>
             </div>
