@@ -1,7 +1,7 @@
 <template>
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
     <div className="">
-      <router-link to="/demande-stage">
+      <router-link to="/demandes-stage">
         <div className="bg-amber-500 text-white m-2 p-4 flex rounded-lg items-center">
           <div className="w-14 mr-4">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
@@ -20,7 +20,7 @@
     </div>
 
     <div className="">
-      <router-link to="/demande-stage">
+      <router-link to="/offres-stage">
         <div className="bg-red-700 text-white m-2 p-4 flex rounded-lg items-center">
           <div className="w-10 mr-4">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -40,7 +40,7 @@
 
     <div className="m-2 flex">
       <div className="w-1/2">
-        <router-link to="/demande-stage">
+        <router-link to="/candidats">
           <div className="bg-violet-700 text-white py-4 pl-4 flex rounded-l-lg items-center">
             <div className="w-6 mr-4">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -58,7 +58,7 @@
         </router-link>
       </div>
       <div className="w-1/2">
-        <router-link to="/demande-stage">
+        <router-link to="/entreprises">
           <div className="bg-blue-400 text-blue-950 py-4 pl-4 flex rounded-r-lg items-center">
             <div className="w-6 mr-4">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
