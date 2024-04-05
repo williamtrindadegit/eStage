@@ -2,12 +2,12 @@
     <div class="bg-gray-100">
         <!-- changer pour max-w-5xl dans les autres formulaires -->
         <form class="max-w-5xl p-4 my-0 pt-10 mx-auto" @submit.prevent="validateCandidateForm()">
-            <h2 v-if="route.name == 'addcandidate' || route.name == 'addinternshiprequest'"
+            <h2 v-if="route.name == 'addcandidate' || route.name == 'addinternshiprequest' || route.name == 'editinternshiprequest'"
                 class="text-4xl font-bold text-slate-600 border-l-[10px] pl-5 border-purple-700 py-2 mb-20">Ajouter
                 un
                 Candidat</h2>
             <!-- Ajouter une condition selon la route: Ajouter ou Modifier -->
-            <div v-if="route.name == 'addcandidate' || route.name == 'addinternshiprequest'">
+            <div v-if="route.name == 'addcandidate' || route.name == 'addinternshiprequest' || route.name == 'editinternshiprequest'">
                 <div class="flex justify-end mb-4">
                     <router-link to="/dashboard">
                         <button
@@ -187,7 +187,7 @@
                 </fieldset>
             </div>
             <!-- Ajouter une condition selon la route: Ajouter ou Modifier -->
-            <div v-if="route.name == 'addcandidate' || route.name == 'addinternshiprequest'"
+            <div v-if="route.name == 'addcandidate' || route.name == 'addinternshiprequest' || route.name == 'editinternshiprequest'"
                 class="flex justify-end mb-4 mt-4">
                 <router-link to="/dashboard">
                     <button
