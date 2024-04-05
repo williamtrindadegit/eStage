@@ -8,7 +8,7 @@
                 <div class="flex justify-end mb-4">
                     <router-link to="/dashboard">
                         <button
-                            class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-red-550 hover:text-white">
+                            class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-red-600 hover:text-white">
                             Annuler
                         </button>
                     </router-link>
@@ -59,11 +59,11 @@
                 <div class="flex justify-end mb-4">
                     <router-link to="/dashboard">
                         <button
-                            class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-red-550 hover:text-white">
+                            class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-red-600 hover:text-white">
                             Annuler
                         </button>
                     </router-link>
-                    <button class="btn bg-red-500 text-white hover:bg-red-550">
+                    <button class="btn bg-red-500 text-white hover:bg-red-600">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                             stroke="currentColor">
                             <path
@@ -226,11 +226,11 @@
             <div v-if="route.name == 'addinternshipoffer'" class="flex justify-end mb-4 mt-4">
                 <router-link to="/dashboard">
                     <button
-                        class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-red-550 hover:text-white">
+                        class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-red-600 hover:text-white">
                         Annuler
                     </button>
                 </router-link>
-                <button class="btn bg-red-500 text-white hover:bg-red-550">
+                <button class="btn bg-red-500 text-white hover:bg-red-600">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                         stroke="currentColor">
                         <path
@@ -242,11 +242,11 @@
             <div v-if="route.name == 'editinternshipoffer'" class="flex justify-end mb-4 mt-4">
                 <router-link to="/dashboard">
                     <button
-                        class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-red-550 hover:text-white">
+                        class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-red-600 hover:text-white">
                         Annuler
                     </button>
                 </router-link>
-                <button class="btn bg-red-500 text-white hover:bg-red-550">
+                <button class="btn bg-red-500 text-white hover:bg-red-600">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                         stroke="currentColor">
                         <path

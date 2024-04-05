@@ -43,11 +43,11 @@
                 <div class="flex justify-end mb-4">
                     <router-link to="/dashboard">
                         <button
-                            class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-yellow-650 hover:text-white">
+                            class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-amber-500 hover:text-white">
                             Annuler
                         </button>
                     </router-link>
-                    <button class="btn bg-yellow-500 text-white hover:bg-yellow-650">
+                    <button class="btn bg-yellow-500 text-white hover:bg-amber-500">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                             stroke="currentColor">
                             <path
@@ -68,7 +68,7 @@
             candidate.firstName }} {{ candidate.lastName }}</option>
                         <!-- ajout des entreprises avec l'api -->
                     </select>
-                    <button class="btnbg-red-500 text-white hover:bg-yellow-650 mt-5"
+                    <button class="btn bg-yellow-500 text-white hover:bg-amber-500 mt-5"
                         onclick="addForm.showModal()">Ajouter un Candidat</button>
                     <dialog id="addForm" className="modal max-h-[90vh] overflow-y-auto">
                         <FormCandidate :isModal="true" className=" bg-white  rounded-lg" />
