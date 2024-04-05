@@ -1,6 +1,19 @@
 <template>
-    <div class="bg-blue-100 mx-2 my-16 p-8 rounded-lg">
-        <div class="flex justify-between">
+    <section className="m-5 p-10 bg-gray-100 rounded-lg">
+      <h1 className="text-4xl font-bold mt-20">Offres de stage</h1>
+  
+      <router-link to="/addinternshipoffer"
+        className="mt-20 btn btn-ghost text-md m-1 p-2 border-solid border-2 text-white bg-red-500 mx-2">
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+          viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M5 12h14m-7 7V5" />
+        </svg>
+        Ajouter une offre de stage</router-link>
+  
+  
+        <div className="bg-white mx-2 mt-4 mb-16 p-8 rounded-lg">
+            <div className="grid grid-cols-1 md:flex justify-between">
             <div>
                 <h2 class="text-black font-semibold">Dernières <span class="text-red-600">offres</span> de stage</h2>
                 <p class="text-red-500">En attente de validation</p>
@@ -9,7 +22,7 @@
         </div>
 
         <!-- Grid header -->
-        <div class="grid mt-20 grid-cols-4 gap-4">
+        <div className="hidden md:grid mt-20 grid-cols-4 gap-0">
             <div>Poste</div>
             <div>Secteur d'activité</div>
             <div>Région</div>
@@ -19,28 +32,25 @@
 
         <!-- Grid -->
 
-        <div>
-
-            <p>{{ $route.query.name }}</p> <!--pour tester et afficher le nom de la page aceuille-->
-        </div>
-        <div v-for="offre in computedOffers" :key="offre._id" class=" grid grid-cols-4 gap-4">
-            <div class="grid grid-cols-12 grid-rows-1 gap-12">
-                <div class="bg-red-600 p-3 w-12 rounded-lg col-start-1">
+        <div v-for="offre in computedOffers" :key="offre._id" class="mt-6 md:grid md:grid-cols-4 gap-0">
+            <div className="flex md:border-b-4 md:p-1 md:border-slate-300">
+                <div className="bg-red-600 w-1 h-12 mr-2 md:mr-6" ></div>
+                <div className="hidden md:block bg-red-600 p-3 w-12 h-12 rounded-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path fill="#ffffff"
                             d="M32 32H480c17.7 0 32 14.3 32 32V96c0 17.7-14.3 32-32 32H32C14.3 128 0 113.7 0 96V64C0 46.3 14.3 32 32 32zm0 128H480V416c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V160zm128 80c0 8.8 7.2 16 16 16H336c8.8 0 16-7.2 16-16s-7.2-16-16-16H176c-8.8 0-16 7.2-16 16z" />
                     </svg>
                 </div>
-                <div class="text-black text-xs ml-2 my-auto col-start-2 ">
-                    <h3 class="font-semibold">{{ offre?.title }}</h3>
-                    <h4>{{ offre?.entreprise?.name }}</h4>
+                <div className="text-black md:ml-2 my-auto">
+                    <h3 class="font-semibold text-xl">{{ offre?.title }}</h3>
+                    <h4 className="text-lg">{{ offre?.entreprise?.name }}</h4>
                 </div>
             </div>
-            <div class="text-black text-xs flex items-center">{{ offre?.province?.value }}</div>
-            <div class="text-black text-xs flex items-center">{{ new Date(offre.startDate).toLocaleDateString('fr-CA')
+            <div class="text-black md:border-b-4 md:p-1 md:border-slate-300 text-lg flex items-center">{{ offre?.province?.value }}</div>
+            <div class="text-black md:border-b-4 md:p-1 md:border-slate-300 text-lg flex items-center">{{ new Date(offre.startDate).toLocaleDateString('fr-CA')
                 }}
             </div>
-            <div class="text-xs flex justify-between items-center">
+            <div className="text-lg flex justify-between items-center md:border-b-4 md:p-1 md:border-slate-300">
                 <button class="btn bg-emerald-200 border-emerald-200 text-emerald-600 font-light"
                     @click="goTo()">Accepter</button>
                 <button class="w-6">
@@ -87,14 +97,15 @@
         </div>
 
     </div>
+    </section>
 </template>
 
 
 
 
 <script setup>
-import service from '@/services/InternshipOffers'
 
+import service from '@/services/InternshipOffers'
 import { ref, onMounted, computed } from 'vue'
 
 

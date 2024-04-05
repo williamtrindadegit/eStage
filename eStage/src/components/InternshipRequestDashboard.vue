@@ -1,49 +1,55 @@
 <template>
-    <div class="bg-blue-100 mx-2 my-16 p-8 rounded-lg">
-        <div class="flex justify-between">
-            <div>
-                <h2 class="text-black font-semibold">Dernières <span class="text-red-600">offres</span> de stage</h2>
-                <p class="text-red-500">En attente de validation</p>
-            </div>
-            <button class="btn bg-teal-500 border-teal-500 text-white">Valider toutes les offres</button>
+    <section className="m-5 p-10 bg-gray-100 rounded-lg">
+        <h1 className="text-4xl font-bold mt-20">Demandes de stage</h1>
+    
+        <router-link to="/addinternshiprequest"
+          className="mt-20 btn btn-ghost text-md m-1 p-2 border-solid border-2 text-white bg-yellow-600 mx-2">
+          <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+            viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M5 12h14m-7 7V5" />
+          </svg>
+          Ajouter une demande de stage</router-link>
+   <div class="bg-white mx-2 mt-4 mb-16 p-8 rounded-lg shadow">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+        <div>
+          <h2 class="text-xl font-semibold text-black">Dernières <span class="text-yellow-500">demandes</span> de stage</h2>
+          <p class="text-sm text-red-500">En attente de validation</p>
         </div>
+        <button class="btn bg-teal-500 text-white mt-4 md:mt-0">Valider toutes les demandes</button>
+      </div>
 
         <!-- Grid header -->
-        <div class="grid mt-20 grid-cols-5 gap-4">
+        <div className="hidden md:grid mt-20 grid-cols-4 gap-4">
             <div>Poste</div>
             <div>Secteur d'activité</div>
-            <div>Région</div>
             <div>Date d'inscription</div>
-            <div></div>
+            <div>Actions</div>
         </div>
 
         <!-- Grid -->
-
-        <div>
-
-            <p>{{ $route.query.name }}</p> <!--pour tester et afficher le nom de la page aceuille-->
-        </div>
-        <div v-for="demande in demandes" :key="demande._id" class="grid grid-cols-4 gap-4">
-            <div class="grid grid-cols-12 grid-rows-1 gap-12">
-                <div class="bg-red-600 p-3 w-12 rounded-lg col-start-1">
+        <div v-for="demande in demandes" :key="demande._id" className="mt-6 md:grid md:grid-cols-4 gap-0">
+            <div className="flex  md:border-b-4 md:p-1 md:border-slate-300">
+                <div class="bg-amber-500 w-1 h-12 mr-2 md:mr-6"></div>
+                <div className="hidden md:block bg-amber-500 p-2 w-12 h-12 rounded-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path fill="#ffffff"
                             d="M32 32H480c17.7 0 32 14.3 32 32V96c0 17.7-14.3 32-32 32H32C14.3 128 0 113.7 0 96V64C0 46.3 14.3 32 32 32zm0 128H480V416c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V160zm128 80c0 8.8 7.2 16 16 16H336c8.8 0 16-7.2 16-16s-7.2-16-16-16H176c-8.8 0-16 7.2-16 16z" />
                     </svg>
                 </div>
-                <div class="text-black text-xs ml-2 my-auto col-start-2 ">
-                    <h3 class="font-semibold">{{ demande?.title }}</h3>
+                <div className="text-black text-md md:ml-2 my-auto">
+                    <h3 className="font-semibold text-lg">{{ demande?.title }}</h3>
                     <h4> {{ demande.candidate.firstName }} {{ demande.candidate.lastName }}</h4>
                 </div>
             </div>
-            <div class="text-black text-xs flex items-center">{{ demande?.province?.value }}</div>
-            <div class="text-black text-xs flex items-center">{{ new Date(demande.startDate).toLocaleDateString('fr-CA')
+            <div className="text-black md:border-b-4 md:p-1 md:border-slate-300 text-lg flex items-center">{{ demande?.province?.value }}</div>
+            <div className="text-black md:border-b-4 md:p-1 md:border-slate-300 text-lg flex items-center">{{ new Date(demande.startDate).toLocaleDateString('fr-CA')
                 }}
             </div>
-            <div class="text-xs flex justify-between items-center">
-                <button class="btn bg-emerald-200 border-emerald-200 text-emerald-600 font-light"
+            <div className="md:border-b-4 md:p-1 md:border-slate-300 text-lg text-md flex justify-between items-center">
+                <button className="btn bg-emerald-200 border-emerald-200 text-emerald-600 font-light"
                     @click="goTo()">Accepter</button>
-                <button class="w-6">
+                <button className="w-6">
                     <svg viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
                         <path fill="rgb(20 184 166)"
                             d="M6,12v15c0,1.654,1.346,3,3,3h14c1.654,0,3-1.346,3-3V12H6z M12,25c0,0.552-0.448,1-1,1s-1-0.448-1-1v-9  c0-0.552,0.448-1,1-1s1,0.448,1,1V25z M17,25c0,0.552-0.448,1-1,1s-1-0.448-1-1v-9c0-0.552,0.448-1,1-1s1,0.448,1,1V25z M22,25  c0,0.552-0.448,1-1,1s-1-0.448-1-1v-9c0-0.552,0.448-1,1-1s1,0.448,1,1V25z"
@@ -70,23 +76,24 @@
                         </svg>
                     </router-link>
                 </button>
-                <button class="w-6" @click="deleteMe(demande._id)">
-                    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32"
-                        xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                <button @click="supprimerOffre(offre._id)" className="w-6">
+                    <router-link to="">
+                      <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <path fill="rgb(220 38 38)"
-                            d="M6,12v15c0,1.654,1.346,3,3,3h14c1.654,0,3-1.346,3-3V12H6z M12,25c0,0.552-0.448,1-1,1s-1-0.448-1-1v-9  c0-0.552,0.448-1,1-1s1,0.448,1,1V25z M17,25c0,0.552-0.448,1-1,1s-1-0.448-1-1v-9c0-0.552,0.448-1,1-1s1,0.448,1,1V25z M22,25  c0,0.552-0.448,1-1,1s-1-0.448-1-1v-9c0-0.552,0.448-1,1-1s1,0.448,1,1V25z"
-                            id="XMLID_237_" />
+                          d="M6,12v15c0,1.654,1.346,3,3,3h14c1.654,0,3-1.346,3-3V12H6z M12,25c0,0.552-0.448,1-1,1s-1-0.448-1-1v-9  c0-0.552,0.448-1,1-1s1,0.448,1,1V25z M17,25c0,0.552-0.448,1-1,1s-1-0.448-1-1v-9c0-0.552,0.448-1,1-1s1,0.448,1,1V25z M22,25  c0,0.552-0.448,1-1,1s-1-0.448-1-1v-9c0-0.552,0.448-1,1-1s1,0.448,1,1V25z"
+                          id="XMLID_237_" />
                         <path fill="rgb(220 38 38)"
-                            d="M27,6h-6V5c0-1.654-1.346-3-3-3h-4c-1.654,0-3,1.346-3,3v1H5C3.897,6,3,6.897,3,8v1c0,0.552,0.448,1,1,1h24  c0.552,0,1-0.448,1-1V8C29,6.897,28.103,6,27,6z M13,5c0-0.551,0.449-1,1-1h4c0.551,0,1,0.449,1,1v1h-6V5z"
-                            id="XMLID_243_" />
-                    </svg>
-                </button>
+                          d="M27,6h-6V5c0-1.654-1.346-3-3-3h-4c-1.654,0-3,1.346-3,3v1H5C3.897,6,3,6.897,3,8v1c0,0.552,0.448,1,1,1h24  c0.552,0,1-0.448,1-1V8C29,6.897,28.103,6,27,6z M13,5c0-0.551,0.449-1,1-1h4c0.551,0,1,0.449,1,1v1h-6V5z"
+                          id="XMLID_243_" />
+                      </svg>
+                    </router-link>
+                  </button>
             </div>
             <br>
         </div>
-
-    </div>
+        </div>
+    </section>
 </template>
 
 
@@ -115,7 +122,7 @@ onMounted(async () => {
     const response = await service.FindAll();
     demandes.value = response;
 
-    console.log(offres.value)
+    console.log(demandes.value)
 });
 
 
@@ -124,6 +131,16 @@ function deleteMe(id) {
     const response = service.FindAll();
     demandes.value = response;
 }
+
+const supprimerOffre = async (id) => {
+  // Appelle la méthode Delete du service en passant l'identifiant de l'offre
+  try {
+    const response = await service.Delete(id);
+    console.log('Offre supprimée avec succès :', response);
+  } catch (error) {
+    console.error(`Erreur lors de la suppression de l'offre :`, error);
+  }
+};
 
 function getDataMock(data) {
     return [
