@@ -1,4 +1,4 @@
-<template>900
+<template>
     <div class="bg-gray-100">
         <!-- changer pour max-w-5xl dans les autres formulaires -->
         <form class="max-w-5xl p-4 my-0 pt-10 mx-auto" @submit.prevent="validateCandidateForm()">
@@ -180,7 +180,7 @@
                             </div>
                             <div class="label pl-5">
                                 <span class="label-text-alt text-red-500" v-if="!formValidation.postalCode">{{
-            errorMessages.errPostalCode }}</span>
+                                    errorMessages.errPostalCode }}</span>
                             </div>
                         </label>
                     </div>
