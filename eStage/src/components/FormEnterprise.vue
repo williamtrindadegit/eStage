@@ -2,16 +2,17 @@
     <div class="bg-gray-100">
         <form class="max-w-5xl p-4 my-0 pt-10 mx-auto" @submit.prevent="validateEnterpriseForm()">
             <h2 v-if="route.name == 'addenterprise'"
-                class="text-4xl font-bold text-slate-600 border-l-[10px] pl-5 border-fuchsia-900 py-2 mb-20">Ajouter une
+                class="text-4xl font-bold text-slate-600 border-l-[10px] pl-5 border-blue-400 py-2 mb-20">Ajouter une
                 entreprise</h2>
             <div v-if="route.name == 'addenterprise'">
                 <div class="flex justify-end mb-4">
                     <router-link to="/dashboard">
-                        <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">
+                        <button
+                            class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-blue-800 hover:text-white">
                             Annuler
                         </button>
                     </router-link>
-                    <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
+                    <button class="btn bg-blue-400 text-white hover:bg-blue-900">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                             stroke="currentColor">
                             <path
@@ -25,10 +26,11 @@
                         <label for="name" class="text-slate-600 font-bold max-w-24 w-full">Entreprise: </label>
                         <input type="text" name="name" id="name" v-model="formData.name"
                             class="input input-bordered w-full bg-slate-50 border-gray-400 rounded p-2 text-slate-500"
-                            placeholder=""/>
+                            placeholder="" />
                     </div>
                     <div class="ml-24 mb-4">
-                        <span class="label-text-alt text-red-500" v-if="!formValidation.name">{{errorMessages.name}}</span>
+                        <span class="label-text-alt text-red-500" v-if="!formValidation.name">{{ errorMessages.name
+                            }}</span>
                     </div>
                     <div class="flex items-center mb-8">
                         <label class="text-slate-600 font-bold max-w-24 w-full">Logo: </label>
@@ -43,11 +45,12 @@
                 </div>
                 <div class="flex justify-end mb-4">
                     <router-link to="/dashboard">
-                        <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">
+                        <button
+                            class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-blue-850 hover:text-white">
                             Annuler
                         </button>
                     </router-link>
-                    <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
+                    <button class="btn bg-blue-400 text-white hover:bg-blue-850">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                             stroke="currentColor">
                             <path
@@ -64,7 +67,8 @@
                             placeholder="" />
                     </div>
                     <div class="ml-24 mb-4">
-                        <span class="label-text-alt text-red-500" v-if="!formValidation.name">{{errorMessages.name}}</span>
+                        <span class="label-text-alt text-red-500" v-if="!formValidation.name">{{ errorMessages.name
+                            }}</span>
                     </div>
                     <div class="flex items-center mb-8">
                         <label class="text-slate-600 font-bold max-w-24 w-full">Logo: </label>
@@ -75,12 +79,13 @@
             </div>
             <div class="bg-white p-5">
                 <div class="flex flex-col pb-2">
-                    <label for="description" class="text-slate-600 font-bold text-3xl mb-5 mt-5">Courte
+                    <label for="description" class="text-blue-400  font-bold text-3xl mb-5 mt-5">Courte
                         présentation</label>
                     <textarea name="description" id="description" v-model="formData.description"
                         class="textarea textarea-bordered bg-slate-50 border-gray-400 rounded p-2 text-slate-500 h-24"
                         placeholder=""></textarea>
-                    <span class="label-text-alt text-red-500" v-if="!formValidation.description">{{errorMessages.description}}</span>
+                    <span class="label-text-alt text-red-500" v-if="!formValidation.description">{{
+            errorMessages.description }}</span>
                 </div>
                 <div class="col-span-2 sm:col-span-1 mt-5">
                     <label for="contactName" class="form-control w-full max-w-md">
@@ -89,16 +94,18 @@
                             <div class="label pt-0">
                                 <span class="text-slate-600 font-bold">Personne contact</span>
                             </div>
-                            <input type="text" name="contactName" id="contactName" placeholder="" v-model="formData.contactName"
+                            <input type="text" name="contactName" id="contactName" placeholder=""
+                                v-model="formData.contactName"
                                 class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
                         </div>
                         <div class="label pl-5">
-                            <span class="label-text-alt text-red-500" v-if="!formValidation.contactName">{{errorMessages.contactName}}</span>
+                            <span class="label-text-alt text-red-500" v-if="!formValidation.contactName">{{
+            errorMessages.contactName }}</span>
                         </div>
                     </label>
                 </div>
                 <fieldset class="grid grid-cols-2 max-w-5xl mt-8">
-                    <legend class="text-slate-600 font-bold mb-6">Informations de contact</legend>
+                    <legend class="text-blue-400 font-bold mb-6">Informations de contact</legend>
                     <div class="col-span-2 sm:col-span-1 mr-0 sm:mr-4">
                         <label for="address" class="form-control w-full max-w-md">
                             <div class="border-l-8 border-slate-600 pl-2">
@@ -109,7 +116,8 @@
                                     class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.address">{{errorMessages.address}}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.address">{{
+            errorMessages.address }}</span>
                             </div>
                         </label>
                     </div>
@@ -123,7 +131,8 @@
                                     class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.phone">{{errorMessages.phone}}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.phone">{{
+            errorMessages.phone }}</span>
                             </div>
                         </label>
                     </div>
@@ -137,7 +146,8 @@
                                     class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.city">{{errorMessages.city}}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.city">{{
+            errorMessages.city }}</span>
                             </div>
                         </label>
                     </div>
@@ -151,7 +161,8 @@
                                     class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.email">{{errorMessages.email}}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.email">{{
+            errorMessages.email }}</span>
                             </div>
                         </label>
                     </div>
@@ -164,11 +175,13 @@
                                 <select name="province" id="province" v-model="formData.province._id"
                                     class="select select-bordered w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500">
                                     <option disabled selected>Veuillez effectuer un choix</option>
-                                    <option v-for="province in provinces" :key="province._id" :value="province._id">{{ province.value }}</option>
+                                    <option v-for="province in provinces" :key="province._id" :value="province._id">{{
+            province.value }}</option>
                                 </select>
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.province">{{errorMessages.province}}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.province">{{
+            errorMessages.province }}</span>
                             </div>
                         </label>
                     </div>
@@ -178,11 +191,13 @@
                                 <div class="label pt-0">
                                     <span class="text-slate-600 font-bold">Code postal</span>
                                 </div>
-                                <input type="text" name="postalCode" id="postalCode" placeholder="" v-model="formData.postalCode"
+                                <input type="text" name="postalCode" id="postalCode" placeholder=""
+                                    v-model="formData.postalCode"
                                     class="input w-full max-w-md bg-slate-50 border-gray-400 rounded p-2 text-slate-500" />
                             </div>
                             <div class="label pl-5">
-                                <span class="label-text-alt text-red-500" v-if="!formValidation.postalCode">{{errorMessages.postalCode}}</span>
+                                <span class="label-text-alt text-red-500" v-if="!formValidation.postalCode">{{
+                                    errorMessages.postalCode }}</span>
                             </div>
                         </label>
                     </div>
@@ -190,11 +205,12 @@
             </div>
             <div v-if="route.name == 'addenterprise'" class="flex justify-end mb-4 mt-4">
                 <router-link to="/dashboard">
-                        <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">
-                            Annuler
-                        </button>
+                    <button
+                        class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-blue-850 hover:text-white">
+                        Annuler
+                    </button>
                 </router-link>
-                <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
+                <button class="btn bg-blue-400 text-white hover:bg-blue-850">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                         stroke="currentColor">
                         <path
@@ -205,11 +221,12 @@
             </div>
             <div v-if="route.name == 'editenterprise'" class="flex justify-end mb-4 mt-4">
                 <router-link to="/dashboard">
-                        <button class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-fuchsia-950 hover:text-white">
-                            Annuler
-                        </button>
+                    <button
+                        class="btn mr-2 bg-transparent text-slate-600 border-gray-400 hover:bg-blue-850 hover:text-white">
+                        Annuler
+                    </button>
                 </router-link>
-                <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
+                <button class="btn bg-blue-400 text-white hover:bg-blue-850">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                         stroke="currentColor">
                         <path
@@ -237,45 +254,45 @@ const vueRouter = useRouter();
 
 //Mock to be used when sending data to the API that is not in the designed form
 const mockEnterprise = {
-  image: "aHR0cHM6Ly9pbWcuZnJlZXBpay5jb20vZnJlZS12ZWN0b3IvZ29sZGVuLWJsdWUtZGlhbW9uZC1zaGFwZS1sb2dvLWJ1c2luZXNzLXRlbXBsYXRlXzIzLTIxNDg3MDc2NDguanBnP3c9NzQwJnQ9c3Q9MTcxMjE4MjgxOX5leHA9MTcxMjE4MzQxOX5obWFjPWQyNTVhNmE3MWM5MzZhMGMzMzIzMGU4YzA3YjNlM2UwNmE2NjUyNDU0YjlhMmMzYWU3NjNhZjdlMzBiNjVmYzc=",
-  name: "Example Company Inc.",
-  address: "123 Main St",
-  postalCode: "h0h 0h0",
-  city: "Example City",
-  province: {
-    _id: "65e4dfcb2951efc25ce318cf",
-    value: "BRITISH COLUMBIA"
-  },
-  phone: "819-990-2217",
-  email: "info@examplecompany.com",
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  activitySector: {
-    _id: "660334e85526fb10bf2aae4a",
-    value: "Front-End development"
-  },
-  website: "https://examplecompany.com",
-  contactName: "John Doe"
+    image: "aHR0cHM6Ly9pbWcuZnJlZXBpay5jb20vZnJlZS12ZWN0b3IvZ29sZGVuLWJsdWUtZGlhbW9uZC1zaGFwZS1sb2dvLWJ1c2luZXNzLXRlbXBsYXRlXzIzLTIxNDg3MDc2NDguanBnP3c9NzQwJnQ9c3Q9MTcxMjE4MjgxOX5leHA9MTcxMjE4MzQxOX5obWFjPWQyNTVhNmE3MWM5MzZhMGMzMzIzMGU4YzA3YjNlM2UwNmE2NjUyNDU0YjlhMmMzYWU3NjNhZjdlMzBiNjVmYzc=",
+    name: "Example Company Inc.",
+    address: "123 Main St",
+    postalCode: "h0h 0h0",
+    city: "Example City",
+    province: {
+        _id: "65e4dfcb2951efc25ce318cf",
+        value: "BRITISH COLUMBIA"
+    },
+    phone: "819-990-2217",
+    email: "info@examplecompany.com",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    activitySector: {
+        _id: "660334e85526fb10bf2aae4a",
+        value: "Front-End development"
+    },
+    website: "https://examplecompany.com",
+    contactName: "John Doe"
 }
 
 const formData = reactive({
-  image: mockEnterprise.image,
-  name: "",
-  address: "",
-  postalCode: "",
-  city: "",
-  province: {
-    _id: "",
-    value: ""
-  },
-  phone: "",
-  email: "",
-  description: "",
-  activitySector: {
-    _id: mockEnterprise.activitySector._id,
-    value: mockEnterprise.activitySector.value
-  },
-  website: mockEnterprise.website,
-  contactName: "" //this wont be sent to the API. validation purposes only
+    image: mockEnterprise.image,
+    name: "",
+    address: "",
+    postalCode: "",
+    city: "",
+    province: {
+        _id: "",
+        value: ""
+    },
+    phone: "",
+    email: "",
+    description: "",
+    activitySector: {
+        _id: mockEnterprise.activitySector._id,
+        value: mockEnterprise.activitySector.value
+    },
+    website: mockEnterprise.website,
+    contactName: "" //this wont be sent to the API. validation purposes only
 });
 
 const formValidation = reactive({
@@ -320,9 +337,9 @@ onMounted(async () => {
     provinces.value = await Provinces.FindAll();
 
     if (route.name === 'editenterprise') {
-            enterprises.value = await Enterprises.FindOne(route.params.id);
-            getEnterpriseDetails();
-        }
+        enterprises.value = await Enterprises.FindOne(route.params.id);
+        getEnterpriseDetails();
+    }
 });
 
 const resetErrMessages = () => {
@@ -340,116 +357,116 @@ const resetErrMessages = () => {
     errorMessages.contactName = "Vous devez ajouter un nom de contact";
 }
 
-    const validateEnterpriseForm = () => {
-        resetErrMessages();
-        Object.entries(formData).forEach(([key, currentValue]) => {
+const validateEnterpriseForm = () => {
+    resetErrMessages();
+    Object.entries(formData).forEach(([key, currentValue]) => {
 
-            if (key === 'email') {
-                if(currentValue === "") {
-                    formValidation.email = false;
-                    errorMessages.email = 'Veuillez renseigner une adresse courriel.';
-                } else {
-                    formValidation.email = EMAIL_REGEX.test(currentValue);
-                    formValidation.email ? '' : errorMessages.email = 'Veuillez renseigner une adresse courriel qui respecte le format suivant : exemple@exemple.com';
-                }
-            } else if (key === 'phone') {
-                if(currentValue === "") {
-                    formValidation.phone = false;
-                    errorMessages.phone = 'Veuillez renseigner un numéro de téléphone.';
-                } else {
-                    formValidation.phone = PHONE_REGEX.test(currentValue);
-                    formValidation.phone ? '' : errorMessages.phone = 'Veuillez renseigner un numéro de téléphone qui respecte le format suivant : 555-123-4567.';
-                }
-            } else if (key === 'postalCode') {
-                if(currentValue === "") {
-                    formValidation.postalCode = false;
-                    errorMessages.postalCode = 'Veuillez renseigner un code postal.';
-                } else {
-                    formValidation.postalCode = POSTAL_CODE_REGEX.test(currentValue);
-                    formValidation.postalCode ? '' : errorMessages.postalCode = 'Veuillez renseigner un code postal qui respecte le format suivant : A1A 1A1.';
-                }
-            } else if (key === 'name') {
-                if(currentValue === "") {
-                    formValidation.name = false;
-                    errorMessages.name = 'Veuillez renseigner le nom de votre entreprise.';
-                } else {
-                    formValidation.name = NAME_REGEX.test(currentValue);
-                    formValidation.name ? '' : errorMessages.name = 'Votre nom d\'entreprise ne doit pas contenir de charactère spéciaux ni de chiffres.';
-                }
-            } else if (key === 'contactName') {
-                if(currentValue === "") {
-                    formValidation.contactName = false;
-                    errorMessages.contactName = 'Veuillez renseigner le nom de la personne contacte de votre entreprise.';
-                } else {
-                    formValidation.contactName = NAME_REGEX.test(currentValue);
-                    formValidation.contactName ? '' : errorMessages.contactName = 'Le nom de la personne contacte de votre entreprise ne peut pas contenir de charactères spéciaux ni de chiffres.';
-                }
-            } else if (key === 'province') {
-                const foundProvince = provinces.value.find(province => province._id === currentValue._id);
-                if (foundProvince) {
-                    formData.province.value = foundProvince.value;
-                    formValidation.province = true;
-                } else {
-                    formValidation.province = false;
-                }
-
+        if (key === 'email') {
+            if (currentValue === "") {
+                formValidation.email = false;
+                errorMessages.email = 'Veuillez renseigner une adresse courriel.';
             } else {
-                formValidation[key] = (currentValue !== "" && currentValue !== undefined && currentValue !== null) ? true : false;
+                formValidation.email = EMAIL_REGEX.test(currentValue);
+                formValidation.email ? '' : errorMessages.email = 'Veuillez renseigner une adresse courriel qui respecte le format suivant : exemple@exemple.com';
             }
-        });
-
-        let isFormValid = true;
-        Object.entries(formValidation).forEach(([key, value]) => {
-            if (!key.startsWith('_') || !key.startsWith('__')) {
-                if (!value) {
-                    isFormValid = false; // If any value is false, set form validity to false
-                }
+        } else if (key === 'phone') {
+            if (currentValue === "") {
+                formValidation.phone = false;
+                errorMessages.phone = 'Veuillez renseigner un numéro de téléphone.';
+            } else {
+                formValidation.phone = PHONE_REGEX.test(currentValue);
+                formValidation.phone ? '' : errorMessages.phone = 'Veuillez renseigner un numéro de téléphone qui respecte le format suivant : 555-123-4567.';
             }
-        });
-
-        if (isFormValid) {
-            sendDataToApi();
-        }
-    };
-
-    const sendDataToApi = () => {
-        formData._id = route.params.id;
-        if(route.name === 'editenterprise') {
-            Enterprises.Update(formData).then(async () => {
-                await vueRouter.push({path: '/entreprises'});
-            }).catch( error=>{
-                console.log(error);
-            });
-        } else if(route.name === 'addenterprise') {
-            Enterprises.Create(formData).then(async ()=>{
-                await vueRouter.push({path: '/entreprises'});
-            }).catch( error=>{
-                console.log(error);
-            });
-        }
-    };
-
-    const getEnterpriseDetails = () => {
-        formData.description = enterprises.value.description;
-        formData.email = enterprises.value.email;
-        formData.name = enterprises.value.name;
-        formData.address = enterprises.value.address;
-        formData.phone = enterprises.value.phone;
-        formData.city = enterprises.value.city;
-        formData.contactName = mockEnterprise.contactName;
-
-        if (enterprises.value.province === null) {
-            enterprises.value.province = {
-                _id: "",
-                value: ""
+        } else if (key === 'postalCode') {
+            if (currentValue === "") {
+                formValidation.postalCode = false;
+                errorMessages.postalCode = 'Veuillez renseigner un code postal.';
+            } else {
+                formValidation.postalCode = POSTAL_CODE_REGEX.test(currentValue);
+                formValidation.postalCode ? '' : errorMessages.postalCode = 'Veuillez renseigner un code postal qui respecte le format suivant : A1A 1A1.';
             }
+        } else if (key === 'name') {
+            if (currentValue === "") {
+                formValidation.name = false;
+                errorMessages.name = 'Veuillez renseigner le nom de votre entreprise.';
+            } else {
+                formValidation.name = NAME_REGEX.test(currentValue);
+                formValidation.name ? '' : errorMessages.name = 'Votre nom d\'entreprise ne doit pas contenir de charactère spéciaux ni de chiffres.';
+            }
+        } else if (key === 'contactName') {
+            if (currentValue === "") {
+                formValidation.contactName = false;
+                errorMessages.contactName = 'Veuillez renseigner le nom de la personne contacte de votre entreprise.';
+            } else {
+                formValidation.contactName = NAME_REGEX.test(currentValue);
+                formValidation.contactName ? '' : errorMessages.contactName = 'Le nom de la personne contacte de votre entreprise ne peut pas contenir de charactères spéciaux ni de chiffres.';
+            }
+        } else if (key === 'province') {
+            const foundProvince = provinces.value.find(province => province._id === currentValue._id);
+            if (foundProvince) {
+                formData.province.value = foundProvince.value;
+                formValidation.province = true;
+            } else {
+                formValidation.province = false;
+            }
+
         } else {
-            formData.province._id = enterprises.value.province._id;
-            formData.province.value = enterprises.value.province.value;
+            formValidation[key] = (currentValue !== "" && currentValue !== undefined && currentValue !== null) ? true : false;
         }
+    });
 
-        formData.postalCode = enterprises.value.postalCode;
+    let isFormValid = true;
+    Object.entries(formValidation).forEach(([key, value]) => {
+        if (!key.startsWith('_') || !key.startsWith('__')) {
+            if (!value) {
+                isFormValid = false; // If any value is false, set form validity to false
+            }
+        }
+    });
+
+    if (isFormValid) {
+        sendDataToApi();
     }
+};
+
+const sendDataToApi = () => {
+    formData._id = route.params.id;
+    if (route.name === 'editenterprise') {
+        Enterprises.Update(formData).then(async () => {
+            await vueRouter.push({ path: '/entreprises' });
+        }).catch(error => {
+            console.log(error);
+        });
+    } else if (route.name === 'addenterprise') {
+        Enterprises.Create(formData).then(async () => {
+            await vueRouter.push({ path: '/entreprises' });
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+};
+
+const getEnterpriseDetails = () => {
+    formData.description = enterprises.value.description;
+    formData.email = enterprises.value.email;
+    formData.name = enterprises.value.name;
+    formData.address = enterprises.value.address;
+    formData.phone = enterprises.value.phone;
+    formData.city = enterprises.value.city;
+    formData.contactName = mockEnterprise.contactName;
+
+    if (enterprises.value.province === null) {
+        enterprises.value.province = {
+            _id: "",
+            value: ""
+        }
+    } else {
+        formData.province._id = enterprises.value.province._id;
+        formData.province.value = enterprises.value.province.value;
+    }
+
+    formData.postalCode = enterprises.value.postalCode;
+}
 
 
 </script>

@@ -1,9 +1,10 @@
-<template>
+<template>900
     <div class="bg-gray-100">
         <!-- changer pour max-w-5xl dans les autres formulaires -->
         <form class="max-w-5xl p-4 my-0 pt-10 mx-auto" @submit.prevent="validateCandidateForm()">
-            <h2 v-if="route.name == 'addcandidate' || route.name ==  'addinternshiprequest'"
-                class="text-4xl font-bold text-slate-600 border-l-[10px] pl-5 border-fuchsia-900 py-2 mb-20">Ajouter un
+            <h2 v-if="route.name == 'addcandidate' || route.name == 'addinternshiprequest'"
+                class="text-4xl font-bold text-slate-600 border-l-[10px] pl-5 border-purple-700 py-2 mb-20">Ajouter
+                un
                 Candidat</h2>
             <!-- Ajouter une condition selon la route: Ajouter ou Modifier -->
             <div v-if="route.name == 'addcandidate' || route.name == 'addinternshiprequest'">
@@ -15,7 +16,7 @@
                         </button>
                     </router-link>
 
-                    <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
+                    <button class="btn bg-purple-700 text-white hover:bg-fuchsia-950">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                             stroke="currentColor">
                             <path
@@ -58,7 +59,7 @@
                             Annuler
                         </button>
                     </router-link>
-                    <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
+                    <button class="btn bg-purple-700 text-white hover:bg-fuchsia-950">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                             stroke="currentColor">
                             <path
@@ -71,7 +72,7 @@
             <!-- End block -->
             <div class="bg-white p-5">
                 <div class="flex flex-col pb-2">
-                    <label for="description" class="text-slate-600 font-bold text-3xl mb-5 mt-5">Courte
+                    <label for="description" class="text-purple-700 font-bold text-3xl mb-5 mt-5">Courte
                         présentation</label>
                     <textarea name="description" id="description"
                         class="textarea textarea-bordered bg-slate-50 border-gray-400 rounded p-2 text-slate-500 h-24"
@@ -81,7 +82,7 @@
                         champ.</span>
                 </div>
                 <fieldset class="grid grid-cols-2 max-w-5xl mt-8">
-                    <legend class="text-slate-600 font-bold mb-6">Informations personnelles</legend>
+                    <legend class="text-purple-700 font-bold mb-6">Informations personnelles</legend>
                     <!-- ajouter mr-0 sm:mr-4 dans les autres formulaires -->
                     <div class="col-span-2 sm:col-span-1 mr-0 sm:mr-4">
                         <label for="address" class="form-control w-full max-w-md">
@@ -179,7 +180,7 @@
                             </div>
                             <div class="label pl-5">
                                 <span class="label-text-alt text-red-500" v-if="!formValidation.postalCode">{{
-                                    errorMessages.errPostalCode }}</span>
+            errorMessages.errPostalCode }}</span>
                             </div>
                         </label>
                     </div>
@@ -193,7 +194,7 @@
                         Annuler
                     </button>
                 </router-link>
-                <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
+                <button class="btn bg-purple-700 text-white hover:bg-fuchsia-950">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                         stroke="currentColor">
                         <path
@@ -209,7 +210,7 @@
                         Annuler
                     </button>
                 </router-link>
-                <button class="btn bg-fuchsia-900 text-white hover:bg-fuchsia-950">
+                <button class="btn bg-purple-700 text-white hover:bg-fuchsia-950">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="white" viewBox="0 -960 960 960"
                         stroke="currentColor">
                         <path
