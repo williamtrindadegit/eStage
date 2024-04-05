@@ -31,7 +31,7 @@
 
       <!-- Grid -->
       <div className="mt-6 md:grid md:grid-cols-4 gap-0" v-for="demande in demandes" :key="demande._id">
-        
+
         <div className="flex  md:border-b-4 md:p-1 md:border-slate-300">
           <div class="bg-amber-500 w-1 h-12 mr-2 md:mr-6"></div>
           <div className="hidden md:block bg-amber-500 p-2 w-12 h-12 rounded-lg">
@@ -45,11 +45,13 @@
             <h4 classsName="text-lg">{{ `${demande.candidate.firstName} ${demande.candidate.lastName}` }}</h4>
           </div>
         </div>
-        <div className="text-black md:border-b-4 md:p-1 md:border-slate-300 text-lg flex items-center flex-col">{{ demande.description }}
+        <div className="text-black md:border-b-4 md:p-1 md:border-slate-300 text-lg flex items-center flex-col">{{
+        demande.description }}
         </div>
-        <div className="text-black md:border-b-4 md:p-1 md:border-slate-300 text-lg flex items-center">{{ new Date(demande.startDate).toLocaleDateString('fr-CA')
+        <div className="text-black md:border-b-4 md:p-1 md:border-slate-300 text-lg flex items-center">{{ new
+        Date(demande.startDate).toLocaleDateString('fr-CA')
           }}</div>
-          
+
         <div className="text-xs flex justify-between items-center md:border-b-4 md:p-1 md:border-slate-300">
           <button @click="accepterDemande(demande)" className="w-6 md:w-8 lg:hidden xl:hidden">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -60,13 +62,14 @@
           <button @click="accepterDemande(demande)"
             className="hidden lg:block btn bg-emerald-200 border-emerald-200 text-emerald-600 font-light">Accepter</button>
           <button className="w-6">
-            <router-link :to="'/zoomUser/' + demande._id">{{ demande.name }}</router-link>
-            <svg viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
-              <path fill="rgb(20 184 166)"
-                d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z" />
-            </svg>
+            <router-link :to="'/zoomUser/' + demande._id">
+              <svg viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
+                <path fill="rgb(20 184 166)"
+                  d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z" />
+              </svg>
+            </router-link>
           </button>
-          
+
           <button className="w-6">
             <router-link to="/editinternshiprequest/{{demande._id}}">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -75,7 +78,7 @@
               </svg>
             </router-link>
           </button>
-          <button @click="supprimerDemande(demande._id)" className="w-6">
+          <button @click="supprimerDemande(demande._id)" className=" w-6">
             <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve"
               xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
               <path fill="rgb(220 38 38)"
@@ -86,7 +89,7 @@
                 id="XMLID_243_" />
             </svg>
           </button>
-          
+
         </div>
 
       </div>
@@ -120,14 +123,16 @@ const accepterDemande = async (demande) => {
 
 const supprimerDemande = async (id) => {
   // Appelle la méthode Delete du service en passant l'identifiant de la demande
-  try {
-    const response = await service.Delete(id);
-    console.log('Demande supprimée avec succès :', response);
-  } catch (error) {
-    console.error('Erreur lors de la suppression de la demande :', error);
+  if (confirm("Desirez-vous vraiment supprimer cela?")) {
+    try {
+      const response = await service.Delete(id);
+      console.log('Demande supprimée avec succès :', response);
+    } catch (error) {
+      console.error('Erreur lors de la suppression de la demande :', error);
+    }
+    const response = await service.FindAll();
+    demandes.value = response;
   }
-  const response = await service.FindAll();
-  demandes.value = response;
 };
 
 const demandes_mock = [
